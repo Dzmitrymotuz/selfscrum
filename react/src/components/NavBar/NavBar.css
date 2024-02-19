@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .navbar-container{
+        @apply pt-[20px] max-w-[150px] min-w-[50px] fixed bg-[#FFDDA1] text-[#black] h-full;
+    }
+    .navlink{
+        @apply p-[5px]  ;
+    }
+}

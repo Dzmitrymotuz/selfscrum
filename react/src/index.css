@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+:root {
+ --navajo-white: #FFDDA1;
+ --sunglow: #FFD151;
+ --saffron: #F8C537;
+ --xanthous: #EDB230;
+ --pumpkin: #E77728;
+}
+body {
+  font-family: 'Manrope', sans-serif;
+}
+.main-container {
+  margin: 0 0 0px 150px;
+}
+.goal-category{
+  background-color: var(--pumpkin);
+  color: var(--navajo-white);
+  margin: 0;
+  padding-left: 5px; 
+  border: 2px solid var(--pumpkin);
+  /* box-shadow: 2px 2px 5px var(--saffron); */
+}
+.tommorow-goal-category{
+  background-color: var(--saffron);
+  color: var(--pumpkin);
+  margin: 0;
+  padding-left: 5px; 
+  border: 2px solid var(--saffron);
+}
+
+.bgmain{
+  background-color: var(--navajo-white);
+}
+.textpumpkin{
+  color: var(--pumpkin);
+}
+.pumpkinborder{
+  border: 1px solid var(--pumpkin);
+}

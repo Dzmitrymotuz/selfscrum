@@ -1,0 +1,121 @@
+import React, { useState, useEffect } from 'react';
+import {Link, useNavigate} from 'react-router-dom'
+import { axiosGetDataWithPayload } from '../Api/Api';
+
+const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+
+
+const getDaysinMonth = (year, month) => {
+    return new Date(year, month +1, 0).getDate()
+}
+const getFirstDayOfMonth = (year, month) => {
+    return new Date(year, month, 1).getDay()
+}
+
+
+const Calendar = () => { 
+    const [monthData, setMonthData] = useState()
+    const navigate = useNavigate()
+    const [currentDate, setCurrentDate] = useState(new Date()) 
+    const firstDayOfMonth = getFirstDayOfMonth(currentDate.getFullYear(), currentDate.getMonth())
+    const allDaysInMonth = getDaysinMonth(currentDate.getFullYear(), currentDate.getMonth())
+
+    const nextMonth = () => {
+        return setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth()+1))
+    }
+    const prevMonth = () => {
+        return setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth()-1))
+    }
+    const handleClick = (value) => {
+        const year = currentDate.getFullYear()
+        const month = currentDate.getMonth() + 1
+        const day = value + 1
+        const dateString = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`
+        navigate(`/date/${dateString}`) 
+    } 
+    
+
+
+    useEffect(()=>{
+        const monthlyData = async() => {
+            const payload = {
+                'year': currentDate.getFullYear(),
+                'month': currentDate.getMonth() < 10 ? '0' + (currentDate.getMonth()+1) : (currentDate.getMonth()+1),
+            }
+            const data = await axiosGetDataWithPayload('calendar', payload)
+            setMonthData(data.organized_data) 
+        }
+        monthlyData() 
+    }, [currentDate])
+
+
+    const render = (monthData) => {
+        const days = []
+        const currentDate = new Date();
+
+        for (let i=0;i<firstDayOfMonth;i++) {
+            days.unshift(<div key={i-31} className=''></div>)
+        }
+
+
+        for (let i=0;i<allDaysInMonth;i++) {
+            const day = i+1
+            const dayKey = `${currentDate.getFullYear()}-${currentDate.getMonth() < 10 ? '0' + (currentDate.getMonth()+1) : (currentDate.getMonth()+1)}-${day < 10 ? '0'+day:day}`
+            
+            days.push(
+                <div  
+                key={i}
+                className={`bgmain m-1 rounded-md min-h-[140px] text-left p-1 opacity-80 hover:opacity-100`}
+                onClick={()=>handleClick(i)}
+                >
+                    <div className='text-sm text-right'>
+                        <span className='textpumpkin rounded-md py-0 px-1'> {`${day}`} </span>
+                    </div>
+                    <div className='flex flex-col px-2'>
+                    {
+                        monthData[dayKey] ? Object.keys(monthData[dayKey]).map((item, i) =>
+                        (   
+                            
+                            <div key={i} className='flex justify-between'>
+                                <span>{item}: </span>
+                                <span>{monthData[dayKey][item].length}</span>
+                            </div>
+                        )) : 
+                        <div className='text-center opacity-20'>
+                            No data
+                        </div>
+                    }
+                    </div>
+                </div>
+            )
+        }
+        return days
+    }    
+
+
+  return (
+    <div className='mx-[100px] max-w-[]'>
+        <div className=''>
+            <div className='text-black-500 text-center font-bold pt-5 mb-5'>
+                {currentDate.toDateString()}
+            </div>
+            <div className='flex justify-between mx-10 text-2xl'>
+                <button onClick={()=>prevMonth()}>-</button>
+                <button onClick={()=>nextMonth()}>+</button>
+            </div>
+            <div className='grid grid-cols-7 gap-1'>
+                {WEEKDAYS.map((day)=>(
+                    <div 
+                    key={day}
+                    className='pumpkinborder textpumpkin bgmain rounded-md text-center p-1'
+                    >{day}</div>
+                ))}
+                {monthData && render(monthData)}
+                {/* {console.log(monthData)} */}
+            </div>
+        </div> 
+    </div>
+  );
+}
+
+export default Calendar;
