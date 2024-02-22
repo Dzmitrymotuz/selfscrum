@@ -36,7 +36,7 @@ useEffect (()=>{
     <div className='main-container '>
         <div className=''>
             <div className='grid place-items-center pt-5'>
-                <span >Today is {new Date().toDateString()}</span>
+                <span >Today is <span className='text-bold'>{new Date().toDateString()}</span></span>
             </div>
             <div className='flex flex-row justify-center'>
                 <MoodComponent/>
@@ -44,6 +44,7 @@ useEffect (()=>{
         </div>
         <div className='flex flex-row justify-center'>
         <div className=' w-[400px] mx-5'> 
+        <p className='text-xs opacity-40 hover:opacity-100 duration-300'>Today</p>
             <div className='categories_container'>
                 {
                     categories.map((category, index)=>(
@@ -58,6 +59,7 @@ useEffect (()=>{
             </div>
         </div>
         <div className=' w-[400px]'>
+        <p className='text-xs opacity-40 hover:opacity-100 duration-300'>Tomorrow</p>
             <div className='categories_container'>
                     {
                     categories.map((category, index)=>(

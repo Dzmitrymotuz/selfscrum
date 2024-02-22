@@ -49,3 +49,29 @@ body {
 .pumpkinborder{
   border: 1px solid var(--pumpkin);
 }
+
+.ss-btn {
+  background-color: var(--navajo-white);
+  border: 1px solid var(--sunglow);
+  border-radius: 6px;
+  padding: 5px;
+  width: auto;
+  color: var(--pumpkin);
+}
+.ss-btn:hover{
+  background-color: var(--sunglow);
+  color: var(--pumpkin);
+  transition: 0.5s ease;
+}
+input{
+  border: 1px solid var(--navajo-white);
+  border-radius: 6px;
+  padding: 5px;
+
+}
+.pad-container {
+  background-color: rgba(255, 222, 173, 0.5);
+  padding-top: 20px;
+  margin: 50px 0 0 0;
+  border-radius: 6px;
+}

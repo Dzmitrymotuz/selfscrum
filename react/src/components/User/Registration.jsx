@@ -32,19 +32,21 @@ const Registration = ({...props}) => {
   return (
     <section>
         <div className='main-container pt-10'>
-            <form onSubmit={(e) => handleSignup(e)}>
-            <div className='flex flex-col items-center justify-center min-h-screen'>
-                <p>Signup</p>
-                {message ? <div className='text-sm bg-[#303030] p-1 '>{message}</div>
-                    : ''}
-                <div className='flex flex-col p-10 m-10 mt-0'> 
-                    <input name='name' placeholder='name' className='input my-2 border-2 border-black p-1' onChange={(e)=>setName(e.target.value)}/>
-                    <input name='email' placeholder='email' className='input my-2 border-2 border-black p-1' onChange={(e)=>setEmail(e.target.value)}/>
-                    <input name='password' placeholder='password' type='password' className='input my-2 border-2 border-black p-1' onChange={(e)=>setPassword(e.target.value)}/>
-                    <input name='password-confirmation' type='password' placeholder='password confirmation' className='input my-2 border-2 border-black p-1' onChange={(e)=>setPasswordConfirmation(e.target.value)}/>
-                    <button type='submit' className='my-2 border-2 border-black p-1 btn mt-2'>Submit</button>
+            <form onSubmit={(e) => handleSignup(e)} className=''>
+            <div className='flex flex-col items-center justify-center min-h-screen '>
+                <div className='pad-container'>
+                    <p className='text-bold text-[#E77728] text-center'>Signup</p>
+                    {message ? <div className='text-sm bg-[#303030] p-1 '>{message}</div>
+                        : ''}
+                    <div className='flex flex-col p-10 m-10 mt-0'> 
+                        <input name='name' placeholder='name' className='input my-2 ' onChange={(e)=>setName(e.target.value)}/>
+                        <input name='email' placeholder='email' className='input my-2 ' onChange={(e)=>setEmail(e.target.value)}/>
+                        <input name='password' placeholder='password' type='password' className='input my-2 ' onChange={(e)=>setPassword(e.target.value)}/>
+                        <input name='password-confirmation' type='password' placeholder='password confirmation' className='input my-2 ' onChange={(e)=>setPasswordConfirmation(e.target.value)}/>
+                        <button type='submit' className='my-2 ss-btn mt-2'>Submit</button>
+                    </div>
                 </div>
-                <div className='min-h-screen'/>
+                <div className='min-h-screen'/> 
             </div>
             </form>
         </div>
