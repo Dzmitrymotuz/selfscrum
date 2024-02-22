@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 class CareerController extends Controller
 {
     public function init () {
+        $user = auth()->user();
+
         return response()->json(['message'=>'CareerData', 200]);
     }
     public function add_goal (Request $request) {
@@ -20,10 +22,13 @@ class CareerController extends Controller
         if ($request->goal === null) {
             return response()->json(['message'=>'Provide some context']);
         }
+        $user = auth()->user();
+        $userId = $user->id;
         Career::create([
             'content'=>$request->goal,
             'status'=>$request->status,
-            'date'=>$request->date
+            'date'=>$request->date,
+            'user_id'=>$userId,
         ]);
         return response()->json([200]);
     }

@@ -11,11 +11,15 @@ class MoodController extends Controller
         $request->validate([
             'mood_value'=>'string|nullable',
         ]);
+        $user = auth()->user();
+        $userId = $user->id;
         $currentDate = now()->toDateString();
-        $mood = Mood::whereDate('created_at', $currentDate)->first();
+        $mood = Mood::whereDate('created_at', $currentDate)->where('user_id', $userId)->first();
         if (!$mood) {
             $mood = new Mood();
             $mood->created_at = $currentDate;
+            $mood->user_id = $userId;
+
         }
         $mood->mood = $request->input('mood_value');
         $mood->save();
@@ -24,8 +28,9 @@ class MoodController extends Controller
     }
     public function get_mood () {
         $currentDate = now()->toDateString();
-
-        $mood = Mood::whereDate('created_at', $currentDate)->first();
+        $user = auth()->user();
+        $userId = $user->id;
+        $mood = Mood::whereDate('created_at', $currentDate)->where('user_id', $userId)->first();
         if (!$mood) {
             $mood = 5;
         }

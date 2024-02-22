@@ -60,10 +60,10 @@ const GoalDisplayComponent = ({ goals, category, date}) => {
   return (
     <div className='h-[150px] overflow-auto'>
       {filteredGoals && filteredGoals.map((goal)=>( 
-        <div key={goal.id} className='flex flex-row w-[100%] justify-start '>
+        <div key={goal.id} className='flex flex-row w-[100%] justify-start'>
           <div className='w-[5px] mr-5 ml-2'>
             <span className={`${goal.status === 1 ? 'text-[#2e9d45]' : 'text-black'}`}>
-                ○ 
+                 {`${goal.status === 0 ? '○' : '✔️'}`}
             </span>
           </div>
           <div className='flex justify-between w-[100%]'>

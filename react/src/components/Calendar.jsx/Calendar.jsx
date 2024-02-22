@@ -65,7 +65,7 @@ const Calendar = () => {
             days.push(
                 <div  
                 key={i}
-                className={`bgmain m-1 rounded-md min-h-[140px] text-left p-1 opacity-80 hover:opacity-100`}
+                className={`bgmain m-1 rounded-md min-h-[140px] pumpkinborder text-left p-1 opacity-80 hover:opacity-100  hover:scale-105 duration-200`}
                 onClick={()=>handleClick(i)}
                 >
                     <div className='text-sm text-right'>
@@ -94,8 +94,8 @@ const Calendar = () => {
 
 
   return (
-    <div className='mx-[100px] max-w-[]'>
-        <div className=''>
+    <div className='flex justify-center '>
+        <div className='ml-[50px] max-w-[75rem] w-[90%]'>
             <div className='text-black-500 text-center font-bold pt-5 mb-5'>
                 {currentDate.toDateString()}
             </div>
@@ -103,7 +103,7 @@ const Calendar = () => {
                 <button onClick={()=>prevMonth()}>-</button>
                 <button onClick={()=>nextMonth()}>+</button>
             </div>
-            <div className='grid grid-cols-7 gap-1'>
+            <div className='grid grid-cols-7 gap-1  p-1 '>
                 {WEEKDAYS.map((day)=>(
                     <div 
                     key={day}

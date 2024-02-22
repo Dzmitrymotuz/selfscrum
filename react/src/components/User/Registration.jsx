@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { redirect, useNavigate } from 'react-router-dom'
+import { axiosPostData } from '../Api/Api'
 
 const Registration = ({...props}) => {
     const [name, setName] = useState(null)
@@ -12,6 +13,18 @@ const Registration = ({...props}) => {
 
 
     const handleSignup = async(e) => {
+        e.preventDefault()
+        const payload = {
+            name: name,
+            email: email,
+            password: password,
+            password_confirmation: password_confirmation
+        }
+        console.log(payload)
+        const response = await axiosPostData('register', payload)
+        if (response.status === 200) {
+            navigateTo('/login')
+        }
         
     }   
 

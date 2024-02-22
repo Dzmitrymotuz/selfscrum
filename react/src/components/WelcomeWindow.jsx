@@ -7,7 +7,7 @@ import MoodComponent from './MoodComponent/MoodComponent'
 
 
 const WelcomeWindow = () => {
-const categories = ['Work', 'Coding', 'Career', 'Home', 'Health', ]
+const categories = ['Coding', 'Work', 'Career', 'Home', 'Health', ]
 const [initData, setInitData] = useState([])
 const [tomData, setTomData] = useState([])
 const [today, setToday] = useState(formatDate(new Date()))
@@ -33,7 +33,7 @@ useEffect (()=>{
 }, [])
 
   return (
-    <div className='main-container'>
+    <div className='main-container '>
         <div className=''>
             <div className='grid place-items-center pt-5'>
                 <span >Today is {new Date().toDateString()}</span>
@@ -47,7 +47,7 @@ useEffect (()=>{
             <div className='categories_container'>
                 {
                     categories.map((category, index)=>(
-                        <div key={category} className='flex flex-col mb-0 '>
+                        <div key={category} className='flex flex-col border border-[#FFDDA1] bg-white mb-1 rounded-xl hover:border'>
                             <span className='goal-category rounded-t-md '>{category}</span>
                             <div className='rounded-b-lg '>
                                 <GoalDisplayComponent goals={initData} date={today} category={category.toLowerCase()}/>
@@ -61,7 +61,7 @@ useEffect (()=>{
             <div className='categories_container'>
                     {
                     categories.map((category, index)=>(
-                        <div key={category} className='flex flex-col mb-0'>
+                        <div key={category} className='flex flex-col border border-[#EDB230] bg-white mb-1 rounded-xl'>
                             <span className='tommorow-goal-category rounded-t-md'>{category}</span>
                             <div className='rounded-b-lg'>
                                 <GoalDisplayComponent goals={tomData} date={tomorrow} category={category.toLowerCase()}/>

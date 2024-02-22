@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Career;
 use App\Models\Home;
 use App\Models\Work;
+use App\Models\Career;
 use App\Models\Coding;
 use App\Models\Health;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GoalsController extends Controller
 {
@@ -15,33 +16,36 @@ class GoalsController extends Controller
         $request->validate([
             'date' => 'required|date_format:Y-m-d',
         ]);
-    
         $date = $request->input('date');
-
-        $codingData = Coding::whereDate('date', $date)->get();
-        $healthData = Health::whereDate('date', $date)->get();
-        $workData = Work::whereDate('date', $date)->get();
-        $homeData = Home::whereDate('date', $date)->get();
-        $careerData = Career::whereDate('date', $date)->get();
+        $user = auth()->user();
+        $userId = $user->id;
+        $codingData = Coding::whereDate('date', $date)->where('user_id', $userId)->get();
+        $healthData = Health::whereDate('date', $date)->where('user_id', $userId)->get();
+        $workData = Work::whereDate('date', $date)->where('user_id', $userId)->get();
+        $homeData = Home::whereDate('date', $date)->where('user_id', $userId)->get();
+        $careerData = Career::whereDate('date', $date)->where('user_id', $userId)->get();
         return response()->json([
             'work'=>$workData,
             'coding' => $codingData, 
             'career' => $careerData, 
             'home' => $homeData,
-            'health' => $healthData]);
+            'health' => $healthData,
+        ]);
     }
     public function calendar (Request $request) {
         $request->validate([
             'year'=>'integer',
             'month'=>'string',
         ]);
+        $user = auth()->user();
+        $userId = $user->id;
         $year = $request->year;
         $month = $request->month;
-        $codingData = Coding::whereYear('created_at', $year)->whereMonth('created_at', $month)->get();
-        $healthData = Health::whereYear('created_at', $year)->whereMonth('created_at', $month)->get();
-        $workData = Work::whereYear('created_at', $year)->whereMonth('created_at', $month)->get();
-        $homeData = Home::whereYear('created_at', $year)->whereMonth('created_at', $month)->get();
-        $careerData = Career::whereYear('created_at', $year)->whereMonth('created_at', $month)->get();
+        $codingData = Coding::whereYear('created_at', $year)->whereMonth('created_at', $month)->where('user_id', $userId)->get();
+        $healthData = Health::whereYear('created_at', $year)->whereMonth('created_at', $month)->where('user_id', $userId)->get();
+        $workData = Work::whereYear('created_at', $year)->whereMonth('created_at', $month)->where('user_id', $userId)->get();
+        $homeData = Home::whereYear('created_at', $year)->whereMonth('created_at', $month)->where('user_id', $userId)->get();
+        $careerData = Career::whereYear('created_at', $year)->whereMonth('created_at', $month)->where('user_id', $userId)->get();
 
         $organizedData = [];
         foreach ($codingData as $item) {
@@ -67,6 +71,7 @@ class GoalsController extends Controller
         }
         return response()->json([
             'organized_data' => $organizedData,
+            'user'=> $user,
         ]);
         // return response()->json([
         //     'work'=>$workData,

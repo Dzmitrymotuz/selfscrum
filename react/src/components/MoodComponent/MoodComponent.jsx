@@ -1,5 +1,5 @@
 import React, {useRef, useEffect, useState} from 'react'
-import {fetchData,axiosPostData } from '../Api/Api'
+import {axiosPostData, axiosGetDataWithPayload } from '../Api/Api'
 
 const MoodComponent = () => {
     const moodRef = useRef()
@@ -19,7 +19,7 @@ const MoodComponent = () => {
         getInitMood()
     }
     const getInitMood = async() => {
-        const initMood = await fetchData('get-mood')
+        const initMood = await axiosGetDataWithPayload('get-mood', {})
         setCurrentMood(initMood.mood.mood)
         // console.log(initMood)
     }

@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root{
+--navajo-white: #8ECAE6;
+--sunglow: #219EBC;
+--saffron: #023047;
+--xanthous: #FFB703;
+--pumpkin: #FB8500;
+}
+
 @layer utilities {
     .navbar-container{
         @apply pt-[20px] max-w-[150px] min-w-[50px] fixed bg-[#FFDDA1] text-[#black] h-full;

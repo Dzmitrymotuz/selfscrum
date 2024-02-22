@@ -10,19 +10,26 @@
  --saffron: #F8C537;
  --xanthous: #EDB230;
  --pumpkin: #E77728;
+
+ /* --navajo-white: #8ECAE6;
+ --sunglow: #219EBC;
+ --saffron: #023047;
+ --xanthous: #FFB703;
+ --pumpkin: #FB8500; */
 }
 body {
   font-family: 'Manrope', sans-serif;
+  background-color: rgb(245, 245, 245);
 }
 .main-container {
-  margin: 0 0 0px 150px;
+  margin: 0 0 150px 0 ;
 }
 .goal-category{
-  background-color: var(--pumpkin);
-  color: var(--navajo-white);
+  background-color: var(--navajo-white);
+  color: var(--pumpkin);
   margin: 0;
   padding-left: 5px; 
-  border: 2px solid var(--pumpkin);
+  border: 2px solid var(--navajo-white);
   /* box-shadow: 2px 2px 5px var(--saffron); */
 }
 .tommorow-goal-category{

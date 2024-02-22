@@ -20,10 +20,13 @@ class HomeController extends Controller
         if ($request->goal === null) {
             return response()->json(['message'=>'Provide some context']);
         }
+        $user = auth()->user();
+        $userId = $user->id;
         Home::create([
             'content'=>$request->goal,
             'status'=>$request->status,
-            'date'=>$request->date
+            'date'=>$request->date,
+            'user_id'=>$userId,
         ]);
         return response()->json([200]);
     }

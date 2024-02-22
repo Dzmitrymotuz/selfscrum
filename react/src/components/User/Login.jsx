@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+// import { login } from '../Api/Api'
 import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../Context/AuthContext'
 
 const Login = ({ ...props}) => {
+    const {login, isAuth, logout} = useAuth()
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
     const [message, setMessage] = useState(null)
@@ -10,9 +12,23 @@ const Login = ({ ...props}) => {
     const navigateTo = useNavigate()
 
 
+    const handleLogin = (e) => {
+        const payload = {
+                    email: email,
+                    password: password, 
+                }
+        e.preventDefault()
+        login('login', payload);
+    }
+
+    useEffect(()=>{
+        console.log(isAuth)
+    },[])
+
+
   return (
     <div className='main-container '>
-    {!false ? <section>
+    {!isAuth ? <section>
         <div className='flex flex-col items-center justify-center pt-10'>
             <p>Login Page</p>
             {message ? <div className='text-sm bg-[#303030] p-1 '>{message}</div> : ''}
@@ -25,7 +41,7 @@ const Login = ({ ...props}) => {
         <div className='min-h-screen'/>
     </section> 
     :
-    <div className='flex flex-col items-center  m-3 p-3'>Hello there. You're currently logged as {user.name}
+    <div className='flex flex-col items-center  pt-10'>Hello there. You're currently logged as {localStorage.getItem('user')}
         <button className='' onClick={logout}>Logout</button>
         <div className='h-[100vh]'></div>
     </div>
