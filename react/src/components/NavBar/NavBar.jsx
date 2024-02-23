@@ -32,7 +32,7 @@ const NavBar = () => {
       onClick={()=>setIsHidden(!isHidden)}
       src='/toggle.svg' 
       className='w-5 ml-10 top-1 fixed opacity-20 hover:opacity-100 transition ease duration-500'/>
-        <Link to='/'>
+        <Link to='/goals'>
           <img src='/goal.svg' title='Daily goals' className='w-8 mx-2 my-3 hover:rotate-45 transition ease duration-300'/>
         </Link>
         <Link to='/calendar'> 

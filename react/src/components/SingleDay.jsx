@@ -12,6 +12,15 @@ const categories = ['Work', 'Coding', 'Career', 'Home', 'Health', ]
 const [initData, setInitData] = useState([])
 const params = useParams()
 
+const [categoryStates, setCategoryStates] = useState({});
+const toggleCategory = (category) => {
+    setCategoryStates(prevState => ({
+        ...prevState,
+        [category]: !prevState[category]
+    }));
+    console.log(categoryStates)
+};
+
 
 useEffect (()=>{
     const fetchInitialData = async() => {
@@ -36,9 +45,12 @@ useEffect (()=>{
             <div className='categories_container'>
                 {
                     categories.map((category, index)=>(
-                        <div key={category} className='flex flex-col mb-0 '>
-                            <span className='goal-category rounded-t-md '>{category}</span>
-                            <div className='rounded-b-lg '>
+                        <div key={category} className='flex flex-col border border-[#FFDDA1] bg-white mb-1 rounded-xl hover:border'>
+                            <span 
+                            className='goal-category rounded-t-md  text-sm ' 
+                            onClick={()=>toggleCategory(category)}
+                            >{category}</span>                            
+                            <div className={`rounded-b-lg overflow-auto duration-200 ${!categoryStates[category] ? 'min-h-[150px]' : 'h-1'}`}>
                                 <GoalDisplayComponent goals={initData} date={params['*']} category={category.toLowerCase()}/>
                             </div>
                         </div>

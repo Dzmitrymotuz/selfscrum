@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 
 :root {
  --navajo-white: #FFDDA1;
@@ -11,15 +11,23 @@
  --xanthous: #EDB230;
  --pumpkin: #E77728;
 
- /* --navajo-white: #8ECAE6;
- --sunglow: #219EBC;
- --saffron: #023047;
+ --blue-light: #8ECAE6;
+ --blue-mid: #219EBC;
+ --blue-dark: #023047;
  --xanthous: #FFB703;
- --pumpkin: #FB8500; */
+ --pumpkin: #FB8500;
 }
+
+
+
 body {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Nunito Sans';
   background-color: rgb(245, 245, 245);
+}
+input{
+  border: 1px solid var(--navajo-white);
+  border-radius: 6px;
+  padding: 5px; 
 }
 .main-container {
   margin: 0 0 150px 0 ;
@@ -55,7 +63,7 @@ body {
   border: 1px solid var(--sunglow);
   border-radius: 6px;
   padding: 5px;
-  width: auto;
+  /* width: auto; */
   color: var(--pumpkin);
 }
 .ss-btn:hover{
@@ -63,15 +71,21 @@ body {
   color: var(--pumpkin);
   transition: 0.5s ease;
 }
-input{
-  border: 1px solid var(--navajo-white);
-  border-radius: 6px;
-  padding: 5px;
 
-}
 .pad-container {
   background-color: rgba(255, 222, 173, 0.5);
   padding-top: 20px;
   margin: 50px 0 0 0;
   border-radius: 6px;
+}
+.pillow  {
+  font-size: 18px;
+  display: block;
+  margin: 25px;
+  padding: 25px;
+  text-align: center;
+  background-color: var(--navajo-white);
+  border-radius: 8px;
+  width: 300px;
+  border: 1px solid var(--xanthous);
 }

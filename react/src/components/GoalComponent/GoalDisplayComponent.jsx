@@ -3,12 +3,9 @@ import { axiosDeleteData, axiosPostData, fetch_initial_data, axiosGetInitData } 
 
 
 const GoalDisplayComponent = ({ goals, category, date}) => {
-
     const [filteredGoals, setFilteredGoals] = useState([])
     const inputRef = useRef()
     const [hidden, setHidden] = useState(true) 
-
-
 
     const fetchInitialData = async() => {
       const data = await axiosGetInitData(date)
@@ -58,18 +55,18 @@ const GoalDisplayComponent = ({ goals, category, date}) => {
     },[goals, category, date])
 
   return (
-    <div className='h-[150px] overflow-auto'>
+    <div className={``}>
       {filteredGoals && filteredGoals.map((goal)=>( 
         <div key={goal.id} className='flex flex-row w-[100%] justify-start'>
           <div className='w-[5px] mr-5 ml-2'>
-            <span className={`${goal.status === 1 ? 'text-[#2e9d45]' : 'text-black'}`}>
-                 {`${goal.status === 0 ? '○' : '✔️'}`}
+            <span className={`${goal.status === 1 ? 'text-[#FFB703]' : 'text-black'}`}>
+                 {`${goal.status === 0 ? '○' : '●'}`}
             </span>
           </div>
           <div className='flex justify-between w-[100%]'>
-            <div className=''>
+            <div className='m-0'>
               <span 
-                className={`${goal.status === 1 ? 'text-[#2e9d45]' : 'text-black'} hover:cursor-pointer`}
+                className={`${goal.status === 1 ? 'text-[#FFB703]' : 'text-black'} hover:cursor-pointer`}
                 onClick={()=>handleStatusChange(goal.id, goal.status)}
               >
                   {goal.content}
@@ -79,9 +76,10 @@ const GoalDisplayComponent = ({ goals, category, date}) => {
             className='ml-[15px] hover:cursor-pointer' 
             alt='delete'
             onClick={(e)=>handleDelete(goal.id)}>
-              <span className=' border-2 mx-2 px-1 opacity-10 hover:opacity-100 transition ease-in-out duration-500'>
-                  X
-              </span>
+              <img 
+              className='opacity-20 hover:opacity-100 transition ease-in-out duration-200 w-7 mr-3'
+              src='/delete.svg'
+              title='delete'/>
             </div>
           </div>
         </div>
@@ -97,7 +95,7 @@ const GoalDisplayComponent = ({ goals, category, date}) => {
           ━
           </span>
         </div>
-        <input className='my-1 mr-10 w-[100%] border-2 border-[#FFDDA1]' ref={inputRef} onKeyDown={handleEnter}></input>
+        <input className='my-1 mt-3 mr-10 h-[27px] w-[100%] border border-[#FFDDA1] focus:border-[#FB8500] outline-none' ref={inputRef} onKeyDown={handleEnter}></input>
       </div>
       :
       <div onClick={()=>setHidden(!hidden)}

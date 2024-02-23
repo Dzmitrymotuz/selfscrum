@@ -17,7 +17,8 @@ function App() {
       <BrowserRouter>
       <NavBar/>
         <Routes>
-          <Route path='/' element={<WelcomeWindow/>}/>
+          <Route path='/' element={<Main/>}/>
+          <Route path='/goals' element={<WelcomeWindow/>}/>
           <Route path='/main' element={<Main/>}/>
           <Route path='/date/*' element={<SingleDay/>}/>
           <Route path='/calendar' element={<Calendar/>}/>
