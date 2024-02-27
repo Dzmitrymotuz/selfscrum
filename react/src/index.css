@@ -26,11 +26,11 @@ body {
 }
 input{
   border: 1px solid var(--navajo-white);
-  border-radius: 6px;
+  border-radius: 0 0px 25px 0;
   padding: 5px; 
 }
 .main-container {
-  margin: 0 0 150px 0 ;
+  margin: 0 0 150px 50px ;
 }
 .goal-category{
   background-color: var(--navajo-white);

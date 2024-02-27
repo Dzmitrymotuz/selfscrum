@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { axiosDeleteData, axiosPostData, fetch_initial_data, axiosGetInitData } from '../Api/Api'
+import { axiosDeleteData, axiosPostData, axiosPutData, axiosGetInitData } from '../Api/Api'
 
 
-const GoalDisplayComponent = ({ goals, category, date}) => {
+const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged}) => {
     const [filteredGoals, setFilteredGoals] = useState([])
     const inputRef = useRef()
     const [hidden, setHidden] = useState(true) 
@@ -10,6 +10,21 @@ const GoalDisplayComponent = ({ goals, category, date}) => {
     const fetchInitialData = async() => {
       const data = await axiosGetInitData(date)
       setFilteredGoals(data[category])
+    }
+    const handleEdit = () => {
+      
+    }
+    const handlePass = async(id) => {
+      const fixedDate = new Date(date)
+      fixedDate.setDate(fixedDate.getDate()+1)
+      const newDate = fixedDate.toISOString().split('T')[0]
+      const data = {
+        'id': id,
+        'date': newDate,
+      }
+      await axiosPutData(`${category}/pass-to-next`, data)
+      setFilteredGoals(filteredGoals.filter(item=>item.id != id))
+      setIfDataChanged(prevState=>!prevState)
     }
     const handleAddition = async(e) => {
       const value = inputRef.current.value
@@ -23,14 +38,12 @@ const GoalDisplayComponent = ({ goals, category, date}) => {
       await axiosPostData(`${category}/add-goal`, data)
       fetchInitialData()
     }
-    const handleEnter = (e) => {
-      
+    const handleEnter = (e) => { 
       if (e.target.value.length > 0) {
         if (e.key === 'Enter') {
           return handleAddition(e)
         }
-      }
-      
+      } 
     } 
     const handleDelete = async(id) => {
       const data = {
@@ -57,14 +70,14 @@ const GoalDisplayComponent = ({ goals, category, date}) => {
   return (
     <div className={``}>
       {filteredGoals && filteredGoals.map((goal)=>( 
-        <div key={goal.id} className='flex flex-row w-[100%] justify-start'>
+        <div key={goal.id} className='flex flex-row'>
           <div className='w-[5px] mr-5 ml-2'>
             <span className={`${goal.status === 1 ? 'text-[#FFB703]' : 'text-black'}`}>
                  {`${goal.status === 0 ? '○' : '●'}`}
             </span>
           </div>
-          <div className='flex justify-between w-[100%]'>
-            <div className='m-0'>
+          <div className='flex justify-between w-[100%] '>
+            <div className='m-0 flex-grow'>
               <span 
                 className={`${goal.status === 1 ? 'text-[#FFB703]' : 'text-black'} hover:cursor-pointer`}
                 onClick={()=>handleStatusChange(goal.id, goal.status)}
@@ -72,14 +85,33 @@ const GoalDisplayComponent = ({ goals, category, date}) => {
                   {goal.content}
               </span>
             </div>
+            
             <div 
-            className='ml-[15px] hover:cursor-pointer' 
+            className='hover:cursor-pointer flex justify-center flex-shrink-0 mr-0 w-4' 
+            alt='edit'
+            onClick={(e)=>handleEdit(goal.id)}>
+              <img 
+              className='opacity-20 hover:opacity-100 transition ease-in-out duration-200 w-4'
+              src='/edit.svg'
+              title='edit'/>
+            </div>
+            <div 
+            className=' w-[30px] hover:cursor-pointer  flex-shrink-0' 
             alt='delete'
             onClick={(e)=>handleDelete(goal.id)}>
               <img 
               className='opacity-20 hover:opacity-100 transition ease-in-out duration-200 w-7 mr-3'
               src='/delete.svg'
               title='delete'/>
+            </div>
+            <div 
+            className=' w-[10px] hover:cursor-pointer flex justify-center flex-shrink-0 mr-2' 
+            alt='passNext'
+            onClick={(e)=>handlePass(goal.id)}>
+              <img 
+              className='opacity-20 hover:opacity-100 transition ease-in-out duration-200'
+              src='/move.svg'
+              title='move'/>
             </div>
           </div>
         </div>

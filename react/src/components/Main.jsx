@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Main = () => {
   return (
     <div className='main-container '>
-      <div className='flex justify-center items-centerh-screen'>
+      <div className='flex flex-col sm:flex-row justify-center items-centerh-screen'>
         <div className='pillow'>
           <div className='m-10 h-[150px]'>
             Hello! Already a user?

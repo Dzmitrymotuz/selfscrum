@@ -61,8 +61,7 @@ axios.interceptors.request.use(
 export async function fetch_initial_data () {
     try {
         const response = await fetch(`${apiUrl}/init`);
-        const data = await response.json();
-        
+        const data = await response.json(); 
         return data;
     }catch (e) {
         console.error(e);
@@ -94,6 +93,16 @@ export const axiosPostData = async(endpoint, data) => {
         const response = await axios.post(`${apiUrl}/${endpoint}`, data)
         return response
         // console.log(response.data)
+        // console.log(new Date().toLocaleDateString())
+    }catch (e) {
+        console.error(e);
+    }
+}
+export const axiosPutData = async(endpoint, data) => {
+    try {
+        const response = await axios.put(`${apiUrl}/${endpoint}`, data)
+        return response
+        console.log(response.data)
         // console.log(new Date().toLocaleDateString())
     }catch (e) {
         console.error(e);

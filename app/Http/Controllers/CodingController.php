@@ -30,6 +30,20 @@ class CodingController extends Controller
         ]);
         return response()->json([200]);
     }
+    public function pass_to_next(Request $request) {
+        $request->validate([
+            'id'=>'integer',
+            'date'=>'date'
+        ]);
+        $user = auth()->user();
+        $id = $request->id;
+        $goal = Coding::find($id);
+        if ($goal) {
+            $goal->date = $request->date;
+            $goal->save();
+        }
+        return response()->json([200]);
+    }
     public function delete_goal ($id) {
         $goal = Coding::find($id);
         if (!$goal) {

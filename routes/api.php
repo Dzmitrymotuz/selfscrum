@@ -46,6 +46,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/health/delete/{id}', [HealthController::class, 'delete_goal']);
     Route::delete('/career/delete/{id}', [CareerController::class, 'delete_goal']);
     Route::delete('/home/delete/{id}', [HomeController::class, 'delete_goal']);
+    // passing to the next day
+    Route::put('/coding/pass-to-next', [CodingController::class, 'pass_to_next']);
+    Route::put('/career/pass-to-next', [CareerController::class, 'pass_to_next']);
+    Route::put('/work/pass-to-next', [WorkController::class, 'pass_to_next']);
+    Route::put('/health/pass-to-next', [HealthController::class, 'pass_to_next']);
+    Route::put('/home/pass-to-next', [HomeController::class, 'pass_to_next']);
 });
 
 

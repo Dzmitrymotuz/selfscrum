@@ -65,23 +65,23 @@ const Calendar = () => {
             days.push(
                 <div  
                 key={i}
-                className={`bgmain m-1 rounded-md min-h-[140px] pumpkinborder text-left p-1 opacity-80 hover:opacity-100  hover:scale-105 duration-200`}
+                className={`min-h-[70px] sm:min-h-[140px] bgmain m-1 rounded-md pumpkinborder text-left p-1 opacity-80 hover:opacity-100  hover:scale-105 duration-200`}
                 onClick={()=>handleClick(i)}
                 >
                     <div className='text-sm text-right'>
                         <span className='textpumpkin rounded-md py-0 px-1'> {`${day}`} </span>
                     </div>
-                    <div className='flex flex-col px-2'>
+                    <div className='flex flex-col px-2 '>
                     {
                         monthData[dayKey] ? Object.keys(monthData[dayKey]).map((item, i) =>
                         (   
                             
                             <div key={i} className='flex justify-between'>
-                                <span>{item}: </span>
+                                <span className='hidden sm:block'>{item}: </span>
                                 <span>{monthData[dayKey][item].length}</span>
                             </div>
                         )) : 
-                        <div className='text-center opacity-20'>
+                        <div className='hidden sm:block text-center opacity-20'>
                             No data
                         </div>
                     }

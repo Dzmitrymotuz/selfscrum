@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom'
 
 
 const SingleDay = () => {
-const categories = ['Work', 'Coding', 'Career', 'Home', 'Health', ]
+const categories = ['Coding', 'Work', 'Career', 'Home', 'Health', ]
 const [initData, setInitData] = useState([])
 const params = useParams()
 
