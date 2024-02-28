@@ -52,6 +52,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/work/pass-to-next', [WorkController::class, 'pass_to_next']);
     Route::put('/health/pass-to-next', [HealthController::class, 'pass_to_next']);
     Route::put('/home/pass-to-next', [HomeController::class, 'pass_to_next']);
+    // editing the goal
+    Route::put('/coding/edit-goal', [CodingController::class, 'edit_goal']);
+    Route::put('/career/edit-goal', [CareerController::class, 'edit_goal']);
+    Route::put('/work/edit-goal', [WorkController::class, 'edit_goal']);
+    Route::put('/health/edit-goal', [HealthController::class, 'edit_goal']);
+    Route::put('/home/edit-goal', [HomeController::class, 'edit_goal']);
 });
 
 

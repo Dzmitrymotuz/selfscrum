@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { axiosDeleteData, axiosPostData, axiosPutData, axiosGetInitData } from '../Api/Api'
+import ActionButton from './ActionButton'
+import SingleGoal from './SingleGoal'
 
 
 const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged}) => {
@@ -11,9 +13,7 @@ const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged}) => {
       const data = await axiosGetInitData(date)
       setFilteredGoals(data[category])
     }
-    const handleEdit = () => {
-      
-    }
+    
     const handlePass = async(id) => {
       const fixedDate = new Date(date)
       fixedDate.setDate(fixedDate.getDate()+1)
@@ -78,40 +78,12 @@ const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged}) => {
           </div>
           <div className='flex justify-between w-[100%] '>
             <div className='m-0 flex-grow'>
-              <span 
-                className={`${goal.status === 1 ? 'text-[#FFB703]' : 'text-black'} hover:cursor-pointer`}
-                onClick={()=>handleStatusChange(goal.id, goal.status)}
-              >
-                  {goal.content}
-              </span>
+              <SingleGoal  goal={goal} category={category} handleStatusChange={handleStatusChange} /> 
             </div>
-            
-            <div 
-            className='hover:cursor-pointer flex justify-center flex-shrink-0 mr-0 w-4' 
-            alt='edit'
-            onClick={(e)=>handleEdit(goal.id)}>
-              <img 
-              className='opacity-20 hover:opacity-100 transition ease-in-out duration-200 w-4'
-              src='/edit.svg'
-              title='edit'/>
-            </div>
-            <div 
-            className=' w-[30px] hover:cursor-pointer  flex-shrink-0' 
-            alt='delete'
-            onClick={(e)=>handleDelete(goal.id)}>
-              <img 
-              className='opacity-20 hover:opacity-100 transition ease-in-out duration-200 w-7 mr-3'
-              src='/delete.svg'
-              title='delete'/>
-            </div>
-            <div 
-            className=' w-[10px] hover:cursor-pointer flex justify-center flex-shrink-0 mr-2' 
-            alt='passNext'
-            onClick={(e)=>handlePass(goal.id)}>
-              <img 
-              className='opacity-20 hover:opacity-100 transition ease-in-out duration-200'
-              src='/move.svg'
-              title='move'/>
+            <div className='flex flex-row mr-2' >
+              <ActionButton icon={'/move.svg'} onClick={(e)=>handlePass(goal.id)} title={'move'} />
+              {/* <ActionButton icon={'/edit.svg'} onClick={(e)=>handleEdit(goal.id)} title={'edit'} /> */}
+              <ActionButton icon={'/delete.svg'} onClick={(e)=>handleDelete(goal.id)} title={'delete'} /> 
             </div>
           </div>
         </div>
