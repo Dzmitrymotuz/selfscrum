@@ -13,7 +13,7 @@ export const AuthProvider = ({children}) => {
         try{
             const response = await axiosPostData(address, payload)
             const token = response.data.token
-            console.log(response.data.user)
+            // console.log(response.data.user)
             setToken(token)
             if (token) {
                 setToken(token);

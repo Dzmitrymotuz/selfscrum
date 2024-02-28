@@ -30,6 +30,34 @@ class HomeController extends Controller
         ]);
         return response()->json([200]);
     }
+    public function pass_to_next(Request $request) {
+        $request->validate([
+            'id'=>'integer',
+            'date'=>'date'
+        ]);
+        $user = auth()->user();
+        $id = $request->id;
+        $goal = Home::find($id);
+        if ($goal) {
+            $goal->date = $request->date;
+            $goal->save();
+        }
+        return response()->json([200]);
+    }
+    public function edit_goal(Request $request) {
+        $request->validate([
+            'id'=>'integer',
+            'content'=>'string'
+        ]);
+        // $user = auth()->user();
+        $id = $request->id;
+        $goal = Home::find($id);
+        if ($goal) {
+            $goal->content = $request->content;
+            $goal->save();
+        }
+        return response()->json([200]);
+    }
     public function delete_goal ($id) {
         $goal = Home::find($id);
         if (!$goal) {

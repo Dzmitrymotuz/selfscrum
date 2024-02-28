@@ -22,7 +22,7 @@ const Login = ({ ...props}) => {
     }
 
     useEffect(()=>{
-        console.log(isAuth)
+        // console.log(isAuth)
     },[])
 
 

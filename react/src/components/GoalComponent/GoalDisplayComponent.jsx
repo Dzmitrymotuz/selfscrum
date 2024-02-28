@@ -82,7 +82,6 @@ const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged}) => {
             </div>
             <div className='flex flex-row mr-2' >
               <ActionButton icon={'/move.svg'} onClick={(e)=>handlePass(goal.id)} title={'move'} />
-              {/* <ActionButton icon={'/edit.svg'} onClick={(e)=>handleEdit(goal.id)} title={'edit'} /> */}
               <ActionButton icon={'/delete.svg'} onClick={(e)=>handleDelete(goal.id)} title={'delete'} /> 
             </div>
           </div>

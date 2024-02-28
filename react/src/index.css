@@ -11,11 +11,12 @@
  --xanthous: #EDB230;
  --pumpkin: #E77728;
 
- --blue-light: #8ECAE6;
+
+ /* --blue-light: #8ECAE6;
  --blue-mid: #219EBC;
  --blue-dark: #023047;
  --xanthous: #FFB703;
- --pumpkin: #FB8500;
+ --pumpkin: #FB8500; */
 }
 
 
@@ -23,6 +24,8 @@
 body {
   font-family: 'Nunito Sans';
   background-color: rgb(245, 245, 245);
+  /* background-color: rgb(48, 47, 47);
+  color: #8ECAE6; */
 }
 input{
   border: 1px solid var(--navajo-white);
