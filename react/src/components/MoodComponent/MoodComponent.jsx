@@ -1,27 +1,19 @@
 import React, {useRef, useEffect, useState} from 'react'
 import {axiosPostData, axiosGetDataWithPayload } from '../Api/Api'
 
-const MoodComponent = () => {
+const MoodComponent = ({date}) => {
     const moodRef = useRef()
     const [currentMood, setCurrentMood] = useState()
     const [bgColor, setBgColor] = useState('#FFDDA1')
 
-    // --navajo-white: #FFDDA1;
-    // --sunglow: #FFD151;
-    // --saffron: #F8C537;
-    // --xanthous: #EDB230;
-    // --pumpkin: #E77728;
-
     const handleMood = async(e) => {
-        // e.preventDefault()
         const moodValue = e.target.value
-        await axiosPostData('mood-change', {'mood_value': moodValue})
+        await axiosPostData('mood-change', {'mood_value': moodValue, 'date': date})
         getInitMood()
     }
     const getInitMood = async() => {
         const initMood = await axiosGetDataWithPayload('get-mood', {})
         setCurrentMood(initMood.mood.mood)
-        // console.log(initMood)
     }
     const handleColor = (color) => {
       switch(color) {

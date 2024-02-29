@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Home;
+use App\Models\Mood;
 use App\Models\Work;
 use App\Models\Career;
 use App\Models\Coding;
@@ -41,11 +42,12 @@ class GoalsController extends Controller
         $userId = $user->id;
         $year = $request->year;
         $month = $request->month;
-        $codingData = Coding::whereYear('created_at', $year)->whereMonth('created_at', $month)->where('user_id', $userId)->get();
-        $healthData = Health::whereYear('created_at', $year)->whereMonth('created_at', $month)->where('user_id', $userId)->get();
-        $workData = Work::whereYear('created_at', $year)->whereMonth('created_at', $month)->where('user_id', $userId)->get();
-        $homeData = Home::whereYear('created_at', $year)->whereMonth('created_at', $month)->where('user_id', $userId)->get();
-        $careerData = Career::whereYear('created_at', $year)->whereMonth('created_at', $month)->where('user_id', $userId)->get();
+        $codingData = Coding::whereYear('date', $year)->whereMonth('date', $month)->where('user_id', $userId)->get();
+        $healthData = Health::whereYear('date', $year)->whereMonth('date', $month)->where('user_id', $userId)->get();
+        $workData = Work::whereYear('date', $year)->whereMonth('date', $month)->where('user_id', $userId)->get();
+        $homeData = Home::whereYear('date', $year)->whereMonth('date', $month)->where('user_id', $userId)->get();
+        $careerData = Career::whereYear('date', $year)->whereMonth('date', $month)->where('user_id', $userId)->get();
+        $moodData = Mood::whereYear('date', $year)->whereMonth('date', $month)->where('user_id', $userId)->get();
 
         $organizedData = [];
         foreach ($codingData as $item) {
@@ -68,6 +70,10 @@ class GoalsController extends Controller
         foreach ($careerData as $item) {
             $date = date('Y-m-d', strtotime($item->date));
             $organizedData[$date]['career'][] = $item;
+        }
+        foreach ($moodData as $item) {
+            $date = date('Y-m-d', strtotime($item->date));
+            $organizedData[$date]['mood'][] = $item;
         }
         return response()->json([
             'organized_data' => $organizedData,

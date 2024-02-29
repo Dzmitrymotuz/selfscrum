@@ -10,6 +10,7 @@ class MoodController extends Controller
     public function mood_change (Request $request) {
         $request->validate([
             'mood_value'=>'string|nullable',
+            'date'=>'required|date_format:Y-m-d'
         ]);
         $user = auth()->user();
         $userId = $user->id;
@@ -19,7 +20,7 @@ class MoodController extends Controller
             $mood = new Mood();
             $mood->created_at = $currentDate;
             $mood->user_id = $userId;
-
+            $mood->date = $request->date; 
         }
         $mood->mood = $request->input('mood_value');
         $mood->save();

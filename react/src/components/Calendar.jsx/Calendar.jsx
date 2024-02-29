@@ -20,6 +20,8 @@ const Calendar = () => {
     const firstDayOfMonth = getFirstDayOfMonth(currentDate.getFullYear(), currentDate.getMonth())
     const allDaysInMonth = getDaysinMonth(currentDate.getFullYear(), currentDate.getMonth())
 
+    const [color, setColor] = useState(9)
+
     const nextMonth = () => {
         return setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth()+1))
     }
@@ -51,7 +53,6 @@ const Calendar = () => {
 
     const render = (monthData) => {
         const days = []
-        const currentDate = new Date();
 
         for (let i=0;i<firstDayOfMonth;i++) {
             days.unshift(<div key={i-31} className=''></div>)
@@ -74,11 +75,11 @@ const Calendar = () => {
                     <div className='flex flex-col px-2 '>
                     {
                         monthData[dayKey] ? Object.keys(monthData[dayKey]).map((item, i) =>
-                        (   
-                            
+                        (    
                             <div key={i} className='flex justify-between'>
-                                <span className='hidden sm:block'>{item}: </span>
-                                <span>{monthData[dayKey][item].length}</span>
+                                {item != 'mood' ? <span className='hidden sm:block'>{item}: </span> : ''}
+                                {item != 'mood' ? <span>{monthData[dayKey][item].length}</span> : ''}
+                                {/* {item === 'mood' ? <div className={`w-full h-3 bg-red-300`}>{monthData[dayKey][item][0].mood}</div> : ''} */}
                             </div>
                         )) : 
                         <div className='hidden sm:block text-center opacity-20'>
@@ -96,12 +97,20 @@ const Calendar = () => {
   return (
     <div className='flex justify-center '>
         <div className='ml-[50px] max-w-[75rem] w-[90%]'>
-            <div className='text-black-500 text-center font-bold pt-5 mb-5'>
-                {currentDate.toDateString()}
+            <div className='textpumpkin flex justify-center items-center font-bold pt-5 mb-5'>
+            <img 
+                src='/move.svg' 
+                onClick={()=>prevMonth()}
+                className='w-6 rotate-180 mr-7 cursor-pointer'/>
+            <span className='mt-0 items-center'>{currentDate.toDateString()}</span>
+            <img 
+                src='/move.svg' 
+                onClick={()=>nextMonth()}
+                className='w-6 ml-7 cursor-pointer'/>
             </div>
             <div className='flex justify-between mx-10 text-2xl'>
-                <button onClick={()=>prevMonth()}>-</button>
-                <button onClick={()=>nextMonth()}>+</button>
+                
+                
             </div>
             <div className='grid grid-cols-7 gap-1  p-1 '>
                 {WEEKDAYS.map((day)=>(

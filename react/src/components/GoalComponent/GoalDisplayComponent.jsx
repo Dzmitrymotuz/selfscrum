@@ -13,30 +13,22 @@ const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged}) => {
       const data = await axiosGetInitData(date)
       setFilteredGoals(data[category])
     }
-    
-    const handlePass = async(id) => {
-      const fixedDate = new Date(date)
-      fixedDate.setDate(fixedDate.getDate()+1)
-      const newDate = fixedDate.toISOString().split('T')[0]
-      const data = {
-        'id': id,
-        'date': newDate,
-      }
-      await axiosPutData(`${category}/pass-to-next`, data)
-      setFilteredGoals(filteredGoals.filter(item=>item.id != id))
-      setIfDataChanged(prevState=>!prevState)
-    }
     const handleAddition = async(e) => {
       const value = inputRef.current.value
       inputRef.current.value = ''
-      const data = {
-        'category': category,
-        'goal': value,
-        'status': 0,
-        'date': date,
+      if (value.length > 0) {
+        const data = {
+          'category': category,
+          'goal': value,
+          'status': 0,
+          'date': date,
+        }
+        await axiosPostData(`${category}/add-goal`, data)
+        fetchInitialData()
+      } else {
+        setHidden(!hidden)
       }
-      await axiosPostData(`${category}/add-goal`, data)
-      fetchInitialData()
+      
     }
     const handleEnter = (e) => { 
       if (e.target.value.length > 0) {
@@ -72,19 +64,18 @@ const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged}) => {
       {filteredGoals && filteredGoals.map((goal)=>( 
         <div key={goal.id} className='flex flex-row'>
           <div className='w-[5px] mr-5 ml-2'>
-            <span className={`${goal.status === 1 ? 'text-[#FFB703]' : 'text-black'}`}>
+            <span className={`${goal.status === 1 ? 'goal-done' : 'goal-active'}`}>
                  {`${goal.status === 0 ? '○' : '●'}`}
             </span>
           </div>
-          <div className='flex justify-between w-[100%] '>
-            <div className='m-0 flex-grow'>
-              <SingleGoal  goal={goal} category={category} handleStatusChange={handleStatusChange} /> 
-            </div>
-            <div className='flex flex-row mr-2' >
-              <ActionButton icon={'/move.svg'} onClick={(e)=>handlePass(goal.id)} title={'move'} />
-              <ActionButton icon={'/delete.svg'} onClick={(e)=>handleDelete(goal.id)} title={'delete'} /> 
-            </div>
-          </div>
+            <SingleGoal  
+              goal={goal} 
+              category={category} 
+              handleStatusChange={handleStatusChange} 
+              setFilteredGoals={setFilteredGoals}
+              filteredGoals={filteredGoals}
+              date={date}
+              setIfDataChanged={setIfDataChanged}/> 
         </div>
       ))}
       <div>
@@ -98,7 +89,11 @@ const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged}) => {
           ━
           </span>
         </div>
-        <input className='my-1 mt-3 mr-10 h-[27px] w-[100%] border border-[#FFDDA1] focus:border-[#FB8500] outline-none' ref={inputRef} onKeyDown={handleEnter}></input>
+        <input 
+        className='input-field' 
+        ref={inputRef} 
+        onKeyDown={handleEnter}
+        onBlur={handleAddition}></input>
       </div>
       :
       <div onClick={()=>setHidden(!hidden)}

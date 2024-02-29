@@ -46,7 +46,7 @@ useEffect (()=>{
                 <span >Today is <span className='text-bold'>{new Date().toDateString()}</span></span>
             </div>
             <div className='flex flex-row justify-center mx-5 mt-[-15px]'>
-                <MoodComponent/>
+                <MoodComponent date={today}/>
             </div> 
             <div className='bg-black w-[100%] h-[1px] opacity-5 mb-3'/> 
         </div>

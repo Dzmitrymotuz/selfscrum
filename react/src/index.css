@@ -19,7 +19,11 @@
  --pumpkin: #FB8500; */
 }
 
-
+@layer utilities {
+  .input-field {
+    @apply my-1 mt-3 mr-10 h-[27px] w-[100%] border border-[#FFDDA1] focus:border-[#FB8500] outline-none;
+  }
+}
 
 body {
   font-family: 'Nunito Sans';
@@ -91,4 +95,7 @@ input{
   border-radius: 8px;
   width: 300px;
   border: 1px solid var(--xanthous);
+}
+.goal-done {
+  color: var(--pumpkin)
 }

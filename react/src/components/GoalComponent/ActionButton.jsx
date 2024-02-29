@@ -4,10 +4,10 @@ const ActionButton = ({icon, title, onClick}) => {
     
   return (
     <div 
-    className='hover:cursor-pointer flex justify-center flex-shrink-0 mr-0' 
+    className='hover:cursor-pointer flex justify-center items-center flex-shrink-0 mr-0' 
     onClick={onClick}>
         <img 
-        className='w-4 opacity-40 hover:opacity-100 transition ease-in-out duration-200'
+        className='w-4 h-4 opacity-40 hover:opacity-100 transition ease-in-out duration-200'
         src={icon}
         title={title}/>
     </div>

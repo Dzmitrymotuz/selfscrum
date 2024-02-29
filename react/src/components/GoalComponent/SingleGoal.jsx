@@ -4,43 +4,76 @@ import { axiosDeleteData, axiosPostData, axiosPutData, axiosGetInitData } from '
 
 
 
-const SingleGoal = ({goal, category, handleStatusChange}) => {
+const SingleGoal = ({goal, category, handleStatusChange, setFilteredGoals, filteredGoals, date, setIfDataChanged}) => {
     const [isEdited, setIsEdited] = useState(true)
     const [goalContent, setGoalContent] = useState(goal.content)
  
     const handleEdit = async(id) => {
         setIsEdited(!isEdited)
-        const data = {
-          'id': id,
-          'content': goalContent,
-        }
-        await axiosPutData(`${category}/edit-goal`, data)
-      }
-      const handleEnter = (e) => { 
-        if (e.target.value.length > 0) {
-          if (e.key === 'Enter') {
-            return handleEdit(goal.id)
-          }
+        if (goalContent.length > 0) {
+            const data = {
+                'id': id,
+                'content': goalContent,
+              }
+              await axiosPutData(`${category}/edit-goal`, data)
+        } else {
+            handleDelete(id)
         } 
-      } 
+      }
+    const handlePass = async(id) => {
+        const fixedDate = new Date(date)
+        fixedDate.setDate(fixedDate.getDate()+1)
+        const newDate = fixedDate.toISOString().split('T')[0]
+        const data = {
+            'id': id,
+            'date': newDate,
+        }
+        await axiosPutData(`${category}/pass-to-next`, data)
+        setFilteredGoals(filteredGoals.filter(item=>item.id != id))
+        setIfDataChanged(prevState=>!prevState)
+        }
+    const handleEnter = (e) => { 
+    if (e.target.value.length > 0) {
+        if (e.key === 'Enter') {
+        return handleEdit(goal.id)
+        }
+    } 
+    } 
+    const handleDelete = async(id) => {
+        const data = {
+            'id': id,
+        }
+        await axiosDeleteData(`${category}/delete`, data)
+        setFilteredGoals(filteredGoals.filter(item=>item.id != id))
+        }
 
   return (
-    <div className='flex flex-row justify-between'>
-      {isEdited ? 
-        <span 
-        className={`${goal.status === 1 ? 'text-[#FFB703]' : 'text-black'} hover:cursor-pointer`}
-        onClick={()=>handleStatusChange(goal.id, goal.status)}
-        >
-        {goalContent}
-        </span>
-        :
-        <input                 
-        onChange={(e)=>setGoalContent(e.target.value)}
-        value={goalContent}
-        onKeyDown={handleEnter}
-        ></input>}
-        <div className='flex flex-row mr-0' >
+    <div className='flex justify-between w-full'>
+        <div className='w-[90%]'>
+        {isEdited ? 
+            <span 
+                className={`${goal.status === 1 ? 'goal-done' : 'text-black'} hover:cursor-pointer`}
+                onClick={()=>handleStatusChange(goal.id, goal.status)}
+            >
+                {goalContent}
+            </span>
+            :
+            <input                 
+                onChange={(e)=>setGoalContent(e.target.value)}
+                value={goalContent}
+                onKeyDown={handleEnter}
+                onBlur={()=>handleEdit(goal.id)}
+                className='input-field'
+            ></input>}
+        </div>
+        <div className='flex flex-row mr-1' >
+            {isEdited ? 
             <ActionButton icon={'/edit.svg'} onClick={(e)=>setIsEdited(!isEdited)} title={'edit'} />
+            :
+            <ActionButton icon={'/edit.svg'} onClick={()=>handleEdit(goal.id)} title={'edit'} />
+            }
+            <ActionButton icon={'/move.svg'} onClick={(e)=>handlePass(goal.id)} title={'move'} />
+            <ActionButton icon={'/delete.svg'} onClick={(e)=>handleDelete(goal.id)} title={'delete'} /> 
         </div>
 
     </div>
