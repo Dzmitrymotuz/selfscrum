@@ -37,4 +37,18 @@ class MoodController extends Controller
         }
         return response()->json(['mood'=>$mood]);
     }
+    public function get_mood_range (Request $request) {
+        $request->validate([
+            'startDate'=>'required|date_format:Y-m-d',
+            'endDate'=>'required|date_format:Y-m-d'
+        ]);
+        $startDate = $request->startDate;
+        $endDate = $request->endDate;
+        $mood_object = [];
+        $moods = Mood::whereBetween('date', [$startDate, $endDate])->get();
+        foreach ($moods as $mood) {
+            $mood_object[$mood->date] = $mood->mood;
+        }
+        return response()->json(['mood_object'=>$mood_object]);
+    }
 }

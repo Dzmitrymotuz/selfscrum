@@ -28,15 +28,18 @@ const NavBar = () => {
       </div>
   :
   <div className='navbar-container w-[10px]'>
-      <img 
+      {/* <img 
       onClick={()=>setIsHidden(!isHidden)}
       src='/toggle.svg' 
-      className='w-5 ml-10 top-1 fixed opacity-20 hover:opacity-100 transition ease duration-500'/>
+      className='w-5 ml-10 top-1 fixed opacity-20 hover:opacity-100 transition ease duration-500'/> */}
         <Link to='/goals'>
           <img src='/goal.svg' title='Daily goals' className='w-8 mx-2 my-3 hover:rotate-45 transition ease duration-300'/>
         </Link>
         <Link to='/calendar'> 
           <img src='/calendar.svg' title='calendar' className='w-8 mx-2 my-3 hover:rotate-45 transition ease duration-300'/>
+        </Link>
+        <Link to='/dashboard'> 
+          <img src='/dashboard.svg' title='dashboard' className='w-8 mx-2 my-3 hover:rotate-45 transition ease duration-300'/>
         </Link>
         <Link to='/login'> 
           <img src='/login-user.svg' title='login' className='w-8 mx-2 my-3 hover:rotate-45 transition ease duration-300'/>

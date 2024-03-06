@@ -9,6 +9,7 @@ import Registration from './components/User/Registration'
 import { AuthProvider } from './components/Context/AuthContext'
 import Page404 from './components/Page404'
 import Main from './components/Main'
+import Dashboard from './components/Charts/Dashboard'
 
 function App() {
 
@@ -23,6 +24,8 @@ function App() {
           <Route path='/date/*' element={<SingleDay/>}/>
           <Route path='/calendar' element={<Calendar/>}/>
           <Route path='/login' element={<Login/>}/>
+          <Route path='/register' element={<Registration/>}/>
+          <Route path='/dashboard' element={<Dashboard/>}/>
           <Route path='/register' element={<Registration/>}/>
           <Route path='/*' element={<Page404/>}/>
         </Routes>

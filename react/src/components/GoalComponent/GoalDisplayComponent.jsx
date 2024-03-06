@@ -37,13 +37,7 @@ const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged}) => {
         }
       } 
     } 
-    const handleDelete = async(id) => {
-      const data = {
-        'id': id,
-      }
-      await axiosDeleteData(`${category}/delete`, data)
-      setFilteredGoals(filteredGoals.filter(item=>item.id != id))
-    }
+
     const handleStatusChange = async(id, status) => {
       const updated_status = status === 0 ? 1 : 0;
       const data = {
@@ -75,7 +69,8 @@ const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged}) => {
               setFilteredGoals={setFilteredGoals}
               filteredGoals={filteredGoals}
               date={date}
-              setIfDataChanged={setIfDataChanged}/> 
+              setIfDataChanged={setIfDataChanged}
+              /> 
         </div>
       ))}
       <div>

@@ -3,28 +3,28 @@ import { axiosGetInitData } from './Api/Api'
 import { formatDate  } from './Api/Helpers'
 import GoalDisplayComponent from './GoalComponent/GoalDisplayComponent'
 import MoodComponent from './MoodComponent/MoodComponent'
+import CategorySet from './GoalComponent/CategorySet'
 
 
 
 const WelcomeWindow = () => {
 const categories = ['Coding', 'Work', 'Career', 'Home', 'Health', ]
+const [yesterdayData, setYesterdayData] = useState([])
 const [initData, setInitData] = useState([])
-const [tomData, setTomData] = useState([])
+const [tomorrowData, setTomData] = useState([])
 const [today, setToday] = useState(formatDate(new Date())) 
 const [tomorrow, setTommorow] = useState(formatDate(new Date(new Date().setDate(new Date().getDate()+1))))
+const [yesterday, setYesterday] = useState(formatDate(new Date(new Date().setDate(new Date().getDate()-1))))
 
 const [ifDataChanged, setIfDataChanged] = useState(true)
 
-const [categoryStates, setCategoryStates] = useState({});
-const toggleCategory = (category) => {
-    setCategoryStates(prevState => ({
-        ...prevState,
-        [category]: !prevState[category]
-    }));
-};
 const fetchInitialData = async() => {
     const data = await axiosGetInitData(today)
     setInitData(data)
+}
+const fetchYesterdayData = async() => {
+    const data = await axiosGetInitData(yesterday)
+    setYesterdayData(data) 
 }
 const fetchTomorrowData = async() => {
     const data = await axiosGetInitData(tomorrow)
@@ -34,10 +34,9 @@ const fetchTomorrowData = async() => {
 useEffect (()=>{ 
     fetchInitialData() 
     fetchTomorrowData() 
-}, [])
-useEffect (()=>{ 
-    fetchTomorrowData() 
+    fetchYesterdayData()
 }, [ifDataChanged])
+
 
   return (
     <div className='main-container '>
@@ -50,8 +49,26 @@ useEffect (()=>{
             </div> 
             <div className='bg-black w-[100%] h-[1px] opacity-5 mb-3'/> 
         </div>
-        <div className='flex flex-col sm:flex-row  justify-center'>
-            <div className='w-[400px] mx-5'> 
+        <div className='flex flex-col sm:flex-row items-top justify-between mx-auto max-w-[1200px]'>
+            <CategorySet 
+                categories={categories} 
+                date={yesterday}
+                data={yesterdayData}
+                setIfDataChanged={setIfDataChanged}
+            /> 
+            <CategorySet 
+                categories={categories} 
+                date={today}
+                data={initData}
+                setIfDataChanged={setIfDataChanged}
+            /> 
+            <CategorySet 
+                categories={categories} 
+                date={tomorrow}
+                data={tomorrowData}
+                setIfDataChanged={setIfDataChanged}
+            /> 
+            {/* <div className='w-[400px] mx-5'> 
             <p className='text-xs opacity-40 hover:opacity-100 duration-300'>Today</p>
                 <div className='categories_container'>
                     {
@@ -91,7 +108,7 @@ useEffect (()=>{
                     ))
                     }
                 </div> 
-            </div>
+            </div> */}
         </div>
     </div>
   )

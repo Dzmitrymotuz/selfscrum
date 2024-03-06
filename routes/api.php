@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //mood
     Route::post('/mood-change', [MoodController::class, 'mood_change']);
     Route::get('/get-mood', [MoodController::class, 'get_mood']);
+    Route::get('/get-mood-range', [MoodController::class, 'get_mood_range']); 
     //status
     Route::post('/coding/status-change', [CodingController::class, 'status_change']);
     Route::post('/career/status-change', [CareerController::class, 'status_change']);
