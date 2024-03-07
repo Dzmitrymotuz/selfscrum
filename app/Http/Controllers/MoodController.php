@@ -15,7 +15,7 @@ class MoodController extends Controller
         $user = auth()->user();
         $userId = $user->id;
         $currentDate = now()->toDateString();
-        $mood = Mood::whereDate('created_at', $currentDate)->where('user_id', $userId)->first();
+        $mood = Mood::whereDate('date', $currentDate)->where('user_id', $userId)->first();
         if (!$mood) {
             $mood = new Mood();
             $mood->created_at = $currentDate;
@@ -31,7 +31,7 @@ class MoodController extends Controller
         $currentDate = now()->toDateString();
         $user = auth()->user();
         $userId = $user->id;
-        $mood = Mood::whereDate('created_at', $currentDate)->where('user_id', $userId)->first();
+        $mood = Mood::whereDate('date', $currentDate)->where('user_id', $userId)->first();
         if (!$mood) {
             $mood = 5;
         }

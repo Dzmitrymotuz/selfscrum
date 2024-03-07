@@ -2,6 +2,9 @@ import React, {useState, useEffect} from 'react'
 import { axiosGetDataWithPayload } from '../Api/Api';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, PieChart, Pie } from 'recharts';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
+import { formatDate  } from '../Api/Helpers'
+import DatePicker from './DatePicker';
+
 
 
 
@@ -10,8 +13,8 @@ const Dashboard = () => {
     const [pieData, setPieData] = useState([])
     const [goalsData, setGoalsData] = useState([])
 
-    const [startDate, setStartDate] = useState('2024-02-26')
-    const [endDate, setEndDate] = useState('2024-03-06')
+    const [startDate, setStartDate] = useState(formatDate(new Date(new Date().setDate(new Date().getDate()-7))))
+    const [endDate, setEndDate] = useState(formatDate(new Date()))
 
     const fetchMoodData = async() => {
         const response = await axiosGetDataWithPayload('get-mood-range', {
@@ -85,48 +88,54 @@ const Dashboard = () => {
             <div className='zero-row w-auto flex justify-center'>
                 <div className='filter w-auto h-[100px] m-1'>
                     Start: {startDate}
+                    <DatePicker date={startDate} setDate={setStartDate}/>
                 </div>
                 <div className='filter w-auto h-[100px] m-1'>
                     End: {endDate}
+                    <DatePicker date={endDate} setDate={setEndDate}/>
                 </div>
             </div>
-            <div className='first-row flex flex-row justify-center'>
-                <div className='cell flex flex-col border border-blue-300'>
-                    <span>Mood Diagram</span>
-                    <LineChart width={400} height={400} data={data}>
-                        <Line type="monotone" dataKey="mood" stroke="#8884d8" />
-                        <CartesianGrid stroke="#ccc" />
-                        <XAxis dataKey="date" />
-                        <YAxis dataKey=''/>
-                    </LineChart>
-                </div>
-                <div className='cell flex flex-col border border-red-500'>
-                    <span>Goals Piechart</span>
-                    <PieChart width={400} height={400}>
-                    <Pie
-                        dataKey="length"
-                        isAnimationActive={false}
-                        data={goalsData}
-                        cx="50%"
-                        cy="50%"
-                        outerRadius={80}
-                        innerRadius={50}
-                        fill="#8884d8"
-                        label={({category, value}) => `${category}: ${value}`}
-                    />
-                    </PieChart>
-                </div>
-            </div>
-            <div className='second_row flex flex-row justify-center my-5'>
-                <div className='border-2 flex-col justify-center w-[300px] h-[400px] sm:w-[800px]'>
+            <div className='first-row flex md:flex-row flex-col justify-center items-center'> 
+                <div className='cell flex-col w-[350px] h-[300px] sm:w-[450px]  '>
                     <span>Mood Visual</span>
                     <ResponsiveContainer >
-                        <RadarChart cx="50%" cy="50%" outerRadius="80%" data={pieData}>
+                        <RadarChart cx="50%" cy="50%" outerRadius="65%" data={pieData}>
                         <PolarGrid />
                         <PolarAngleAxis dataKey="status" />
                         <PolarRadiusAxis />
                         <Radar name="mood" dataKey="amount" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
                         </RadarChart>
+                    </ResponsiveContainer>
+                </div>
+                <div className='cell flex flex-col w-[400px] h-[300px] sm:w-[400px]'>
+                    <span>Goals Piechart</span>
+                    <ResponsiveContainer > 
+                        <PieChart width={400} height={400}>
+                        <Pie
+                            dataKey="length"
+                            isAnimationActive={false}
+                            data={goalsData}
+                            cx="50%"
+                            cy="50%"
+                            outerRadius={80}
+                            innerRadius={50}
+                            fill="#8884d8"
+                            label={({category, value}) => `${category.toUpperCase()}: ${value}`}
+                        />
+                        </PieChart>
+                    </ResponsiveContainer> 
+                </div>
+            </div>
+            <div className='second_row flex flex-row justify-center my-5'>
+                <div className='cell flex flex-col w-[450px] h-[300px] sm:w-[90%]'>
+                    <span>Mood Diagram</span>
+                    <ResponsiveContainer >
+                        <LineChart width={500} height={400} data={data}>
+                            <Line type="monotone" dataKey="mood" stroke="#8884d8" />
+                            <CartesianGrid stroke="#ccc" />
+                            <XAxis dataKey="date" />
+                            <YAxis dataKey=''/>
+                        </LineChart>
                     </ResponsiveContainer>
                 </div>
             </div>

@@ -26,7 +26,7 @@ const CategorySet = ({categories, date, data, setIfDataChanged}) => {
             <button onClick={()=>setToggled(!toggled)} className='text-xs ml-1' >
                     {date}
             </button> 
-      <div className={toggled ? `w-[400px] mx-1` : 'hidden'}> 
+      <div className={toggled ? `w-auto mx-1` : 'hidden'}> 
             <p className='text-xs opacity-40 hover:opacity-100 duration-300'></p>
                 <div className='categories_container'>
                     {
@@ -34,7 +34,7 @@ const CategorySet = ({categories, date, data, setIfDataChanged}) => {
                         <div 
                         key={category} 
         //fix THIS ASAP
-                        className='w-[83%] sm:w-[200px] md:w-[300px] lg:w-[400px] flex flex-col border border-[#FFDDA1] bg-white mb-1 rounded-lg hover:border '
+                        className='sm:w-[200px] md:w-[300px] lg:w-[330px] xl:w-[380px] flex flex-col border border-[#FFDDA1] bg-white mb-1 rounded-lg hover:border '
                         >
                             <span 
                             className='goal-category rounded-t-md  text-sm ' 
