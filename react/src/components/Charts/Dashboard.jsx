@@ -82,6 +82,14 @@ const Dashboard = () => {
   return (
     <div className='main-container'>
         <div className='wrapper flex flex-col'>
+            <div className='zero-row w-auto flex justify-center'>
+                <div className='filter w-auto h-[100px] m-1'>
+                    Start: {startDate}
+                </div>
+                <div className='filter w-auto h-[100px] m-1'>
+                    End: {endDate}
+                </div>
+            </div>
             <div className='first-row flex flex-row justify-center'>
                 <div className='cell flex flex-col border border-blue-300'>
                     <span>Mood Diagram</span>
