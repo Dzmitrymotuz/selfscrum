@@ -45,7 +45,9 @@ class MoodController extends Controller
         $startDate = $request->startDate;
         $endDate = $request->endDate;
         $mood_object = [];
-        $moods = Mood::whereBetween('date', [$startDate, $endDate])->get();
+        $user = auth()->user();
+        $userId = $user->id;
+        $moods = Mood::whereBetween('date', [$startDate, $endDate])->where('user_id', $userId)->get();
         foreach ($moods as $mood) {
             $mood_object[$mood->date] = $mood->mood;
         }

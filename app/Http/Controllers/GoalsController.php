@@ -79,13 +79,31 @@ class GoalsController extends Controller
             'organized_data' => $organizedData,
             'user'=> $user,
         ]);
-        // return response()->json([
-        //     'work'=>$workData,
-        //     'coding' => $codingData, 
-        //     'career' => $careerData, 
-        //     'home' => $homeData,
-        //     'health' => $healthData,
-        // ]);
+    }
+    public function get_goals_range(Request $request) {
+        $request->validate([
+            'startDate'=>'date|date_format:Y-m-d',
+            'endDate'=>'date|date_format:Y-m-d',
+        ]);
+        $startDate = $request->startDate;
+        $endDate = $request->endDate;
+        $user = auth()->user();
+        $userId = $user->id;
+        $codingData = Coding::whereBetween('date', [$startDate, $endDate])->where('user_id', $userId)->get();
+        $healthData = Health::whereBetween('date', [$startDate, $endDate])->where('user_id', $userId)->get();
+        $workData = Work::whereBetween('date', [$startDate, $endDate])->where('user_id', $userId)->get();
+        $homeData = Home::whereBetween('date', [$startDate, $endDate])->where('user_id', $userId)->get();
+        $careerData = Career::whereBetween('date', [$startDate, $endDate])->where('user_id', $userId)->get();
+        // $moodData = Mood::whereBetween('date', [$startDate, $endDate])->where('user_id', $userId)->get();
+        $response = [
+            'coding' => $codingData,
+            'health' => $healthData,
+            'work' => $workData,
+            'home' => $homeData,
+            'career' => $careerData,
+            // 'mood' => $moodData,
+        ];
+        return response()->json($response);
     }
     
 }

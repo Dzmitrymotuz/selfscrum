@@ -41,15 +41,15 @@ useEffect (()=>{
   return (
     <div className='main-container '>
         <div className=''>
-            <div className='grid place-items-center pt-5 '>
-                <span >Today is <span className='text-bold'>{new Date().toDateString()}</span></span>
+            <div className='grid place-items-center pt-5 text-lg'>
+                <span>Today is <span className='text-bold'>{new Date().toDateString()}</span></span>
             </div>
             <div className='flex flex-row justify-center mx-5 mt-[-15px]'>
                 <MoodComponent date={today}/>
             </div> 
             <div className='bg-black w-[100%] h-[1px] opacity-5 mb-3'/> 
         </div>
-        <div className='flex flex-col sm:flex-row items-top justify-between mx-auto max-w-[1200px]'>
+        <div className='flex flex-col sm:flex-row items-top justify-center mx-auto max-w-[1200px]'>
             <CategorySet 
                 categories={categories} 
                 date={yesterday}

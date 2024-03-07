@@ -22,10 +22,11 @@ const CategorySet = ({categories, date, data, setIfDataChanged}) => {
 
 
   return (
-    <div>
-    <button onClick={()=>setToggled(!toggled)} 
-        className='text-xs hover:text-bold hover: ml-1'
-        >{date}</button>
+    <div className='border-b-8 border-[#ffae22] mb-4 overflow-hidden sm:overflow-auto'>
+            <button onClick={()=>setToggled(!toggled)} className='text-xs ml-1' >
+                    {date}
+            </button>
+            
       <div className={toggled ? `w-[400px] mx-1` : 'hidden'}> 
             <p className='text-xs opacity-40 hover:opacity-100 duration-300'></p>
                 <div className='categories_container'>
@@ -33,7 +34,7 @@ const CategorySet = ({categories, date, data, setIfDataChanged}) => {
                     categories.map((category, index)=>(
                         <div 
                         key={category} 
-                        className='w-[300px] sm:w-[400px] flex flex-col border border-[#FFDDA1] bg-white mb-1 rounded-lg hover:border'
+                        className='w-[83%] sm:w-[400px] flex flex-col border border-[#FFDDA1] bg-white mb-1 rounded-lg hover:border '
                         >
                             <span 
                             className='goal-category rounded-t-md  text-sm ' 

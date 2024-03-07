@@ -59,6 +59,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/work/edit-goal', [WorkController::class, 'edit_goal']);
     Route::put('/health/edit-goal', [HealthController::class, 'edit_goal']);
     Route::put('/home/edit-goal', [HomeController::class, 'edit_goal']);
+    //getting goals data for stats
+    Route::get('/get-goals-range', [GoalsController::class, 'get_goals_range']);
 });
 
 

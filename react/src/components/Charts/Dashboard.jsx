@@ -10,10 +10,13 @@ const Dashboard = () => {
     const [pieData, setPieData] = useState([])
     const [goalsData, setGoalsData] = useState([])
 
+    const [startDate, setStartDate] = useState('2024-02-26')
+    const [endDate, setEndDate] = useState('2024-03-06')
+
     const fetchMoodData = async() => {
         const response = await axiosGetDataWithPayload('get-mood-range', {
-            startDate: '2024-02-26',
-            endDate: '2024-03-05',
+            startDate: startDate,
+            endDate: endDate,
         })
         const ass_arr = Object.keys(response.mood_object).map((key)=>({
             date: key,
@@ -56,19 +59,28 @@ const Dashboard = () => {
         })
         setPieData(result)
     }
+    const fetchGoalsData = async() => {
+        const response = await axiosGetDataWithPayload('get-goals-range', {
+            startDate: startDate,
+            endDate: endDate,
+        })
+        const doneChartData = Object.keys(response).map(category=>({
+            category: category,
+            length: response[category].length,
+        }));
+        setGoalsData(doneChartData)
+    }
 
 
     useEffect(()=>{
         fetchMoodData()
+        fetchGoalsData()
     },[])
 
 
 
   return (
     <div className='main-container'>
-        {pieData && pieData.map((i)=>{
-            console.log(i.key, i.value)
-        })}
         <div className='wrapper flex flex-col'>
             <div className='first-row flex flex-row justify-center'>
                 <div className='cell flex flex-col border border-blue-300'>
@@ -81,10 +93,10 @@ const Dashboard = () => {
                     </LineChart>
                 </div>
                 <div className='cell flex flex-col border border-red-500'>
-                    <span>Mood Piechart</span>
+                    <span>Goals Piechart</span>
                     <PieChart width={400} height={400}>
                     <Pie
-                        dataKey="amount"
+                        dataKey="length"
                         isAnimationActive={false}
                         data={goalsData}
                         cx="50%"
@@ -92,15 +104,15 @@ const Dashboard = () => {
                         outerRadius={80}
                         innerRadius={50}
                         fill="#8884d8"
-                        labe="status"
+                        label={({category, value}) => `${category}: ${value}`}
                     />
                     </PieChart>
                 </div>
             </div>
             <div className='second_row flex flex-row justify-center my-5'>
-                <div className='border-2 flex-col justify-center'>
+                <div className='border-2 flex-col justify-center w-[300px] h-[400px] sm:w-[800px]'>
                     <span>Mood Visual</span>
-                    <ResponsiveContainer width="100%" height="100%" minWidth={`800px`} minHeight={`100px`} maxHeight={`800px`}>
+                    <ResponsiveContainer >
                         <RadarChart cx="50%" cy="50%" outerRadius="80%" data={pieData}>
                         <PolarGrid />
                         <PolarAngleAxis dataKey="status" />
