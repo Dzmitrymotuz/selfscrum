@@ -48,8 +48,13 @@ const SingleGoal = ({goal, category, handleStatusChange, setFilteredGoals, filte
         }
 
   return (
-    <div className='flex justify-between w-full'>
-        <div className='w-[90%]'>
+    <div className='flex justify-between w-full bg-white rounded-md m-0.5'>
+        <div className='mx-2 '>
+            <span className={`${goal.status === 1 ? 'goal-done' : 'goal-active'}`}>
+                 {`${goal.status === 0 ? '○' : '●'}`}
+            </span>
+          </div>
+        <div className='w-[90%] '>
         {isEdited ? 
             <span 
                 className={`${goal.status === 1 ? 'goal-done' : 'text-black'} hover:cursor-pointer`}
@@ -66,7 +71,7 @@ const SingleGoal = ({goal, category, handleStatusChange, setFilteredGoals, filte
                 className='input-field'
             ></input>}
         </div>
-        <div className='flex flex-row mr-1' >
+        <div className='flex flex-row m-1 mr-2 items-baseline' >
             {isEdited ? 
             <ActionButton icon={'/edit.svg'} onClick={(e)=>setIsEdited(!isEdited)} title={'edit'} />
             :

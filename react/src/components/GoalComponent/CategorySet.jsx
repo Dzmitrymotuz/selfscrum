@@ -28,19 +28,19 @@ const CategorySet = ({categories, date, data, setIfDataChanged}) => {
             </button> 
       <div className={toggled ? `w-auto mx-1` : 'hidden'}> 
             <p className='text-xs opacity-40 hover:opacity-100 duration-300'></p>
-                <div className='categories_container'>
+                <div className='categories_container '>
                     {
                     categories.map((category, index)=>(
                         <div 
                         key={category} 
         //fix THIS ASAP
-                        className='sm:w-[200px] md:w-[300px] lg:w-[330px] xl:w-[380px] flex flex-col border border-[#FFDDA1] bg-white mb-1 rounded-lg hover:border '
+                        className='sm:w-[200px] md:w-[300px] lg:w-[330px] xl:w-[380px] flex flex-col border border-[#FFDDA1] bg-white mb-1 rounded-b-sm rounded-t-sm hover:border '
                         >
                             <span 
-                            className='goal-category rounded-t-md  text-sm ' 
+                            className='goal-category text-sm' 
                             onClick={()=>toggleCategory(category)}
                             >{category}</span>
-                            <div className={`rounded-b-lg overflow-auto duration-200 ${!categoryStates[category] ? 'min-h-[150px]' : 'h-1'}`} >
+                            <div className={`overflow-auto duration-200 bg-gray-50  ${!categoryStates[category] ? 'min-h-[150px]' : 'h-0'}`} >
                                 <GoalDisplayComponent 
                                 goals={initData} 
                                 date={date} 

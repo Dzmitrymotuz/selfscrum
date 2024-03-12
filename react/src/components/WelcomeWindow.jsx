@@ -49,7 +49,7 @@ useEffect (()=>{
             </div> 
             <div className='bg-black w-[100%] h-[1px] opacity-5 mb-3'/> 
         </div>
-        <div className='flex flex-col sm:flex-row items-top justify-center mx-auto max-w-[1200px]'>
+        <div className='flex flex-col sm:flex-row items-top justify-start mx-auto max-w-[1200px]'>
             <CategorySet 
                 categories={categories} 
                 date={yesterday}

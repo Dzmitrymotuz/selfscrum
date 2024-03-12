@@ -56,12 +56,7 @@ const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged}) => {
   return (
     <div className={``}>
       {filteredGoals && filteredGoals.map((goal)=>( 
-        <div key={goal.id} className='flex flex-row'>
-          <div className='w-[5px] mr-5 ml-2'>
-            <span className={`${goal.status === 1 ? 'goal-done' : 'goal-active'}`}>
-                 {`${goal.status === 0 ? '○' : '●'}`}
-            </span>
-          </div>
+        <div key={goal.id} className='flex flex-row '>
             <SingleGoal  
               goal={goal} 
               category={category} 
