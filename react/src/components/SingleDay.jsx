@@ -45,13 +45,16 @@ useEffect (()=>{
             <div className='categories_container'>
                 {
                     categories.map((category, index)=>(
-                        <div key={category} className='flex flex-col border border-[#FFDDA1] bg-white mb-1 rounded-xl hover:border'>
+                        <div key={category} className='flex flex-col border mb-1 rounded-sm'>
                             <span 
-                            className='goal-category rounded-t-md  text-sm ' 
+                            className='rounded-t-sm bgraspberry goal-category text-sm ' 
                             onClick={()=>toggleCategory(category)}
                             >{category}</span>                            
                             <div className={`rounded-b-lg overflow-auto duration-200 ${!categoryStates[category] ? 'min-h-[150px]' : 'h-1'}`}>
-                                <GoalDisplayComponent goals={initData} date={params['*']} category={category.toLowerCase()}/>
+                                <GoalDisplayComponent 
+                                    goals={initData} 
+                                    date={params['*']} 
+                                    category={category.toLowerCase()}/>
                             </div>
                         </div>
                     ))

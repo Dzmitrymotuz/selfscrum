@@ -55,18 +55,21 @@ useEffect (()=>{
                 date={yesterday}
                 data={yesterdayData}
                 setIfDataChanged={setIfDataChanged}
+                position='yesterday'
             /> 
             <CategorySet 
                 categories={categories} 
                 date={today}
                 data={initData}
                 setIfDataChanged={setIfDataChanged}
+                position='today'
             /> 
             <CategorySet 
                 categories={categories} 
                 date={tomorrow}
                 data={tomorrowData}
                 setIfDataChanged={setIfDataChanged}
+                position='tomorrow'
             /> 
             {/* <div className='w-[400px] mx-5'> 
             <p className='text-xs opacity-40 hover:opacity-100 duration-300'>Today</p>

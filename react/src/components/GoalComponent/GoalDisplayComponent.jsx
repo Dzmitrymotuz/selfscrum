@@ -4,7 +4,7 @@ import ActionButton from './ActionButton'
 import SingleGoal from './SingleGoal'
 
 
-const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged}) => {
+const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged, color}) => {
     const [filteredGoals, setFilteredGoals] = useState([])
     const inputRef = useRef()
     const [hidden, setHidden] = useState(true) 
@@ -65,6 +65,7 @@ const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged}) => {
               filteredGoals={filteredGoals}
               date={date}
               setIfDataChanged={setIfDataChanged}
+              color={color}
               /> 
         </div>
       ))}

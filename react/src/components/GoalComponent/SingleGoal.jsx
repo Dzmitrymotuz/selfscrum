@@ -4,7 +4,7 @@ import { axiosDeleteData, axiosPostData, axiosPutData, axiosGetInitData } from '
 
 
 
-const SingleGoal = ({goal, category, handleStatusChange, setFilteredGoals, filteredGoals, date, setIfDataChanged}) => {
+const SingleGoal = ({goal, category, handleStatusChange, setFilteredGoals, filteredGoals, date, setIfDataChanged, color}) => {
     const [isEdited, setIsEdited] = useState(true)
     const [goalContent, setGoalContent] = useState(goal.content)
  

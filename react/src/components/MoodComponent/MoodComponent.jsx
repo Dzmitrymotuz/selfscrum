@@ -18,22 +18,22 @@ const MoodComponent = ({date}) => {
     const handleColor = (color) => {
       switch(color) {
         case 0:
-          setBgColor('#ff5100')
+          setBgColor('#ff6047')
           break;
         case 1:
-          setBgColor('#d97575')
+          setBgColor('#ff65a0')
           break;
         case 2:
-          setBgColor('#ff82a8')
+          setBgColor('#f184ec')
           break;
         case 3:
-          setBgColor('#ffc7f8')
+          setBgColor('#b3aeff')
           break;
         case 4:
-          setBgColor('#e8c7ff')
+          setBgColor('#7bcaff')
           break;
         case 5:
-          setBgColor('#c7cdff')
+          setBgColor('#4bdeff')
           break;
       }
     }

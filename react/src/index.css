@@ -11,12 +11,16 @@
  --xanthous: #EDB230;
  --pumpkin: #E77728;
 
+--green: #32989A;
+--orange: #FF871F;
+--purple: #8A37D2;
+--darkpurple: #411467;
+--raspberry: #EE1B6C;
 
- /* --blue-light: #8ECAE6;
+ --blue-light: #8ECAE6;
  --blue-mid: #219EBC;
  --blue-dark: #023047;
- --xanthous: #FFB703;
- --pumpkin: #FB8500; */
+ --yellow: #FFB703;
 }
 
 @layer utilities {
@@ -33,19 +37,15 @@ body {
 }
 input{
   border: 1px solid var(--navajo-white);
-  border-radius: 0 0px 25px 0;
+  border-radius: 0 0px 0px 0;
   padding: 5px; 
 }
 .main-container {
   margin: 0 0 150px 50px ;
 }
 .goal-category{
-  background-color: var(--navajo-white);
-  color: var(--pumpkin);
-  margin: 0;
+  color: white;
   padding-left: 5px; 
-  border: 2px solid var(--navajo-white);
-  /* box-shadow: 2px 2px 5px var(--saffron); */
 }
 .tommorow-goal-category{
   background-color: var(--saffron);
@@ -58,11 +58,50 @@ input{
 .bgmain{
   background-color: var(--navajo-white);
 }
+.bgraspberry{
+  background-color: var(--raspberry);
+}
 .textpumpkin{
   color: var(--pumpkin);
 }
+.textorange{
+  color: var(--orange);
+}
+.textpurple{
+  color: var(--purple);
+}
+.textgreen{
+  color: var(--green);
+}
+.bgorange {
+  background-color: var(--orange);
+}
+.bgpurple {
+  background-color: var(--purple);  
+}
+.bggreen {
+  background-color: var(--green);
+}
+.bggradyellow{
+  background-image: linear-gradient(to bottom, var(--navajo-white), var(--xanthous));
+}
+.bggradpurple{
+  background-image: linear-gradient(to bottom, var(--navajo-white), #ffb4a3);
+}
+.bggradgreen{
+  background-image: linear-gradient(to bottom, var(--navajo-white), #e7ffa3);
+}
+.borderorange {
+  border: 3px solid var(--orange);
+}
+.borderpurple {
+  border: 0.5px solid var(--purple);
+}
+.bordergreen {
+  border: 0.5px solid var(--green);
+}
 .pumpkinborder{
-  border: 1px solid var(--pumpkin);
+  border: 0.5px solid var(--pumpkin);
 }
 
 .ss-btn {
