@@ -37,7 +37,7 @@ useEffect (()=>{
                 <span >{params['*']}</span>
             </div>
             <div className='flex justify-center items-center'>
-                {/* <MoodComponent/> */}
+                <MoodComponent date={params['*']}/>
             </div>
         </div>
         <div className='flex flex-row justify-center'>

@@ -3,16 +3,17 @@ import {axiosPostData, axiosGetDataWithPayload } from '../Api/Api'
 
 const MoodComponent = ({date}) => {
     const moodRef = useRef()
-    const [currentMood, setCurrentMood] = useState()
-    const [bgColor, setBgColor] = useState('#FFDDA1')
+    const [currentMood, setCurrentMood] = useState(6)
+    const [bgColor, setBgColor] = useState('#FFFFFF')
 
     const handleMood = async(e) => {
         const moodValue = e.target.value
         await axiosPostData('mood-change', {'mood_value': moodValue, 'date': date})
         getInitMood()
     }
+
     const getInitMood = async() => {
-        const initMood = await axiosGetDataWithPayload('get-mood', {})
+        const initMood = await axiosGetDataWithPayload('get-mood', {'date': date})
         setCurrentMood(initMood.mood.mood)
     }
     const handleColor = (color) => {
@@ -46,7 +47,7 @@ const MoodComponent = ({date}) => {
   return (
     <div className={`py-3 px-1 flex items-center`} >
       <div className='w-6 h-6 rounded-md' style={{backgroundColor:bgColor}}/>
-      <span className={`m-1`} >Mood:</span>
+      <span className={`m-1`}>Mood:</span>
         <select 
         ref={moodRef}
         className='rounded-md p-1'
@@ -55,6 +56,7 @@ const MoodComponent = ({date}) => {
         onChange={(e)=> handleMood(e)}
         value={currentMood}
         >
+            <option value='6' className='hidden'>Select your mood</option>
             <option value='5'>Very Good</option>
             <option value='4'>Somewhat Good</option>
             <option value='3'>Medium</option>

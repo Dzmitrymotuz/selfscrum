@@ -80,7 +80,7 @@ const Calendar = () => {
         const days = []
 
         for (let i=0;i<firstDayOfMonth;i++) {
-            days.unshift(<div key={i-31} className=''></div>)
+            days.unshift(<div key={i-31} className='bggradyellow opacity-20 rounded-md m-1 p-1 min-h-[70px] sm:min-h-[140px]'></div>)
         }
 
 
@@ -97,42 +97,41 @@ const Calendar = () => {
                 ${currentDate.getDate() > day ? 'borderpurple ' : ''}`}
                 onClick={()=>handleClick(i)}
                 >
-                        <div className='text-sm w-auto flex justify-between rounded text-right'>
-    {/* mood component */}
-                            {
-                            monthData[dayKey] ? Object.keys(monthData[dayKey]).map((item, i) => 
-                                (    
-                                    item === 'mood'? 
-                                    <div 
-                                    key={i} 
-                                    className={`${mood} flex items-center mx-1`}
-                                    >
-                                        {handleMood(monthData[dayKey][item][0].mood)}
-                                    </div> 
-                                    :
-                                    ''
-                                )) 
-                            :
-                                <div className='w-3 h-3 mt-1 opacity-0'>
-                                </div>}
-                                <span className={`rounded-md py-0 px-1 font-bold text-md 
-                                ${currentDate.getDate() < day ? 'textgreen' : ''} 
-                                ${currentDate.getDate() === day ? 'textorange bg-white borderorange ' : ''} 
-                                ${currentDate.getDate() > day ? 'textpurple' : ''}`}> {`${day}`} </span>
-                        </div>
-                            <div className='flex flex-col px-2 '>
-                            {
-                        monthData[dayKey] ? Object.keys(monthData[dayKey]).map((item, i) =>
+                    <div className='text-sm w-auto flex justify-between rounded text-right'>
+{/* mood component */}
+                        {
+                        monthData[dayKey] ? Object.keys(monthData[dayKey]).map((item, i) => 
                             (    
-                                <div key={i} className='flex justify-between'>
-                                    {item != 'mood' ? <span className='hidden sm:block'>{item}: </span> : ''}
-                                    {item != 'mood' ? <span>{monthData[dayKey][item].length}</span> : ''}
-                                    {/* {item === 'mood' ? <div className={`w-full h-3 bg-red-300 `}>{monthData[dayKey][item][0].mood}</div> : ''} */}
-                                </div>
-                            )) : 
-                            <div className='hidden sm:block text-center opacity-20'>
-                                No data
+                                item === 'mood'? 
+                                <div 
+                                key={i} 
+                                className={`${mood} hidden sm:flex items-center mx-1`}
+                                >
+                                    {handleMood(monthData[dayKey][item][0].mood)}
+                                </div> 
+                                :
+                                ''
+                            )) 
+                        :
+                            <div className='w-3 h-3 mt-1 opacity-0'>
+                            </div>}
+                            <span className={`rounded-md py-0 px-1 font-bold text-md 
+                            ${currentDate.getDate() < day ? 'textgreen' : ''} 
+                            ${currentDate.getDate() === day ? 'textorange bg-white borderorange ' : ''} 
+                            ${currentDate.getDate() > day ? 'textpurple' : ''}`}> {`${day}`} </span>
+                    </div>
+                        <div className='flex flex-col px-2 '>
+                        {
+                    monthData[dayKey] ? Object.keys(monthData[dayKey]).map((item, i) =>
+                        (    
+                            <div key={i} className='hidden sm:flex justify-between'>
+                                {item != 'mood' ? <span className='hidden sm:block'>{item}: </span> : ''}
+                                {item != 'mood' ? <span>{monthData[dayKey][item].length}</span> : ''}
                             </div>
+                        )) : 
+                        <div className='hidden sm:block text-center opacity-20'>
+                            No data
+                        </div>
                         }
                     </div>
                 </div>
