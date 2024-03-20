@@ -41,6 +41,9 @@ const NavBar = () => {
         <Link to='/dashboard'> 
           <img src='/dashboard.svg' title='dashboard' className='w-8 mx-2 my-3 hover:rotate-45 transition ease duration-300'/>
         </Link>
+        <Link to='/report'> 
+          <img src='/report.svg' title='report' className='w-8 mx-2 my-3 hover:rotate-45 transition ease duration-300'/>
+        </Link>
         <Link to='/login'> 
           <img src='/login-user.svg' title='login' className='w-8 mx-2 my-3 hover:rotate-45 transition ease duration-300'/>
         </Link>

@@ -4,7 +4,7 @@ import { axiosDeleteData, axiosPostData, axiosPutData, axiosGetInitData } from '
 
 
 
-const SingleGoal = ({goal, category, handleStatusChange, setFilteredGoals, filteredGoals, date, setIfDataChanged, color}) => {
+const SingleGoal = ({goal, category, setFilteredGoals, filteredGoals, date, setIfDataChanged, color}) => {
     const [isEdited, setIsEdited] = useState(true)
     const [goalContent, setGoalContent] = useState(goal.content)
  
@@ -45,6 +45,18 @@ const SingleGoal = ({goal, category, handleStatusChange, setFilteredGoals, filte
         }
         await axiosDeleteData(`${category}/delete`, data)
         setFilteredGoals(filteredGoals.filter(item=>item.id != id))
+        }
+    
+      
+    const handleStatusChange = async(id, status) => {
+        const updated_status = status === 0 ? 1 : 0;
+        const data = {
+            'id': id,
+            'status': updated_status,
+            'date': date,
+        }
+        await axiosPostData(`${category}/status-change`, data)
+        setFilteredGoals(filteredGoals.map(item=>(item.id === id ? {...item, status:updated_status} : item)))
         }
 
   return (

@@ -7,10 +7,17 @@ use Illuminate\Http\Request;
 
 class CareerController extends Controller
 {
-    public function init () {
+    public function init (Request $request) {
+        $request->validate([
+            'startDate'=>'date',
+            'endDate'=>'date', 
+        ]);
         $user = auth()->user();
-
-        return response()->json(['message'=>'CareerData', 200]);
+        $userId = $user->id;
+        $startDate = $request->startDate;
+        $endDate = $request->endDate;
+        $goals = Career::whereBetween('date', [$startDate, $endDate])->where('user_id', $userId)->get() ;
+        return response()->json(['goals'=>$goals, 200]);
     }
     public function add_goal (Request $request) {
         $request->validate([

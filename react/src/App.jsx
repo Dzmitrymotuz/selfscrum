@@ -10,6 +10,7 @@ import { AuthProvider } from './components/Context/AuthContext'
 import Page404 from './components/Page404'
 import Main from './components/Main'
 import Dashboard from './components/Charts/Dashboard'
+import Report from './components/Report/Report'
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
           <Route path='/main' element={<Main/>}/>
           <Route path='/date/*' element={<SingleDay/>}/>
           <Route path='/calendar' element={<Calendar/>}/>
+          <Route path='/report' element={<Report/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/register' element={<Registration/>}/>
           <Route path='/dashboard' element={<Dashboard/>}/>

@@ -19,7 +19,9 @@ Route::post('/register', [UserController::class, 'register']);
 Route::middleware('auth:sanctum')->post('/logout', [UserController::class, 'logout']);
 //initial call for main page
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/dayload', [GoalsController::class, 'dayload']);
     Route::get('/init', [GoalsController::class, 'init']);
+    //Alltogether manage
     Route::get('/init-coding', [CodingController::class, 'init']);
     Route::get('/init-career', [CareerController::class, 'init']);
     Route::get('/init-work', [WorkController::class, 'init']);

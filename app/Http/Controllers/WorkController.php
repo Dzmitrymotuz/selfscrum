@@ -7,8 +7,17 @@ use Illuminate\Http\Request;
 
 class WorkController extends Controller
 {
-    public function init () {
-        return response()->json(['message'=>'WorkData', 200]);
+    public function init (Request $request) {
+        $request->validate([
+            'startDate'=>'date',
+            'endDate'=>'date', 
+        ]);
+        $user = auth()->user();
+        $userId = $user->id;
+        $startDate = $request->startDate;
+        $endDate = $request->endDate;
+        $goals = Work::whereBetween('date', [$startDate, $endDate])->where('user_id', $userId)->get() ;
+        return response()->json(['goals'=>$goals, 200]);
     }
     public function add_goal (Request $request) {
         $request->validate([

@@ -33,6 +33,39 @@ class GoalsController extends Controller
             'health' => $healthData,
         ]);
     }
+    private function getDayData($date, $id) {
+        $codingData = Coding::whereDate('date', $date)->where('user_id', $id)->get();
+        $healthData = Health::whereDate('date', $date)->where('user_id', $id)->get();
+        $workData = Work::whereDate('date', $date)->where('user_id', $id)->get();
+        $homeData = Home::whereDate('date', $date)->where('user_id', $id)->get();
+        $careerData = Career::whereDate('date', $date)->where('user_id', $id)->get();
+
+        return [
+            'work'=>$workData,
+            'coding' => $codingData, 
+            'career' => $careerData, 
+            'home' => $homeData,
+            'health' => $healthData,
+        ];
+    }
+    public function dayload (Request $request) {
+        $request->validate([
+                    'yesterday' => 'required|date_format:Y-m-d',
+                    'today' => 'required|date_format:Y-m-d',
+                    'tomorrow' => 'required|date_format:Y-m-d',
+                ]);
+        $user = auth()->user();
+        $userId = $user->id;
+        $yesterday = $request->input('yesterday');
+        $today = $request->input('today');
+        $tomorrow = $request->input('tomorrow');
+        return response()->json([
+            'yesterday'=>$this->getDayData($yesterday, $userId),
+            'today'=>$this->getDayData($today, $userId),
+            'tomorrow'=>$this->getDayData($tomorrow, $userId),
+        ]);
+    }
+
     public function calendar (Request $request) {
         $request->validate([
             'year'=>'integer',

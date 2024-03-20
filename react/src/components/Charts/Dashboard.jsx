@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { axiosGetDataWithPayload } from '../Api/Api';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, PieChart, Pie } from 'recharts';
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Cell } from 'recharts';
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, AreaChart, Area, Tooltip, ResponsiveContainer, Cell, BarChart, Bar, Rectangle, Legend} from 'recharts';
 import { formatDate  } from '../Api/Helpers'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -14,6 +14,7 @@ const Dashboard = () => {
     const [data, setData] = useState([])
     const [pieData, setPieData] = useState([])
     const [goalsData, setGoalsData] = useState([])
+    const [doneGoalsdata, setDoneGoalsData] = useState([])
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#d952c9']
 
     const [startDate, setStartDate] = useState(formatDate(new Date(new Date().setDate(new Date().getDate()-7))))
@@ -73,12 +74,34 @@ const Dashboard = () => {
             startDate: startDate,
             endDate: endDate,
         })
-        const doneChartData = Object.keys(response).map(category=>({
+        const goalsChartData = Object.keys(response).map(category=>({
             category: category,
             length: response[category].length,
         }));
-        setGoalsData(doneChartData)
-    }
+        setGoalsData(goalsChartData)
+
+        //Counts the Data for Done Goals VS Undone
+        const doneGoalsChartsData = Object.keys(response).map((category)=>{
+            const goals = response[category];
+            const categoryLength = response[category].length
+            let doneCount = 0;
+            let notDoneCount = 0;
+            goals.forEach((goal)=>{
+                if (goal.status === 0) {
+                    doneCount++;
+                }else {
+                    notDoneCount++
+                }
+            });
+            return {
+                category: category,
+                notDoneCount: doneCount,
+                doneCount: notDoneCount,
+                length: categoryLength,
+            }
+        })
+        setDoneGoalsData(doneGoalsChartsData)
+}
 
 
     useEffect(()=>{
@@ -116,9 +139,9 @@ const Dashboard = () => {
                     </div>
                     <ResponsiveContainer >
                         <RadarChart cx="50%" cy="50%" outerRadius="50%" data={pieData} >
+                        <Tooltip />
                         <PolarGrid />
                         <PolarAngleAxis dataKey="status" />
-                        {/* <PolarRadiusAxis domain={[0, data.length]} /> */}
                         <Radar name="mood" dataKey="amount" stroke={COLORS[2]} fill={COLORS[2]} fillOpacity={0.6} />
                         </RadarChart>
                     </ResponsiveContainer>
@@ -146,6 +169,7 @@ const Dashboard = () => {
                         </PieChart>
                     </ResponsiveContainer> 
                 </div>
+                
             </div>
             <div className='second_row flex flex-row justify-center my-5'>
                 <div className='cell flex flex-col w-[300px] h-[400px] sm:w-[90%]'>
@@ -157,11 +181,66 @@ const Dashboard = () => {
                             <CartesianGrid stroke="#ccc" />
                             <XAxis dataKey="date" />
                             <YAxis domain={[0, 5]} tickCount={6}/>
+                            <Tooltip />
                         </LineChart>
                     </ResponsiveContainer>
                 </div>
             </div>
-            
+            <div className='third_row flex flex-row justify-center my-5'>
+                <div className='cell flex flex-col w-[300px] h-[400px] sm:w-[90%]'>
+                    <span className='text-bold'>Goals chart</span>
+                    <span className='text-sm'>Done VS Undone</span>
+                    <ResponsiveContainer >
+                    <AreaChart
+                    width={500}
+                    height={400}
+                    data={doneGoalsdata}
+                    margin={{
+                        top: 10,
+                        right: 30,
+                        left: 0,
+                        bottom: 0,
+                    }}
+                    >
+                        <CartesianGrid strokeDasharray="0" />
+                        <XAxis dataKey="category" />
+                        <YAxis dataKey='length'/>
+                        <Tooltip />
+                        <Legend/>
+                        {/* <Area type="monotone" dataKey="length" name='Total' stackId="1" stroke="#8884d8" fill="#8884d8" /> */}
+                        <Area type="monotone" dataKey="doneCount" name='Done' stackId="1" stroke="#0088FE" fill="#0088FE" />
+                        <Area type="monotone" dataKey="notDoneCount" name='To Do' stackId="1" stroke="#ffc658" fill="#FF8042" />
+                    </AreaChart>
+                    </ResponsiveContainer>
+                </div>
+            </div>
+            <div className='fourth_row flex flex-row justify-center my-5'>
+                <div className='cell flex flex-col w-[300px] h-[400px] sm:w-[90%]'>
+                    <span className='text-bold'>Goals chart</span>
+                    <span className='text-sm'>Done VS Undone</span>
+                    <ResponsiveContainer >
+                    <BarChart
+                    width={500}
+                    height={300}
+                    data={doneGoalsdata}
+                    margin={{
+                        top: 5,
+                        right: 30,
+                        left: 20,
+                        bottom: 5,
+                    }}
+                    >
+                    <CartesianGrid strokeDasharray="0" />
+                    <XAxis dataKey="category" />
+                    <YAxis dataKey='length'/>
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="doneCount" name='Done' fill="#0088FE" activeBar={<Rectangle fill="#d952c9" stroke="#d952c9" />} />
+                    <Bar dataKey="notDoneCount" name='To Do' fill="#FFBB28" activeBar={<Rectangle fill="#FF8042" stroke="#FF8042" />} />
+                    </BarChart>
+                    </ResponsiveContainer>
+                </div>
+            </div> 
         </div>
     </div>
   )

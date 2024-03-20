@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react'
-import { axiosGetInitData } from './Api/Api'
+import { axiosGetInitData, axiosGetDataWithPayload } from './Api/Api'
 import { formatDate  } from './Api/Helpers'
 import GoalDisplayComponent from './GoalComponent/GoalDisplayComponent'
 import MoodComponent from './MoodComponent/MoodComponent'
 import CategorySet from './GoalComponent/CategorySet'
 
-
+export const categories = ['Coding', 'Work', 'Career', 'Home', 'Health', ]
 
 const WelcomeWindow = () => {
-const categories = ['Coding', 'Work', 'Career', 'Home', 'Health', ]
 const [yesterdayData, setYesterdayData] = useState([])
 const [initData, setInitData] = useState([])
 const [tomorrowData, setTomData] = useState([])
@@ -18,23 +17,16 @@ const [yesterday, setYesterday] = useState(formatDate(new Date(new Date().setDat
 
 const [ifDataChanged, setIfDataChanged] = useState(true)
 
-const fetchInitialData = async() => {
-    const data = await axiosGetInitData(today)
-    setInitData(data)
-}
-const fetchYesterdayData = async() => {
-    const data = await axiosGetInitData(yesterday)
-    setYesterdayData(data) 
-}
-const fetchTomorrowData = async() => {
-    const data = await axiosGetInitData(tomorrow)
-    setTomData(data) 
+const fetchDailyData = async() => {
+    const data = await axiosGetDataWithPayload('dayload', {yesterday, today, tomorrow});
+    setYesterdayData(data.yesterday) 
+    setInitData(data.today)
+    setTomData(data.tomorrow)
+    // console.log(data)
 }
 
 useEffect (()=>{ 
-    fetchInitialData() 
-    fetchTomorrowData() 
-    fetchYesterdayData()
+    fetchDailyData()
 }, [ifDataChanged])
 
 
@@ -70,48 +62,7 @@ useEffect (()=>{
                 data={tomorrowData}
                 setIfDataChanged={setIfDataChanged}
                 position='tomorrow'
-            /> 
-            {/* <div className='w-[400px] mx-5'> 
-            <p className='text-xs opacity-40 hover:opacity-100 duration-300'>Today</p>
-                <div className='categories_container'>
-                    {
-                    categories.map((category, index)=>(
-                        <div 
-                        key={category} 
-                        className='w-[300px] sm:w-[400px] flex flex-col border border-[#FFDDA1] bg-white mb-1 rounded-lg hover:border'
-                        >
-                            <span 
-                            className='goal-category rounded-t-md  text-sm ' 
-                            onClick={()=>toggleCategory(category)}
-                            >{category}</span>
-                            <div className={`rounded-b-lg overflow-auto duration-200 ${!categoryStates[category] ? 'min-h-[150px]' : 'h-1'}`} >
-                                <GoalDisplayComponent goals={initData} date={today} setIfDataChanged={setIfDataChanged} ifDataChanged={ifDataChanged} category={category.toLowerCase()}/>
-                            </div>
-                        </div>
-                    ))
-                    }
-                </div>
-            </div>
-            <div className='hidden sm:block w-[400px]'>
-            <p className='text-xs opacity-40 hover:opacity-100 duration-300'>Tomorrow</p>
-                <div className='categories_container'>
-                    {
-                    categories.map((category, index)=>(
-                        <div key={category} 
-                        className='flex flex-col border border-[#EDB230] bg-white mb-1  rounded-lg'
-                        >
-                            <span 
-                            onClick={()=>toggleCategory(category)}
-                            className='tommorow-goal-category rounded-t-md  text-sm'
-                            >{category}</span>
-                            <div className={`rounded-b-lg overflow-auto duration-200 ${!categoryStates[category] ? 'min-h-[150px]' : 'h-1'}`} >
-                                <GoalDisplayComponent goals={tomData} date={tomorrow} category={category.toLowerCase()}/>
-                            </div>
-                        </div>
-                    ))
-                    }
-                </div> 
-            </div> */}
+            />  
         </div>
     </div>
   )
