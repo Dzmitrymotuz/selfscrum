@@ -9,6 +9,7 @@ const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged, color})
     const inputRef = useRef()
     const [hidden, setHidden] = useState(true) 
 
+
     const fetchInitialData = async() => {
       const data = await axiosGetInitData(date)
       setFilteredGoals(data[category])
@@ -54,6 +55,7 @@ const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged, color})
     },[goals, category, date])
 
   return (
+    <>
     <div className={``}>
       {filteredGoals && filteredGoals.map((goal)=>( 
         <div key={goal.id} className='flex flex-row '>
@@ -93,6 +95,7 @@ const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged, color})
       } 
     </div>
     </div>
+    </>
   )
 }
 

@@ -5,10 +5,7 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, AreaChart, Area, Tooltip,
 import { formatDate  } from '../Api/Helpers'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-
-
-
+ 
 
 const Dashboard = () => {
     const [data, setData] = useState([])
@@ -191,7 +188,7 @@ const Dashboard = () => {
                     <span className='text-bold'>Goals chart</span>
                     <span className='text-sm'>Done VS Undone</span>
                     <ResponsiveContainer >
-                    <AreaChart
+                    <LineChart
                     width={500}
                     height={400}
                     data={doneGoalsdata}
@@ -207,16 +204,18 @@ const Dashboard = () => {
                         <YAxis dataKey='length'/>
                         <Tooltip />
                         <Legend/>
+                        <Line type="monotone" dataKey="doneCount" name='Done' stroke={COLORS[2]} strokeWidth={3} />
+                        <Line type="monotone" dataKey="notDoneCount" name='To Do' stroke={COLORS[4]} strokeWidth={3} />
                         {/* <Area type="monotone" dataKey="length" name='Total' stackId="1" stroke="#8884d8" fill="#8884d8" /> */}
-                        <Area type="monotone" dataKey="doneCount" name='Done' stackId="1" stroke="#0088FE" fill="#0088FE" />
-                        <Area type="monotone" dataKey="notDoneCount" name='To Do' stackId="1" stroke="#ffc658" fill="#FF8042" />
-                    </AreaChart>
+                        {/* <Area type="monotone" dataKey="doneCount" name='Done' stackId="1" stroke="#0088FE" fill="#0088FE" />
+                        <Area type="monotone" dataKey="notDoneCount" name='To Do' stackId="1" stroke="#ffc658" fill="#FF8042" /> */}
+                    </LineChart>
                     </ResponsiveContainer>
                 </div>
             </div>
             <div className='fourth_row flex flex-row justify-center my-5'>
                 <div className='cell flex flex-col w-[300px] h-[400px] sm:w-[90%]'>
-                    <span className='text-bold'>Goals chart</span>
+                    <span className='text-bold'>Goals Column chart</span>
                     <span className='text-sm'>Done VS Undone</span>
                     <ResponsiveContainer >
                     <BarChart
@@ -235,8 +234,8 @@ const Dashboard = () => {
                     <YAxis dataKey='length'/>
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="doneCount" name='Done' fill="#0088FE" activeBar={<Rectangle fill="#d952c9" stroke="#d952c9" />} />
-                    <Bar dataKey="notDoneCount" name='To Do' fill="#FFBB28" activeBar={<Rectangle fill="#FF8042" stroke="#FF8042" />} />
+                    <Bar dataKey="doneCount" name='Done' fill={COLORS[2]} activeBar={<Rectangle  />} />
+                    <Bar dataKey="notDoneCount" name='To Do' fill={COLORS[4]} activeBar={<Rectangle />} />
                     </BarChart>
                     </ResponsiveContainer>
                 </div>

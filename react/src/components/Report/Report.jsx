@@ -5,8 +5,8 @@ import { formatDate  } from '../Api/Helpers';
 import './Report.css';
 import Select from 'react-select'
 import { axiosGetDataWithPayload } from '../Api/Api';
-import ActionButton from '../GoalComponent/ActionButton';
 import SingleGoal from '../GoalComponent/SingleGoal';
+import Paginator from '../Helpers/Paginator';
 
 const categories = [
     { value: 'coding', label: 'Coding' },
@@ -33,10 +33,6 @@ const Report = () => {
     }
 
     const [selectedOption, setSelectedOption] = useState(categories[0].value);
-    const handleSelect = (option) => {
-        setSelectedOption(option);
-    };
-
 
 
     useEffect(()=>{
@@ -50,7 +46,7 @@ const Report = () => {
             <span>One space to manage your Goals</span>
         </div>
         <div className='zero-row border-0 rounded-sm mx-2 bg-gray-50 shadow-sm'>
-            <div className='p-4 my-4 flex justify-start md:justify-center items-center'>
+            <div className='p-4 my-4 flex justify-start md:justify-start items-center'>
                 <div className='flex flex-col md:grid md:grid-cols-4 grid-flow-col gap-2 '>
                     <div className='filter w-auto m-1 flex flex-col'>
                         <span className='text-xs'>Select start date</span>
@@ -74,15 +70,14 @@ const Report = () => {
                         onChange={(e)=>setSelectedOption(e.value)}
                         className='w-[150px]' 
                         options={categories}/>
-                    </div>
-                    
+                    </div> 
                 </div>
             </div>
         </div>
         <div className='top-row p-1 border-0 rounded-sm mx-2 bg-gray-50 shadow-sm'>
             <div className='mt-1'>
                 <span className='text-sm p-1 m-1 bg-gray-100 rounded-md shadow-inner text-gray-500'>Goals for {selectedOption} category:</span>
-                <div className='w-auto'>
+                <div className='w-auto'> 
                     <table className='w-full'>
                         <thead>
                             <tr>
@@ -92,21 +87,22 @@ const Report = () => {
                         </thead>
                         <tbody>
                             {goals && goals.map((goal)=>(
-                                <tr key={goal.id}>
-                                    <td>
-                                        <SingleGoal 
-                                        goal={goal}
-                                        category={selectedOption}
-                                        filteredGoals={goals}
-                                        setFilteredGoals={setGoals}
-                                        date={goal.date}
-                                        />
-                                    </td>
-                                    <td className='bg-white rounded-md px-1 py-0 flex justify-center mx-3 my-0.5'>
-                                        {goal.date}
-                                    </td> 
+                                // <Paginator>
+                                <tr key={goal.id} className=' hover:bg-gray-100 rounded-lg '> 
+                                        <td> 
+                                            <SingleGoal 
+                                            goal={goal}
+                                            category={selectedOption}
+                                            filteredGoals={goals}
+                                            setFilteredGoals={setGoals}
+                                            date={goal.date}
+                                            /> 
+                                        </td>
+                                        <td className='text-xs sm:text-base bg-white rounded-md px-1 py-0 flex justify-center mx-3 my-0.5'>
+                                            {goal.date}
+                                        </td>  
                                 </tr>
-                                
+                                // </Paginator>
                             ))}
                         </tbody>
                     </table>

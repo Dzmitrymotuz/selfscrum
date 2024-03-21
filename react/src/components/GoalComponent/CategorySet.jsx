@@ -10,6 +10,8 @@ const CategorySet = ({categories, date, data, setIfDataChanged, position}) => {
     const [color, setColor] = useState('')
 
 
+
+
     const toggleCategory = (category) => {
         setCategoryStates(prevState => ({
             ...prevState,
@@ -75,6 +77,7 @@ const CategorySet = ({categories, date, data, setIfDataChanged, position}) => {
                                 className={`w-3 mx-1 ${categoryStates[category] ? 'rotate-180' : ''} hover:cursor-pointer`}
                                 />
                             </span>
+                             
                             <div className={`overflow-auto duration-200 bg-gray-50  ${!categoryStates[category] ? 'min-h-[150px]' : 'h-0'}`} >
                                 <GoalDisplayComponent 
                                 goals={initData} 

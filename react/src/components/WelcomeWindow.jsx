@@ -15,6 +15,9 @@ const [today, setToday] = useState(formatDate(new Date()))
 const [tomorrow, setTommorow] = useState(formatDate(new Date(new Date().setDate(new Date().getDate()+1))))
 const [yesterday, setYesterday] = useState(formatDate(new Date(new Date().setDate(new Date().getDate()-1))))
 
+const [loading, setLoading] = useState(true)
+
+
 const [ifDataChanged, setIfDataChanged] = useState(true)
 
 const fetchDailyData = async() => {
@@ -22,6 +25,7 @@ const fetchDailyData = async() => {
     setYesterdayData(data.yesterday) 
     setInitData(data.today)
     setTomData(data.tomorrow)
+    setLoading(false)
     // console.log(data)
 }
 
@@ -41,6 +45,11 @@ useEffect (()=>{
             </div> 
             <div className='bg-black w-[100%] h-[1px] opacity-5 mb-3'/> 
         </div>
+        {loading ?
+            <div className='text-lg flex justify-center animate-bounce'>
+                Loading...
+            </div>
+            :
         <div className='flex flex-col sm:flex-row items-top justify-start mx-auto max-w-[1200px]'>
             <CategorySet 
                 categories={categories} 
@@ -63,7 +72,7 @@ useEffect (()=>{
                 setIfDataChanged={setIfDataChanged}
                 position='tomorrow'
             />  
-        </div>
+        </div>}
     </div>
   )
 }
