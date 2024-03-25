@@ -4,6 +4,7 @@ import { formatDate  } from './Api/Helpers'
 import GoalDisplayComponent from './GoalComponent/GoalDisplayComponent'
 import MoodComponent from './MoodComponent/MoodComponent'
 import CategorySet from './GoalComponent/CategorySet'
+import SunWidget from './Widgets/SunWidget'
 
 export const categories = ['Coding', 'Work', 'Career', 'Home', 'Health', ]
 
@@ -36,6 +37,7 @@ useEffect (()=>{
 
   return (
     <div className='main-container '>
+        <SunWidget/>
         <div className=''>
             <div className='grid place-items-center pt-5 text-lg'>
                 <span>Today is <span className='text-bold'>{new Date().toDateString()}</span></span>
