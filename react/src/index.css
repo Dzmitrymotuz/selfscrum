@@ -6,21 +6,24 @@
 
 :root {
  --navajo-white: #FFDDA1;
- --sunglow: #FFD151;
- --saffron: #F8C537;
- --xanthous: #EDB230;
- --pumpkin: #E77728;
+ /* --sunglow: #FFD151; */
+ /* --saffron: #F8C537; */
+ /* --xanthous: #EDB230; */
+ /* --pumpkin: #E77728; */
 
 --green: #32989A;
 --orange: #FF871F;
 --purple: #8A37D2;
---darkpurple: #411467;
---raspberry: #EE1B6C;
 
- --blue-light: #8ECAE6;
- --blue-mid: #219EBC;
- --blue-dark: #023047;
- --yellow: #FFB703;
+
+ --new-yellow: #FFC636;
+ --new-blue: #33C9F7;
+ --new-orange: #FFA533;
+ --new-purple: #6C73E7;
+ --new-bg: #F9F8FD;
+ --new-container-bg: #D3D7F8;
+ --new-main-blue: #1F5678;
+ --new-green: #69BE82;
 }
 
 @layer utilities {
@@ -31,9 +34,9 @@
 
 body {
   font-family: 'Nunito Sans';
-  background-color: rgb(245, 245, 245);
-  /* background-color: rgb(48, 47, 47);
-  color: #8ECAE6; */
+  background-color: #F5FBFF;
+  /* background-color: rgb(245, 245, 245); */
+  /* color: #8ECAE6;  */
 }
 input{
   border: 1px solid var(--navajo-white);
@@ -68,10 +71,10 @@ input{
   color: var(--orange);
 }
 .textpurple{
-  color: var(--purple);
+  color: var(--new-purple);
 }
 .textgreen{
-  color: var(--green);
+  color: var(--new-green);
 }
 .bgorange {
   background-color: var(--orange);
@@ -82,14 +85,12 @@ input{
 .bggreen {
   background-color: var(--green);
 }
+.bgyellow {
+  background-color: var(--yellow);
+}
 .bggradyellow{
-  background-image: linear-gradient(to bottom, var(--navajo-white), var(--xanthous));
-}
-.bggradpurple{
-  background-image: linear-gradient(to bottom, var(--navajo-white), #ffb4a3);
-}
-.bggradgreen{
-  background-image: linear-gradient(to bottom, var(--navajo-white), #e7ffa3);
+  /* background-image: linear-gradient(to bottom, var(--navajo-white), var(--new-yellow)); */
+  background-image: linear-gradient(to bottom,  #f7ead0, var(--new-yellow));
 }
 .borderorange {
   border: 3px solid var(--orange);
@@ -105,21 +106,22 @@ input{
 }
 
 .ss-btn {
-  background-color: var(--navajo-white);
-  border: 1px solid var(--sunglow);
-  border-radius: 6px;
+  background-color: var(--orange);
+  /* border: 1px solid var(--orange); */
+  border-radius: 5px;
   padding: 5px;
-  /* width: auto; */
-  color: var(--pumpkin);
+  color: white;
 }
 .ss-btn:hover{
-  background-color: var(--sunglow);
-  color: var(--pumpkin);
+  background-color: var(--new-yellow);
+  color: white;
+  border: none;
   transition: 0.5s ease;
 }
 
 .pad-container {
-  background-color: rgba(255, 222, 173, 0.5);
+  background-color: var(--green);
+  color: white;
   padding-top: 20px;
   margin: 50px 0 0 0;
   border-radius: 6px;
@@ -130,21 +132,27 @@ input{
   margin: 25px;
   padding: 25px;
   text-align: center;
-  background-color: var(--navajo-white);
+  background-color: var(--green);
   border-radius: 8px;
   width: 300px;
   border: 1px solid var(--xanthous);
 }
 .goal-done {
-  color: var(--pumpkin);
+  color: var(--new-orange);  
 }
 .goal-active {
 
 }
 .cell {
-  padding: 5px;
-  background: rgb(249, 248, 248);
-  border-radius: 5px;
-  border: 1px solid rgb(235, 235, 235);
+  padding: 5%;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid rgb(230, 237, 245);
   box-shadow: 5px 5px 10px rgb(227, 227, 227);
+}
+.bluebg {
+  background: var(--new-bg); 
+}
+.newmainblue{
+  background-color: var(--new-main-blue);
 }

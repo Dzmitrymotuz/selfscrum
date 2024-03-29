@@ -12,6 +12,7 @@ const Dashboard = () => {
     const [pieData, setPieData] = useState([])
     const [goalsData, setGoalsData] = useState([])
     const [doneGoalsdata, setDoneGoalsData] = useState([])
+    const [goalsByDay, setGoalsByDay] = useState([])
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#d952c9']
 
     const [startDate, setStartDate] = useState(formatDate(new Date(new Date().setDate(new Date().getDate()-7))))
@@ -98,6 +99,35 @@ const Dashboard = () => {
             }
         })
         setDoneGoalsData(doneGoalsChartsData)
+
+
+        //sets data for Goals on time period
+        const goalsTimeFrame = {} 
+        const dateAmount = Object.keys(response).map((category)=>{
+            response[category].map((key)=>{
+                if (goalsTimeFrame[key.date]) {
+                    if (key.status === 1) {
+                        goalsTimeFrame[key.date].doneGoals++;
+                    }else{
+                        goalsTimeFrame[key.date].notDoneGoals++;
+                    }
+                }else{
+                    goalsTimeFrame[key.date] = {
+                        doneGoals: key.status === 1 ? 1 : 0,
+                        notDoneGoals: key.status === 0 ? 1 : 0,
+                    }
+                } 
+            })
+        })    
+        const chartData = Object.entries(goalsTimeFrame).map(([date, counts])=>({
+            date: date,
+            done: counts.doneGoals,
+            notDone: counts.notDoneGoals
+        }))
+        chartData.sort((a, b) => {
+            return new Date(a.date) - new Date(b.date);
+        });
+        setGoalsByDay(chartData) 
 }
 
 
@@ -128,7 +158,7 @@ const Dashboard = () => {
                     />
                 </div>
             </div>
-            <div className='first-row flex md:flex-row w-[90%] flex-col justify-center items-center mx-auto'> 
+            <div className='first-row flex md:flex-row w-[90%] flex-col justify-center items-center mx-auto '> 
                 <div className='flex-grow cell flex-col w-[300px] h-[300px] sm:w-[450px]'>
                     <div className='flex flex-col'>
                         <span className='text-bold'>Mood Radar Visual</span>
@@ -191,7 +221,7 @@ const Dashboard = () => {
                     <LineChart
                     width={500}
                     height={400}
-                    data={doneGoalsdata}
+                    data={goalsByDay}
                     margin={{
                         top: 10,
                         right: 30,
@@ -200,15 +230,13 @@ const Dashboard = () => {
                     }}
                     >
                         <CartesianGrid strokeDasharray="0" />
-                        <XAxis dataKey="category" />
-                        <YAxis dataKey='length'/>
+                        <XAxis dataKey="date" />
+                        <YAxis dataKey=''/>
                         <Tooltip />
                         <Legend/>
-                        <Line type="monotone" dataKey="doneCount" name='Done' stroke={COLORS[2]} strokeWidth={3} />
-                        <Line type="monotone" dataKey="notDoneCount" name='To Do' stroke={COLORS[4]} strokeWidth={3} />
-                        {/* <Area type="monotone" dataKey="length" name='Total' stackId="1" stroke="#8884d8" fill="#8884d8" /> */}
-                        {/* <Area type="monotone" dataKey="doneCount" name='Done' stackId="1" stroke="#0088FE" fill="#0088FE" />
-                        <Area type="monotone" dataKey="notDoneCount" name='To Do' stackId="1" stroke="#ffc658" fill="#FF8042" /> */}
+                        <Line type="monotone" dataKey="done" name='Done' stroke={COLORS[2]} strokeWidth={3} />
+                        <Line type="monotone" dataKey="notDone" name='To Do' stroke={COLORS[4]} strokeWidth={3} />
+                         
                     </LineChart>
                     </ResponsiveContainer>
                 </div>

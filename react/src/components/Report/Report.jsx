@@ -42,8 +42,8 @@ const Report = () => {
 
   return (
     <div className='main-container '> 
-        <div className='border-b-2 border-slate-300 text-lg mx-4 pt-2'>
-            <span>One space to manage your Goals</span>
+        <div className='border-b-2 border-slate-300 text-lg mx-4 pt-2 '>
+            <span className=''>One space to manage your Goals</span>
         </div>
         <div className='zero-row border-0 rounded-sm mx-2 bg-gray-50 shadow-sm'>
             <div className='p-4 my-4 flex justify-start md:justify-start items-center'>
@@ -74,14 +74,14 @@ const Report = () => {
                 </div>
             </div>
         </div>
-        <div className='top-row p-1 border-0 rounded-sm mx-2 bg-gray-50 shadow-sm'>
-            <div className='mt-1'>
-                <span className='text-sm p-1 m-1 bg-gray-100 rounded-md shadow-inner text-gray-500'>Goals for {selectedOption} category:</span>
+        <div className='bluebg top-row p-1 border-0 rounded-sm mx-2 shadow-sm '>
+            <div className='mt-1 rounded-lg py-5 px-2'>
+                <span className='text-sm p-1 m-1 bg-gray-100 rounded-md shadow-inner text-white bgorange'>Goals for {selectedOption} category:</span>
                 <div className='w-auto'> 
-                    <table className='w-full'>
+                    <table className='w-full '>
                         <thead>
-                            <tr>
-                                <th className='w-3/5 md:w-4/5'>Goals ({goals.length})</th>
+                            <tr className=''>
+                                <th className='w-3/5 md:w-4/5 '>Goals ({goals.length})</th>
                                 <th className='w-2/5 md:w-1/5'>Date</th> 
                             </tr>
                         </thead>
@@ -98,7 +98,7 @@ const Report = () => {
                                             date={goal.date}
                                             /> 
                                         </td>
-                                        <td className='text-xs sm:text-base bg-white rounded-md px-1 py-0 flex justify-center mx-3 my-0.5'>
+                                        <td className='text-xs py-1 sm:text-base bg-white rounded-md px-1 sm:py-0 flex justify-center mx-3 my-0.5'>
                                             {goal.date}
                                         </td>  
                                 </tr>

@@ -12,7 +12,8 @@
 
 @layer utilities {
     .navbar-container{
-        @apply pt-[20px] max-w-[150px] min-w-[50px] fixed bg-[#eaeaea] text-[#black] h-full;
+        @apply pt-[20px] max-w-[150px] min-w-[50px] fixed bg-[#FF871F] text-[#black] h-full;
+        /* @apply pt-[20px] max-w-[150px] min-w-[50px] fixed bg-[#1F5678] text-[#black] h-full; */
     }
     .navlink{
         @apply p-[5px]  ;

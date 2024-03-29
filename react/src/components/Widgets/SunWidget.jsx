@@ -31,22 +31,15 @@ const SunWidget = () => {
     }, [check])
 
   return (
-    <div className='relative w-[100%] h-[100px] bg-blue-100'>
+    <div className='relative w-[100%] h-[ bg-blue-100'>
         <div className='flex flex-col'>
         {`${time.getHours()} : ${time.getMinutes()}`}
-        <div>{position}</div>
-        <button onClick={()=>{
-            setCheck(!check)
-            setPosition(0)}}
-        className='bg-red-100'
-        >Zero</button>
+            <div>{position}</div> 
         </div>
-      <div 
-      className={`absolute w-5 h-5 bg-yellow-400 rounded-full`}
-      style={{left: `${position}%`}}
-      ></div>
-      
-      
+        <div 
+        className={`absolute w-5 h-5 bg-yellow-400 rounded-full`}
+        style={{left: `${position}%`}}
+        />  
     </div>
   )
 }

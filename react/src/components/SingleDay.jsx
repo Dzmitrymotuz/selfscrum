@@ -33,8 +33,8 @@ useEffect (()=>{
   return (
     <div className='main-container'>
         <div className='flex flex-col'>
-            <div className='grid place-items-center pt-5 mb-5'>
-                <span >{params['*']}</span>
+            <div className='grid place-items-center pt-5 mb-5 rounded-md'>
+                <span className='bgorange text-white rounded-md px-2 py-1 text-xl' >{params['*']}</span>
             </div>
             <div className='flex justify-center items-center'>
                 <MoodComponent date={params['*']}/>
@@ -47,7 +47,7 @@ useEffect (()=>{
                     categories.map((category, index)=>(
                         <div key={category} className='flex flex-col border mb-1 rounded-sm'>
                             <span 
-                            className='rounded-t-sm bgraspberry goal-category text-sm ' 
+                            className='rounded-t-sm bgorange goal-category text-sm ' 
                             onClick={()=>toggleCategory(category)}
                             >{category}</span>                            
                             <div className={`rounded-b-lg overflow-auto duration-200 ${!categoryStates[category] ? 'min-h-[150px]' : 'h-1'}`}>

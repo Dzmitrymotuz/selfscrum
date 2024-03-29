@@ -37,7 +37,7 @@ useEffect (()=>{
 
   return (
     <div className='main-container '>
-        <SunWidget/>
+        {/* <SunWidget/> */}
         <div className=''>
             <div className='grid place-items-center pt-5 text-lg'>
                 <span>Today is <span className='text-bold'>{new Date().toDateString()}</span></span>

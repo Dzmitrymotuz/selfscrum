@@ -80,7 +80,7 @@ const Calendar = () => {
         const days = []
 
         for (let i=0;i<firstDayOfMonth;i++) {
-            days.unshift(<div key={i-31} className='bggradyellow opacity-20 rounded-md m-1 p-1 min-h-[70px] sm:min-h-[140px]'></div>)
+            days.unshift(<div key={i-31} className='bggradyellows opacity-20 rounded-md m-1 p-1 min-h-[70px] sm:min-h-[140px]'></div>)
         }
 
 
@@ -91,10 +91,10 @@ const Calendar = () => {
             days.push(
                 <div  
                 key={i}
-                className={`min-h-[70px] sm:min-h-[140px] m-1 bggradyellow rounded-md text-left p-1 opacity-80 hover:opacity-100  hover:scale-105 duration-200
-                ${currentDate.getDate() < day ? 'bordergreen  bg-opacity-10' : ''} 
-                ${currentDate.getDate() === day ? 'borderorange bggradyellow ' : ''} 
-                ${currentDate.getDate() > day ? 'borderpurple ' : ''}`}
+                className={`min-h-[70px] sm:min-h-[140px] m-1 bggradyellows rounded-md text-left p-1 opacity-80 hover:opacity-100  hover:scale-105 duration-200
+                ${currentDate.getDate() < day ? 'bordergreen bggreen' : ''} 
+                ${currentDate.getDate() === day ? 'borderorange bgorange' : ''} 
+                ${currentDate.getDate() > day ? 'borderpurple bgpurple' : ''}`}
                 onClick={()=>handleClick(i)}
                 >
                     <div className='text-sm w-auto flex justify-between rounded text-right'>
@@ -120,16 +120,20 @@ const Calendar = () => {
                             ${currentDate.getDate() === day ? 'textorange bg-white borderorange ' : ''} 
                             ${currentDate.getDate() > day ? 'textpurple' : ''}`}> {`${day}`} </span>
                     </div>
-                        <div className='flex flex-col px-2 '>
+                        <div className='flex flex-col'>
                         {
                     monthData[dayKey] ? Object.keys(monthData[dayKey]).map((item, i) =>
                         (    
-                            <div key={i} className='hidden sm:flex justify-between'>
+                            <div key={i} className={`block sm:flex justify-between text-white px-2 rounded-sm
+                            ${currentDate.getDate() < day ? 'text-white bggreen' : ''} 
+                            ${currentDate.getDate() === day ? 'text-white bgorange' : ''} 
+                            ${currentDate.getDate() > day ? 'text-white bgpurple' : ''}
+                            `}>
                                 {item != 'mood' ? <span className='hidden sm:block'>{item}: </span> : ''}
                                 {item != 'mood' ? <span>{monthData[dayKey][item].length}</span> : ''}
                             </div>
                         )) : 
-                        <div className='hidden sm:block text-center opacity-20'>
+                        <div className='hidden sm:block text-center opacity-40 text-white'>
                             No data
                         </div>
                         }
@@ -162,7 +166,7 @@ const Calendar = () => {
                 {WEEKDAYS.map((day)=>(
                     <div 
                     key={day}
-                    className='pumpkinborder textpumpkin bgmain rounded-md text-center p-1'
+                    className='bgorange text-white rounded-md text-center p-1'
                     >{day}</div>
                 ))}
                 {monthData && render(monthData)}
