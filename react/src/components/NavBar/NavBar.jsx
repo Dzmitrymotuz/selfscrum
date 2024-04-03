@@ -44,6 +44,9 @@ const NavBar = () => {
         <Link to='/report'> 
           <img src='/report_w.svg' title='report' className='w-8 mx-2 my-3 hover:rotate-45 transition ease duration-300' style={{ fill: '#ff0000' }}/>
         </Link>
+        <Link to='/wheel'> 
+          <img src='/report_w.svg' title='Wheel of Life' className='w-8 mx-2 my-3 hover:rotate-45 rotate-180 transition ease duration-300' style={{ fill: '#ff0000' }}/>
+        </Link>
         <Link to='/login'> 
           <img src='/user_w.svg' title='login' className='w-8 mx-2 my-3 hover:rotate-45 transition ease duration-300'/>
         </Link>

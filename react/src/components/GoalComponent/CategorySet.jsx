@@ -1,16 +1,13 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState} from 'react'
 import GoalDisplayComponent from './GoalDisplayComponent'
-import { axiosGetInitData } from '../Api/Api';
+
 
 
 const CategorySet = ({categories, date, data, setIfDataChanged, position}) => {
     const [categoryStates, setCategoryStates] = useState({});
     const [initData, setInitData] = useState([])
     const [toggled, setToggled] = useState(true) 
-    const [color, setColor] = useState('')
-
-
-
+    const [color, setColor] = useState('')    
 
     const toggleCategory = (category) => {
         setCategoryStates(prevState => ({
@@ -18,6 +15,7 @@ const CategorySet = ({categories, date, data, setIfDataChanged, position}) => {
         [category]: !prevState[category]
     }));
     };
+
 
     const applyColor = (position) => {
         switch (position) {
@@ -55,7 +53,7 @@ const CategorySet = ({categories, date, data, setIfDataChanged, position}) => {
             </button> 
             <img 
             src='/up-black.svg'
-            className={`w-3 mx-1 ${toggled ? '' : 'rotate-180'}`}/>
+            className={`w-3 mx-0 ${toggled ? '' : 'rotate-180'}`}/>
         </div>
       <div className={toggled ? `w-auto mx-1` : 'hidden'}> 
             <p className='text-xs opacity-40 hover:opacity-100 duration-300'></p>

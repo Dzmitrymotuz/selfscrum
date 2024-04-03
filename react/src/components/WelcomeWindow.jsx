@@ -1,12 +1,11 @@
-import React, {useEffect, useState} from 'react'
-import { axiosGetInitData, axiosGetDataWithPayload } from './Api/Api'
+import React, {useContext, useEffect, useState} from 'react'
+import { axiosGetDataWithPayload } from './Api/Api'
 import { formatDate  } from './Api/Helpers'
-import GoalDisplayComponent from './GoalComponent/GoalDisplayComponent'
 import MoodComponent from './MoodComponent/MoodComponent'
 import CategorySet from './GoalComponent/CategorySet'
-import SunWidget from './Widgets/SunWidget'
 
 export const categories = ['Coding', 'Work', 'Career', 'Home', 'Health', ]
+
 
 const WelcomeWindow = () => {
 const [yesterdayData, setYesterdayData] = useState([])
@@ -37,7 +36,6 @@ useEffect (()=>{
 
   return (
     <div className='main-container '>
-        {/* <SunWidget/> */}
         <div className=''>
             <div className='grid place-items-center pt-5 text-lg'>
                 <span>Today is <span className='text-bold'>{new Date().toDateString()}</span></span>
@@ -53,27 +51,27 @@ useEffect (()=>{
             </div>
             :
         <div className='flex flex-col sm:flex-row items-top justify-start mx-auto max-w-[1200px]'>
-            <CategorySet 
-                categories={categories} 
-                date={yesterday}
-                data={yesterdayData}
-                setIfDataChanged={setIfDataChanged}
-                position='yesterday'
-            /> 
-            <CategorySet 
-                categories={categories} 
-                date={today}
-                data={initData}
-                setIfDataChanged={setIfDataChanged}
-                position='today'
-            /> 
-            <CategorySet 
-                categories={categories} 
-                date={tomorrow}
-                data={tomorrowData}
-                setIfDataChanged={setIfDataChanged}
-                position='tomorrow'
-            />  
+                <CategorySet 
+                    categories={categories} 
+                    date={yesterday}
+                    data={yesterdayData}
+                    setIfDataChanged={setIfDataChanged}
+                    position='yesterday'
+                /> 
+                <CategorySet 
+                    categories={categories} 
+                    date={today}
+                    data={initData}
+                    setIfDataChanged={setIfDataChanged}
+                    position='today'
+                /> 
+                <CategorySet 
+                    categories={categories} 
+                    date={tomorrow}
+                    data={tomorrowData}
+                    setIfDataChanged={setIfDataChanged}
+                    position='tomorrow'
+                />  
         </div>}
     </div>
   )

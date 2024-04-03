@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import ActionButton from './ActionButton'
-import { axiosDeleteData, axiosPostData, axiosPutData, axiosGetInitData } from '../Api/Api'
+import { axiosDeleteData, axiosPostData, axiosPutData } from '../Api/Api'
 
 
 
@@ -60,7 +60,7 @@ const SingleGoal = ({goal, category, setFilteredGoals, filteredGoals, date, setI
   return (
     <div 
     // onClick={()=>handleStatusChange(goal.id, goal.status)}
-    className='flex justify-between w-full bg-white hover:bg-slate-50 rounded-md m-0.5'>
+    className=' flex justify-between w-full bg-white hover:bg-slate-50 rounded-md m-0.5'>
         <div className='mx-2 '>
             <span className={`${goal.status === 1 ? 'goal-done' : 'goal-active'}`}>
                  {`${goal.status === 0 ? '○' : '●'}`}

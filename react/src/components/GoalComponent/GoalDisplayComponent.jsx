@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { axiosDeleteData, axiosPostData, axiosPutData, axiosGetInitData } from '../Api/Api'
-import ActionButton from './ActionButton'
+import { axiosPostData, axiosGetInitData } from '../Api/Api'
 import SingleGoal from './SingleGoal'
 
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Link, useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { axiosGetDataWithPayload } from '../Api/Api';
 
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
@@ -50,6 +50,8 @@ const Calendar = () => {
                 return <div className='w-4 h-4 bg-[#79c9ff]'/>
             case 5:
                 return <div className='w-4 h-4 bg-[#4bdeff]'/>
+            default:
+                return <div className='w-4 h-4 bg-[#010101]'/>
         }
     }
 
@@ -93,7 +95,7 @@ const Calendar = () => {
                 key={i}
                 className={`min-h-[70px] sm:min-h-[140px] m-1 bggradyellows rounded-md text-left p-1 opacity-80 hover:opacity-100  hover:scale-105 duration-200
                 ${currentDate.getDate() < day ? 'bordergreen bggreen' : ''} 
-                ${currentDate.getDate() === day ? 'borderorange bgorange' : ''} 
+                ${currentDate.getDate() === day ? 'borderorange bgorange-calendar' : ''} 
                 ${currentDate.getDate() > day ? 'borderpurple bgpurple' : ''}`}
                 onClick={()=>handleClick(i)}
                 >
@@ -105,7 +107,7 @@ const Calendar = () => {
                                 item === 'mood'? 
                                 <div 
                                 key={i} 
-                                className={`${mood} hidden sm:flex items-center mx-1`}
+                                className={`${mood} hiddens sm:flex items-center mx-1`}
                                 >
                                     {handleMood(monthData[dayKey][item][0].mood)}
                                 </div> 
@@ -124,16 +126,16 @@ const Calendar = () => {
                         {
                     monthData[dayKey] ? Object.keys(monthData[dayKey]).map((item, i) =>
                         (    
-                            <div key={i} className={`block sm:flex justify-between text-white px-2 rounded-sm
-                            ${currentDate.getDate() < day ? 'text-white bggreen' : ''} 
-                            ${currentDate.getDate() === day ? 'text-white bgorange' : ''} 
-                            ${currentDate.getDate() > day ? 'text-white bgpurple' : ''}
+                            <div key={i} className={`block sm:flex justify-between text-black px-2 rounded-sm
+                            ${currentDate.getDate() < day ? ' bggreen' : ''} 
+                            ${currentDate.getDate() === day ? '' : ''} 
+                            ${currentDate.getDate() > day ? ' bgpurple' : ''}
                             `}>
                                 {item != 'mood' ? <span className='hidden sm:block'>{item}: </span> : ''}
                                 {item != 'mood' ? <span>{monthData[dayKey][item].length}</span> : ''}
                             </div>
                         )) : 
-                        <div className='hidden sm:block text-center opacity-40 text-white'>
+                        <div className='hidden sm:block text-center opacity-40 text-black'>
                             No data
                         </div>
                         }
@@ -170,7 +172,6 @@ const Calendar = () => {
                     >{day}</div>
                 ))}
                 {monthData && render(monthData)}
-                {/* {console.log(monthData)} */}
             </div>
         </div> 
     </div>

@@ -6,7 +6,6 @@ import './Report.css';
 import Select from 'react-select'
 import { axiosGetDataWithPayload } from '../Api/Api';
 import SingleGoal from '../GoalComponent/SingleGoal';
-import Paginator from '../Helpers/Paginator';
 
 const categories = [
     { value: 'coding', label: 'Coding' },
@@ -26,10 +25,8 @@ const Report = () => {
             startDate: startDate,
             endDate: endDate,
         }
-        // const response = axiosGetDataWithPayload(`${selectedOption}/get-range`)
         const response = await axiosGetDataWithPayload(`init-${selectedOption}`, payload)
         setGoals(response.goals)
-        // console.log(response)
     }
 
     const [selectedOption, setSelectedOption] = useState(categories[0].value);
@@ -44,6 +41,8 @@ const Report = () => {
     <div className='main-container '> 
         <div className='border-b-2 border-slate-300 text-lg mx-4 pt-2 '>
             <span className=''>One space to manage your Goals</span>
+        </div>
+        <div>
         </div>
         <div className='zero-row border-0 rounded-sm mx-2 bg-gray-50 shadow-sm'>
             <div className='p-4 my-4 flex justify-start md:justify-start items-center'>

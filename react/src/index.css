@@ -76,24 +76,26 @@ input{
 .textgreen{
   color: var(--new-green);
 }
+.bgorange-calendar {
+  background-color: #fbdfc6;
+}
 .bgorange {
-  background-color: var(--orange);
+  background-color: #FF871F;
 }
 .bgpurple {
-  background-color: var(--purple);  
+  background-color: #f5eafe;  
 }
 .bggreen {
-  background-color: var(--green);
+  background-color: #ddf1f1;
 }
 .bgyellow {
   background-color: var(--yellow);
 }
 .bggradyellow{
-  /* background-image: linear-gradient(to bottom, var(--navajo-white), var(--new-yellow)); */
   background-image: linear-gradient(to bottom,  #f7ead0, var(--new-yellow));
 }
 .borderorange {
-  border: 3px solid var(--orange);
+  border: 1px solid var(--orange);
 }
 .borderpurple {
   border: 0.5px solid var(--purple);
@@ -107,7 +109,6 @@ input{
 
 .ss-btn {
   background-color: var(--orange);
-  /* border: 1px solid var(--orange); */
   border-radius: 5px;
   padding: 5px;
   color: white;
@@ -144,7 +145,7 @@ input{
 
 }
 .cell {
-  padding: 5%;
+  padding: 3%;
   background: white;
   border-radius: 10px;
   border: 1px solid rgb(230, 237, 245);

@@ -14,7 +14,6 @@ const Dashboard = () => {
     const [doneGoalsdata, setDoneGoalsData] = useState([])
     const [goalsByDay, setGoalsByDay] = useState([])
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#d952c9']
-
     const [startDate, setStartDate] = useState(formatDate(new Date(new Date().setDate(new Date().getDate()-7))))
     const [endDate, setEndDate] = useState(formatDate(new Date()))
 
@@ -169,7 +168,7 @@ const Dashboard = () => {
                         <Tooltip />
                         <PolarGrid />
                         <PolarAngleAxis dataKey="status" />
-                        <Radar name="mood" dataKey="amount" stroke={COLORS[2]} fill={COLORS[2]} fillOpacity={0.6} />
+                        <Radar name="mood" dataKey="amount" stroke={COLORS[0]} fill={COLORS[0]} fillOpacity={0.7} />
                         </RadarChart>
                     </ResponsiveContainer>
                 </div>
@@ -185,8 +184,8 @@ const Dashboard = () => {
                             data={goalsData}
                             cx="50%"
                             cy="50%"
-                            outerRadius={80}
-                            innerRadius={50}
+                            outerRadius={65}
+                            innerRadius={40}
                             label={({category, value}) => `${category.toUpperCase()}: ${value}`}
                         >
                         {goalsData.map((entry, index)=> (
