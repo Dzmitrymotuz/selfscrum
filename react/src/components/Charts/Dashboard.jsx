@@ -5,6 +5,7 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, AreaChart, Area, Tooltip,
 import { formatDate  } from '../Api/Helpers'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Gemini, { dashboard_message } from '../AI/Gemini';
  
 
 const Dashboard = () => {
@@ -29,7 +30,7 @@ const Dashboard = () => {
         setData(ass_arr)
         //Counts data for piechart
         const moodCounts = { 
-            'I want to die': 0,
+            'Very Bad': 0,
             'Bad': 0,
             'Below Average': 0,
             'Ok': 0,
@@ -41,7 +42,7 @@ const Dashboard = () => {
             const mood = response.mood_object[date]
             switch (mood) {
                 case 0:
-                    moodCounts['I want to die']++
+                    moodCounts['Very Bad']++
                     break
                 case 1:
                     moodCounts['Bad']++
@@ -64,7 +65,7 @@ const Dashboard = () => {
             return {status: status, 
                     amount: amount * 100 / ass_arr.length}
         })
-        setPieData(result)
+        setPieData(result) 
     }
     const fetchGoalsData = async() => {
         const response = await axiosGetDataWithPayload('get-goals-range', {
@@ -140,7 +141,7 @@ const Dashboard = () => {
   return (
     <div className='main-container'>
         <div className='wrapper flex flex-col'>
-            <span className='text-lg text-bold flex items-center justify-center mt-5'>InfoBoard</span>
+            <span className='text-lg text-bold flex items-center justify-center mt-2'>InfoBoard</span>
             <div className='zero-row w-auto flex justify-center mt-5'>
                 <div className='filter w-auto h-[100px] m-1 flex flex-col'>
                 <span className='text-xs'>Select start date</span>
@@ -157,6 +158,13 @@ const Dashboard = () => {
                     />
                 </div>
             </div>
+            <div className='m-5 bggreen p-2 rounded-md w-[90%] sm:w-[70%] mx-auto '>
+                <Gemini 
+                message={dashboard_message(pieData, goalsByDay)}
+                // message={pieData}
+                // goalData={goalsByDay}
+                />
+            </div> 
             <div className='first-row flex md:flex-row w-[90%] flex-col justify-center items-center mx-auto '> 
                 <div className='flex-grow cell flex-col w-[300px] h-[300px] sm:w-[450px]'>
                     <div className='flex flex-col'>
@@ -168,7 +176,7 @@ const Dashboard = () => {
                         <Tooltip />
                         <PolarGrid />
                         <PolarAngleAxis dataKey="status" />
-                        <Radar name="mood" dataKey="amount" stroke={COLORS[0]} fill={COLORS[0]} fillOpacity={0.7} />
+                        <Radar name="mood" dataKey="amount" stroke={COLORS[1]} fill={COLORS[1]} fillOpacity={0.6} />
                         </RadarChart>
                     </ResponsiveContainer>
                 </div>

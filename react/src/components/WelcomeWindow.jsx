@@ -29,9 +29,11 @@ const fetchDailyData = async() => {
     // console.log(data)
 }
 
+
 useEffect (()=>{ 
     fetchDailyData()
 }, [ifDataChanged])
+
 
 
   return (
@@ -50,7 +52,8 @@ useEffect (()=>{
                 Loading...
             </div>
             :
-        <div className='flex flex-col sm:flex-row items-top justify-start mx-auto max-w-[1200px]'>
+        <div 
+        className='flex test flex-col sm:flex-row items-top justify-start mx-auto max-w-[1200px]'>
                 <CategorySet 
                     categories={categories} 
                     date={yesterday}

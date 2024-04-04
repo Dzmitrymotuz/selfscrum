@@ -55,9 +55,12 @@ const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged, color})
 
   return (
     <>
-    <div className={``}>
+    <div className={``} >
       {filteredGoals && filteredGoals.map((goal)=>( 
-        <div key={goal.id} className='flex flex-row '>
+        <div 
+        key={goal.id} 
+        id={goal.id}
+        className='flex flex-row '>
             <SingleGoal  
               goal={goal} 
               category={category} 

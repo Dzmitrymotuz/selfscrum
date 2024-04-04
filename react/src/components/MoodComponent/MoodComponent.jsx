@@ -60,9 +60,9 @@ const MoodComponent = ({date}) => {
             <option value='5'>Very Good</option>
             <option value='4'>Somewhat Good</option>
             <option value='3'>Medium</option>
-            <option value='2'>below average</option>
+            <option value='2'>Below Average</option>
             <option value='1'>Bad</option>
-            <option value='0'>I want to die</option>
+            <option value='0'>Very Bad</option>
         </select>
     </div>
   )
