@@ -160,13 +160,11 @@ const Dashboard = () => {
             </div>
             <div className='m-5 bggreen p-2 rounded-md w-[90%] sm:w-[70%] mx-auto '>
                 <Gemini 
-                message={dashboard_message(pieData, goalsByDay)}
-                // message={pieData}
-                // goalData={goalsByDay}
+                message={dashboard_message(pieData, goalsByDay)} 
                 />
             </div> 
             <div className='first-row flex md:flex-row w-[90%] flex-col justify-center items-center mx-auto '> 
-                <div className='flex-grow cell flex-col w-[300px] h-[300px] sm:w-[450px]'>
+                <div className='flex-grow cell flex-col w-[300px] h-[400px] sm:w-[450px]'>
                     <div className='flex flex-col'>
                         <span className='text-bold'>Mood Radar Visual</span>
                         <span className='text-sm'>The data is in %. Current mood values total is {data.length} </span>
@@ -181,7 +179,7 @@ const Dashboard = () => {
                     </ResponsiveContainer>
                 </div>
                 <div className='w-5 h-5 '/>
-                <div className='flex-grow cell flex flex-col w-[300px] h-[300px] sm:w-[400px]'>
+                <div className='flex-grow cell flex flex-col w-[300px] h-[400px] sm:w-[400px]'>
                     <span className='text-bold'>Goals Piechart</span>
                     <span className='text-sm'>Always remember about balance </span>
                     <ResponsiveContainer > 

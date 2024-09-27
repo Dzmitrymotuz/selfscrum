@@ -4,12 +4,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MoodController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkController;
 use App\Http\Controllers\GoalsController;
+use App\Http\Controllers\NotesController;
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\CodingController;
 use App\Http\Controllers\HealthController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\WordOfTheDayController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -63,6 +65,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/home/edit-goal', [HomeController::class, 'edit_goal']);
     //getting goals data for stats
     Route::get('/get-goals-range', [GoalsController::class, 'get_goals_range']);
+    //NOTES
+    Route::get('/get-notes', [NotesController::class, 'get_notes']);
+    //Word of the day
+    Route::post('/wordoftheday', [WordOfTheDayController::class, 'init']);
 });
 
 

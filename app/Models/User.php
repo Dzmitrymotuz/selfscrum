@@ -3,11 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Notes;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticatable
 {
@@ -67,5 +68,13 @@ class User extends Authenticatable
     public function mood(): HasMany
     {
         return $this->hasMany(Mood::class);
+    }
+    public function notes(): HasMany
+    {
+        return $this->hasMany(Notes::class);
+    }
+    public function note_titles(): HasMany
+    {
+        return $this->hasMany(Note_titles::class);
     }
 }

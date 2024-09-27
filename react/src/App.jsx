@@ -12,6 +12,7 @@ import Main from './components/Main'
 import Dashboard from './components/Charts/Dashboard'
 import Report from './components/Report/Report'
 import WheelOFLife from './components/WheelOfLife/WheelOFLife'
+import Notes from './components/Notes/Notes'
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
           <Route path='/date/*' element={<SingleDay/>}/>
           <Route path='/calendar' element={<Calendar/>}/>
           <Route path='/report' element={<Report/>}/>
+          <Route path='/notes' element={<Notes/>}/>
           <Route path='/wheel' element={<WheelOFLife/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/register' element={<Registration/>}/>

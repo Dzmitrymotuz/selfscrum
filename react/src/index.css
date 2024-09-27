@@ -4,13 +4,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 
-:root {
- --navajo-white: #FFDDA1;
- /* --sunglow: #FFD151; */
- /* --saffron: #F8C537; */
- /* --xanthous: #EDB230; */
- /* --pumpkin: #E77728; */
-
+:root { 
 --green: #32989A;
 --orange: #FF871F;
 --purple: #8A37D2;
@@ -24,6 +18,9 @@
  --new-container-bg: #D3D7F8;
  --new-main-blue: #1F5678;
  --new-green: #69BE82;
+
+
+
 }
 
 @layer utilities {
@@ -39,12 +36,14 @@ body {
   /* color: #8ECAE6;  */
 }
 input{
-  border: 1px solid var(--navajo-white);
+  border: 1px solid var(--new-bg);
   border-radius: 0 0px 0px 0;
   padding: 5px; 
 }
 .main-container {
   margin: 0 0 150px 50px ;
+  /* background-color: var(--new-bg); */
+  background-color: var(--new-bg);
 }
 .goal-category{
   color: white;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { PureComponent } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
+import Gemini, { wheeloflife_message } from '../AI/Gemini';
 
 
  
@@ -30,6 +31,8 @@ const WheelOFLife = () => {
     const handleRadioChange = (e, field) => {
         const integer = parseInt(e.target.value)
         setSelectedValue({...selectedValue, [field]: integer});
+        const radarData = Object.entries(selectedValue).map(([field, value])=>({field, value}))
+        setFormData(radarData)
       };
 
 
@@ -38,7 +41,7 @@ const WheelOFLife = () => {
         <div className='flex justify-center items-center'>
             <span className='items-center text-xl border-b-2 border-[#e3e3e3] mb-2 pt-5 font-bold'>The Wheel of Life</span>
         </div>
-        <div className='p-5 bggreen rounded mx-2 '>
+        <div className='p-5 bggreen rounded mx-2'>
             <span className='text-sm'>
             <span className=''>The Wheel of Life is a popular self-assessment tool used in coaching, counseling, and personal development to help individuals evaluate and balance different areas of their lives. It's often represented as a circular chart divided into sections, each representing a different aspect or dimension of life.
             The Wheel of Life typically includes various life domains such as:</span>
@@ -54,12 +57,12 @@ const WheelOFLife = () => {
             </span>
         </div>
         <form onSubmit={(e)=>handleFormSubmit(e)}>
-            <div className='pt-5 flex-col justify-center'>
+            <div className='pt-5 flex flex-col justify-center items-center mx-auto border-4'>
                 {fields.map((field, index)=>(
                     <div 
                         key={index}
                         name={field}
-                        className='bgorange rounded-md text-white my-1 mx-2 p-1 min-w-[220px] '
+                        className='bgorange rounded-md text-white my-1 mx-2 p-1 min-w-[220px] w-[300px] '
                         >
                             <span className='mx-0 '>{field}</span>
                             <div className='bggreen'>
@@ -78,13 +81,10 @@ const WheelOFLife = () => {
                             </div>
                     </div>
                 ))}
-                <div className='flex justify-center'>
-                    <button 
-                    className='ss-btn w-full mx-2' 
-                    type='submit' 
-                    >
-                        Get results 
-                    </button>
+                <div className='m-5 bggreen p-2 rounded-md w-[90%] sm:w-[70%] mx-auto '>
+                    <Gemini 
+                    message={wheeloflife_message(formData)} 
+                    />
                 </div>
             </div>
         </form>

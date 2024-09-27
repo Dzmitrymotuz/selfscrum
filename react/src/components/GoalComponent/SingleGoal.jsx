@@ -60,7 +60,7 @@ const SingleGoal = ({goal, category, setFilteredGoals, filteredGoals, date, setI
 
   return (
     <div 
-    onClick={()=>handleStatusChange(goal.id, goal.status)}
+    // onClick={()=>handleStatusChange(goal.id, goal.status)}
     className='flex justify-between w-full bg-white hover:bg-orange-50 rounded-md m-0.5'>
         <div className='mx-2 '>
             <span className={`${goal.status === 1 ? 'goal-done' : 'goal-active'}`}>
@@ -71,7 +71,7 @@ const SingleGoal = ({goal, category, setFilteredGoals, filteredGoals, date, setI
         {isEdited ? 
             <span 
                 className={`${goal.status === 1 ? 'goal-done' : 'text-black'} hover:cursor-pointer`}
-                // onClick={()=>handleStatusChange(goal.id, goal.status)}
+                onClick={()=>handleStatusChange(goal.id, goal.status)}
             >
                 {goalContent}
             </span>
