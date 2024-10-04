@@ -19,6 +19,7 @@ const Calendar = () => {
     const [currentDate, setCurrentDate] = useState(new Date()) 
     const firstDayOfMonth = getFirstDayOfMonth(currentDate.getFullYear(), currentDate.getMonth())
     const allDaysInMonth = getDaysinMonth(currentDate.getFullYear(), currentDate.getMonth())
+    const month = currentDate.getMonth()+1
 
     const [mood, setMood] = useState('')
     const [moodData, setMoodData] = useState([])
@@ -31,7 +32,6 @@ const Calendar = () => {
     }
     const handleClick = (value) => {
         const year = currentDate.getFullYear()
-        const month = currentDate.getMonth() + 1
         const day = value + 1
         const dateString = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`
         navigate(`/date/${dateString}`) 
@@ -58,9 +58,10 @@ const Calendar = () => {
 
     useEffect(()=>{
         const monthlyData = async() => {
+            const month = currentDate.getMonth()+1
             const payload = {
                 'year': currentDate.getFullYear(),
-                'month': currentDate.getMonth() < 10 ? '0' + (currentDate.getMonth()+1) : (currentDate.getMonth()+1),
+                'month': month < 10 ? '0' + month : month,
             }
             const data = await axiosGetDataWithPayload('calendar', payload)
             setMonthData(data.organized_data)
@@ -88,7 +89,7 @@ const Calendar = () => {
 
         for (let i=0;i<allDaysInMonth;i++) {
             const day = i+1
-            const dayKey = `${currentDate.getFullYear()}-${currentDate.getMonth() < 10 ? '0' + (currentDate.getMonth()+1) : (currentDate.getMonth()+1)}-${day < 10 ? '0'+day:day}`
+            const dayKey = `${currentDate.getFullYear()}-${month < 10 ? '0' + month : month}-${day < 10 ? '0'+day:day}`
             
             days.push(
                 <div  

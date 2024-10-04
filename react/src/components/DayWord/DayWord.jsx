@@ -54,7 +54,7 @@ const DayWord = () => {
     
 
     useEffect(()=>{
-        run(message)
+        // run(message)
     }, [])
 
   return (
