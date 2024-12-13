@@ -108,14 +108,32 @@ export const axiosPutData = async(endpoint, data) => {
     }
 }
 
-export const axiosDeleteData = async(endpoint, data) => {
+// export const axiosDeleteData = async(endpoint, data) => {
+//     if (data) {
+//        try {
+//             const response = await axios.delete(`${apiUrl}/${endpoint}/${data.id}`)
+//             }catch (e) {
+//                 console.error(e);
+//             }
+//         }else{
+//             try {
+//                 const response = await axios.delete(`${apiUrl}/${endpoint}`)
+//                 }catch (e) {
+//                     console.error(e);
+//                 }
+//         }
+//     }
+
+export const axiosDeleteData = async (endpoint, data) => {
     try {
-        const response = await axios.delete(`${apiUrl}/${endpoint}/${data.id}`)
-        // console.log(response.data)
-    }catch (e) {
+        const url = data ? `${apiUrl}/${endpoint}/${data.id}` : `${apiUrl}/${endpoint}`;
+        const response = await axios.delete(url);
+        return response.data;  // Optionally return the response data if needed
+    } catch (e) {
         console.error(e);
     }
-}
+};
+        
 
 
 const Api = () => {

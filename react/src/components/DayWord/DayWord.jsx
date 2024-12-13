@@ -8,7 +8,7 @@ import { formatDate  } from '../Api/Helpers';
 const DayWord = () => {
     const [text, setText] = useState('Word of the day will appear here')
     const [loading, setLoading] = useState(false)
-    const message = 'Give me one english word, that usually a foregener does not understand and also translation to russian langugage. The structure is strictly this: word: ,translation: . Do not use any bold or curve text - just use plain string'
+    const message = 'Give me a random advanced English word and its Russian equivalent. The answer structure is strictly this (without words word or translation): word: translation: . Do not use any bold or curve text - just use plain string'
 
     const refurbish = (data) => {
             data = data.split('|').map(str=>str.trim()).filter(str=>str)

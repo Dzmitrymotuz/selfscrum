@@ -19,7 +19,12 @@
  --new-main-blue: #1F5678;
  --new-green: #69BE82;
 
-
+ --dark-grway: #ababab;
+--dark-gray: #1b1d1e;
+--middle-gray: #3a3d3e;
+--light-gray: #6a6d6d;
+--danger: #e8812d;
+--alert: #cb2c1e;
 
 }
 
@@ -82,16 +87,13 @@ input{
   background-color: #FF871F;
 }
 .bgpurple {
-  background-color: #f5eafe;  
+  background-color: var(--new-purple);  
 }
 .bggreen {
   background-color: #ddf1f1;
 }
 .bgyellow {
   background-color: var(--yellow);
-}
-.bggradyellow{
-  background-image: linear-gradient(to bottom,  #f7ead0, var(--new-yellow));
 }
 .borderorange {
   border: 1px solid var(--orange);
@@ -102,8 +104,14 @@ input{
 .bordergreen {
   border: 0.5px solid var(--green);
 }
-.pumpkinborder{
-  border: 0.5px solid var(--pumpkin);
+.bgdarkgray {
+  background-color: var(--dark-gray);  
+}
+.bglightgray {
+  background-color: var(--light-gray);  
+}
+.bgmiddlegray {
+  background-color: var(--middle-gray);  
 }
 
 .ss-btn {
@@ -149,6 +157,7 @@ input{
   border-radius: 10px;
   border: 1px solid rgb(230, 237, 245);
   box-shadow: 5px 5px 10px rgb(227, 227, 227);
+  color: var(--new-orange);
 }
 .bluebg {
   background: var(--new-bg); 

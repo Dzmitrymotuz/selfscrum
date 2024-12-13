@@ -40,9 +40,9 @@ class UserController extends Controller
         ]);
     }
     public function logout(Request $request) {
-        $request->user()->tokens()->delete();
-
-        return Auth::logout();
+        $user = Auth::user();
+        $request->user()->tokens()->delete(); 
+        return response()->json(['message' => 'Logged out successfully']);
         // return response()->json(['message'=>'Logout API respond']);
     }
 }

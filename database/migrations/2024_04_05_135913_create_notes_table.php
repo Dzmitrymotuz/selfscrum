@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId(('note_title_id'))->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('note_title_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('title')->nullable();
-            $table->string('note')->nullable();
+            $table->text('note')->nullable();
             $table->enum('status',['done', 'undone'])->default('undone');
             $table->date('date')->nullable();
             $table->timestamps();

@@ -83,21 +83,21 @@ const Calendar = () => {
         const days = []
 
         for (let i=0;i<firstDayOfMonth;i++) {
-            days.unshift(<div key={i-31} className='bggradyellows opacity-20 rounded-md m-1 p-1 min-h-[70px] sm:min-h-[140px]'></div>)
+            days.unshift(<div key={i-31} className=' opacity-20 rounded-md m-1 p-1 min-h-[70px] sm:min-h-[140px]'></div>)
         }
 
 
         for (let i=0;i<allDaysInMonth;i++) {
             const day = i+1
             const dayKey = `${currentDate.getFullYear()}-${month < 10 ? '0' + month : month}-${day < 10 ? '0'+day:day}`
-            
+//DAYS CANVASES
             days.push(
                 <div  
                 key={i}
-                className={`min-h-[70px] sm:min-h-[140px] m-1 bggradyellows rounded-md text-left p-1 opacity-80 hover:opacity-100  hover:scale-105 duration-200
-                ${currentDate.getDate() < day ? 'bordergreen bggreen' : ''} 
-                ${currentDate.getDate() === day ? 'borderorange bgorange-calendar' : ''} 
-                ${currentDate.getDate() > day ? 'borderpurple bgpurple' : ''}`}
+                className={`min-h-[70px] sm:min-h-[140px] m-1 rounded-md text-left p-1 opacity-80 hover:opacity-100  hover:scale-105 duration-200
+                ${currentDate.getDate() < day ? ' bggreen bgmiddlegray' : ''} 
+                ${currentDate.getDate() === day ? ' bgorange bglightgray text-white ' : ''} 
+                ${currentDate.getDate() > day ? ' bgpurple bgdarkgray text-white' : ''}`}
                 onClick={()=>handleClick(i)}
                 >
                     <div className='text-sm w-auto flex justify-between rounded text-right'>
@@ -119,8 +119,8 @@ const Calendar = () => {
                             <div className='w-3 h-3 mt-1 opacity-0'>
                             </div>}
                             <span className={`rounded-md py-0 px-1 font-bold text-md 
-                            ${currentDate.getDate() < day ? 'textgreen' : ''} 
-                            ${currentDate.getDate() === day ? 'textorange bg-white borderorange ' : ''} 
+                            ${currentDate.getDate() < day ? 'textgreen ' : ''} 
+                            ${currentDate.getDate() === day ? 'textorange  borderorange ' : ''} 
                             ${currentDate.getDate() > day ? 'textpurple' : ''}`}> {`${day}`} </span>
                     </div>
                         <div className='flex flex-col'>
@@ -128,15 +128,15 @@ const Calendar = () => {
                     monthData[dayKey] ? Object.keys(monthData[dayKey]).map((item, i) =>
                         (    
                             <div key={i} className={`block sm:flex justify-between text-black px-2 rounded-sm
-                            ${currentDate.getDate() < day ? ' bggreen' : ''} 
-                            ${currentDate.getDate() === day ? '' : ''} 
-                            ${currentDate.getDate() > day ? ' bgpurple' : ''}
+                            ${currentDate.getDate() < day ? ' bggreen bgmiddlegray text-white' : ''} 
+                            ${currentDate.getDate() === day ? 'bglightgray text-white' : ''} 
+                            ${currentDate.getDate() > day ? ' bgpurple bgdarkgray text-white' : ''}
                             `}>
                                 {item != 'mood' ? <span className='hidden sm:block'>{item}: </span> : ''}
                                 {item != 'mood' ? <span>{monthData[dayKey][item].length}</span> : ''}
                             </div>
                         )) : 
-                        <div className='hidden sm:block text-center opacity-40 text-black'>
+                        <div className='hidden sm:block text-center opacity-40 text-white'>
                             No data
                         </div>
                         }
@@ -149,18 +149,18 @@ const Calendar = () => {
 
 
   return (
-    <div className='flex justify-center '>
+    <div className='flex justify-center bg-[#ababab]'>
         <div className='ml-[50px] max-w-[75rem] w-[90%]'>
-            <div className='textpumpkin flex justify-center items-center font-bold pt-5 mb-5'>
+            <div className='flex justify-center items-center font-bold pt-5 mb-5'>
             <img 
                 src='/move.svg' 
                 onClick={()=>prevMonth()}
-                className='w-6 rotate-180 mr-7 cursor-pointer'/>
+                className='w-8 rotate-180 mr-7 cursor-pointer'/>
             <span className='mt-0 items-center'>{currentDate.toDateString()}</span>
             <img 
                 src='/move.svg' 
                 onClick={()=>nextMonth()}
-                className='w-6 ml-7 cursor-pointer'/>
+                className='w-8 ml-7 cursor-pointer '/>
             </div>
             <div className='flex justify-between mx-10 text-2xl'>
                 
@@ -169,7 +169,7 @@ const Calendar = () => {
                 {WEEKDAYS.map((day)=>(
                     <div 
                     key={day}
-                    className='bgorange text-white rounded-md text-center p-1'
+                    className='bglightgray text-white rounded-md text-center p-1'
                     >{day}</div>
                 ))}
                 {monthData && render(monthData)}

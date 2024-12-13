@@ -31,13 +31,16 @@ class CareerController extends Controller
         }
         $user = auth()->user();
         $userId = $user->id;
-        Career::create([
+        $goal = Career::create([
             'content'=>$request->goal,
             'status'=>$request->status,
             'date'=>$request->date,
             'user_id'=>$userId,
         ]);
-        return response()->json([200]);
+        return response()->json([
+            'message'=>'success',
+            'goal'=>$goal
+        ], 200);
     }
     public function pass_to_next(Request $request) {
         $request->validate([

@@ -4,6 +4,7 @@ import { formatDate  } from './Api/Helpers'
 import MoodComponent from './MoodComponent/MoodComponent'
 import CategorySet from './GoalComponent/CategorySet'
 import DayWord from './DayWord/DayWord'
+import AiGoals from './GoalComponent/AiGoals'
 
 export const categories = ['Coding', 'Work', 'Career', 'Home', 'Health', ]
 
@@ -17,6 +18,17 @@ const [tomorrow, setTommorow] = useState(formatDate(new Date(new Date().setDate(
 const [yesterday, setYesterday] = useState(formatDate(new Date(new Date().setDate(new Date().getDate()-1))))
 const [ifDataChanged, setIfDataChanged] = useState(true)
 
+const [aiDataLoadReady, setAiDataLoadReady] = useState(false)
+
+const getAiHelpers = async(aiData) => {
+    console.log('Got data from AI: ', aiData)
+    setTomData((prev) => ({
+        ...prev,
+        aidata: aiData,
+    }));
+    setAiDataLoadReady(false)
+    console.log(tomorrowData)
+}
 
 const [loading, setLoading] = useState(true)
 
@@ -38,12 +50,13 @@ const fetchDailyData = async() => {
     setInitData(data.today)
     setTomData(data.tomorrow)
     setLoading(false)
-    // console.log(data)
+    setAiDataLoadReady(true)
 }
 
 
 useEffect (()=>{ 
     fetchDailyData()
+
 }, [ifDataChanged])
 
 
@@ -70,7 +83,15 @@ useEffect (()=>{
                     </div> 
                 </div>
  
-            {/* <div className='bg-black w-[100%] h-[1px] opacity-5 mb-3'/>   */}
+            {initData && 
+            <div className='bg-white w-[100%] flex justify-center'>  
+                <AiGoals 
+                    data={initData} 
+                    getAiHelpers={getAiHelpers}
+                    setIfDataChanged={setIfDataChanged} 
+                    aiDataLoadReady={aiDataLoadReady}
+                    /> 
+            </div>}
         </div>
         
         {loading ?

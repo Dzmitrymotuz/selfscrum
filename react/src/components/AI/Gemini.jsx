@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export const dashboard_message = (a,b) => { 
-    return `Here is a mood of a person for a time priod, in percent. 
+    return `Here is a mood and goals of a person for a time priod, in percent. 
     Analyze it briefly and give some summary. 
     Use no more 10 sentences in respond. 
     Adress person as 'You'.
@@ -11,7 +11,7 @@ export const dashboard_message = (a,b) => {
     Try to focus on more positive sides.
     Do not use symbol *!
     Data: ${JSON.stringify(a)}
-    Add some analyzis on the amount of done/undone goals here (show some numbers, always show total of done vs total of undone) ${JSON.stringify(b)}
+    Add analyzis on the amount of done/undone goals here (show some numbers, always show total of done vs total of undone) ${JSON.stringify(b)}
     Give 1-2 advices on how to be more productive as well`
 }
 export const wheeloflife_message = (a) => { 
@@ -24,6 +24,7 @@ export const wheeloflife_message = (a) => {
     If low - give advice on improvement. 
     `
 }
+
 
 
 const Gemini = ({message}) => {

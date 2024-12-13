@@ -13,6 +13,11 @@ use App\Http\Controllers\CodingController;
 use App\Http\Controllers\HealthController;
 use App\Http\Controllers\WordOfTheDayController;
 
+use App\Http\Controllers\StripeController;
+
+Route::middleware('auth:sanctum')->post('/checkout-session', [StripeController::class, 'createCheckoutSession']);
+
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -66,7 +71,8 @@ Route::middleware('auth:sanctum')->group(function () {
     //getting goals data for stats
     Route::get('/get-goals-range', [GoalsController::class, 'get_goals_range']);
     //NOTES
-    Route::get('/get-notes', [NotesController::class, 'get_notes']);
+    // Route::get('/get-notes', [NotesController::class, 'get_notes']);
+    Route::resource('notes', NotesController::class);
     //Word of the day
     Route::post('/wordoftheday', [WordOfTheDayController::class, 'init']);
 });

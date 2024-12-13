@@ -8,7 +8,6 @@ const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged, color})
     const inputRef = useRef()
     const [hidden, setHidden] = useState(true) 
 
-
     const fetchInitialData = async() => {
       const data = await axiosGetInitData(date)
       setFilteredGoals(data[category])
@@ -27,8 +26,7 @@ const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged, color})
         fetchInitialData()
       } else {
         setHidden(!hidden)
-      }
-      
+      } 
     }
     const handleEnter = (e) => { 
       if (e.target.value.length > 0) {
@@ -37,20 +35,9 @@ const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged, color})
         }
       } 
     } 
-
-    // const handleStatusChange = async(id, status) => {
-    //   const updated_status = status === 0 ? 1 : 0;
-    //   const data = {
-    //     'id': id,
-    //     'status': updated_status,
-    //     'date': date,
-    //   }
-    //   await axiosPostData(`${category}/status-change`, data)
-    //   setFilteredGoals(filteredGoals.map(item=>(item.id === id ? {...item, status:updated_status} : item)))
-    // }
-
     useEffect(()=>{
-      goals[category] && setFilteredGoals(goals[category])
+      goals[category] && setFilteredGoals(goals[category],
+      )
     },[goals, category, date])
 
   return (
@@ -58,21 +45,21 @@ const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged, color})
     <div className={``} >
       {filteredGoals && filteredGoals.map((goal)=>( 
         <div 
-        key={goal.id} 
-        id={goal.id}
-        className='flex flex-row '>
-            <SingleGoal  
-              goal={goal} 
-              category={category} 
-              // handleStatusChange={handleStatusChange} 
-              setFilteredGoals={setFilteredGoals}
-              filteredGoals={filteredGoals}
-              date={date}
-              setIfDataChanged={setIfDataChanged}
-              color={color}
-              /> 
-        </div>
-      ))}
+          key={goal.id} 
+          id={goal.id}
+          className='flex flex-row '>
+              <SingleGoal  
+                goal={goal} 
+                category={category} 
+                setFilteredGoals={setFilteredGoals}
+                filteredGoals={filteredGoals}
+                date={date}
+                setIfDataChanged={setIfDataChanged}
+                color={color}
+                />  
+        </div> 
+      ))} 
+      
       <div>
       {!hidden ? 
         <div className='flex justify-start mb-5'>

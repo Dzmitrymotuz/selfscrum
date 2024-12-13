@@ -31,13 +31,16 @@ class HomeController extends Controller
         }
         $user = auth()->user();
         $userId = $user->id;
-        Home::create([
+        $goal = Home::create([
             'content'=>$request->goal,
             'status'=>$request->status,
             'date'=>$request->date,
             'user_id'=>$userId,
         ]);
-        return response()->json([200]);
+        return response()->json([
+            'message'=>'success',
+            'goal'=>$goal
+        ], 200);
     }
     public function pass_to_next(Request $request) {
         $request->validate([
