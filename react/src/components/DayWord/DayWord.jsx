@@ -41,7 +41,7 @@ const DayWord = () => {
         const model = genAI.getGenerativeModel({ model: "gemini-pro"});
         const prompt = message
         const result = await model.generateContent(prompt);
-        const response = await result.response;
+        const response = result.response;
         const text = response.text();
         setLoading(false)
         console.log(text)
@@ -58,10 +58,7 @@ const DayWord = () => {
     }, [])
 
   return (
-    <div className='hover:cursor-pointer' onClick={()=>run(message)}>
-        {/* {text.word} */}
-        {/* {text.meaning} */}
-        {/* {text.translation} */}
+    <div className='flex-grow text-sm w-auto hover:cursor-pointer hover:bg-opacity-80 bg-orange-500 text-white rounded-md p-1 m-1' onClick={()=>run(message)}>
         {text}
     </div>
   )

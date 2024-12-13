@@ -19,7 +19,6 @@
  --new-main-blue: #1F5678;
  --new-green: #69BE82;
 
- --dark-grway: #ababab;
 --dark-gray: #1b1d1e;
 --middle-gray: #3a3d3e;
 --light-gray: #6a6d6d;
@@ -37,8 +36,7 @@
 body {
   font-family: 'Nunito Sans';
   background-color: #F5FBFF;
-  /* background-color: rgb(245, 245, 245); */
-  /* color: #8ECAE6;  */
+
 }
 input{
   border: 1px solid var(--new-bg);
@@ -47,7 +45,6 @@ input{
 }
 .main-container {
   margin: 0 0 150px 50px ;
-  /* background-color: var(--new-bg); */
   background-color: var(--new-bg);
 }
 .goal-category{

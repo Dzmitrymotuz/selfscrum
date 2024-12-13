@@ -19,15 +19,11 @@ const [yesterday, setYesterday] = useState(formatDate(new Date(new Date().setDat
 const [ifDataChanged, setIfDataChanged] = useState(true)
 
 const [aiDataLoadReady, setAiDataLoadReady] = useState(false)
+const [aiData, setAiData] = useState([])
 
 const getAiHelpers = async(aiData) => {
-    console.log('Got data from AI: ', aiData)
-    setTomData((prev) => ({
-        ...prev,
-        aidata: aiData,
-    }));
+    setAiData(aiData)
     setAiDataLoadReady(false)
-    console.log(tomorrowData)
 }
 
 const [loading, setLoading] = useState(true)
@@ -46,17 +42,18 @@ const lastFriday = () => {
 
 const fetchDailyData = async() => {
     const data = await axiosGetDataWithPayload('dayload', {yesterday, today, tomorrow});
+    if(aiData.length===0){
+        setAiDataLoadReady(true)  
+      }
     setYesterdayData(data.yesterday) 
     setInitData(data.today)
     setTomData(data.tomorrow)
-    setLoading(false)
-    setAiDataLoadReady(true)
+    setLoading(false) 
 }
 
 
 useEffect (()=>{ 
-    fetchDailyData()
-
+    fetchDailyData() 
 }, [ifDataChanged])
 
 
@@ -64,34 +61,30 @@ useEffect (()=>{
   return (
     <div className='main-container'>
         <div className=''>
-            <div className='grid place-items-center pt-0 text-lg'>
+            <div className='grid place-items-center pt-0 text-lg '>
                 <span className=''>
                     Today is <span className='text-bold'>{new Date().toDateString()}</span>
                 </span>
                 <div className='flex flex-row justify-between mx-5 mt-[-15px] '>
                     <MoodComponent date={today}/>
+                </div>  
+                <div className='flex flex-row h-450px]'>
+                    <button
+                    className='flex-grow text-sm w-auto hover:cursor-pointer hover:bg-opacity-80 bg-orange-500 text-white rounded-md p-1 m-1'
+                    onClick={()=>lastFriday()}>
+                        Last Friday
+                    </button>
+                        <DayWord/> 
+                    {initData && 
+                        <AiGoals 
+                            data={initData} 
+                            getAiHelpers={getAiHelpers}
+                            setIfDataChanged={setIfDataChanged} 
+                            aiDataLoadReady={aiDataLoadReady}
+                            /> 
+                    }
                 </div> 
             </div>
-                <div className='flex flex-row justify-between '>
-                    <div className='mx-1 text-sm'>
-                        <button onClick={()=>lastFriday()}>
-                            Last Friday
-                        </button>
-                    </div> 
-                    <div className='mx-10 max-w-[300px] max-h-[200px] text-sm flex-col'>
-                        <DayWord/>
-                    </div> 
-                </div>
- 
-            {initData && 
-            <div className='bg-white w-[100%] flex justify-center'>  
-                <AiGoals 
-                    data={initData} 
-                    getAiHelpers={getAiHelpers}
-                    setIfDataChanged={setIfDataChanged} 
-                    aiDataLoadReady={aiDataLoadReady}
-                    /> 
-            </div>}
         </div>
         
         {loading ?
@@ -121,6 +114,7 @@ useEffect (()=>{
                     data={tomorrowData}
                     setIfDataChanged={setIfDataChanged}
                     position='tomorrow'
+                    aiData={aiData}
                 />  
         </div>}
     </div>

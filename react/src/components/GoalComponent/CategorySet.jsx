@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import GoalDisplayComponent from './GoalDisplayComponent';
 import { axiosPostData } from '../Api/Api';
 
-const CategorySet = ({ categories, date, data, setIfDataChanged, position }) => {
+const CategorySet = ({ categories, date, data, setIfDataChanged, position, aiData }) => {
   const [categoryStates, setCategoryStates] = useState({});
   const [initData, setInitData] = useState([]);
   const [toggled, setToggled] = useState(true);
   const [color, setColor] = useState('');
   const [aiGoals, setAiGoals] = useState({});
-  const [approvedGoals, setApprovedGoals] = useState({});
   
 
   const toggleCategory = (category) => {
@@ -42,18 +41,13 @@ const CategorySet = ({ categories, date, data, setIfDataChanged, position }) => 
       status: 0,
       date: date,
     };
-    // const response = await axiosPostData(`${category}/add-goal`, aiGoaldata); 
-    
+    const response = await axiosPostData(`${category}/add-goal`, aiGoaldata); 
+    console.log('goal added to DB ', response)
     const updatedAiGoals = { ...aiGoals, [category]: null };
     setAiGoals(updatedAiGoals);
-    const approved = {...approvedGoals, 
-        
-        goal: goal,
-        category: category
-        }
-    setApprovedGoals(approved)
-    console.log(approvedGoals)
+    setIfDataChanged(prevState=>!prevState)
   };
+  
   const deleteAiGoal = () => {
     const updatedAiGoals = { ...aiGoals, [category]: null };
     setAiGoals(updatedAiGoals);
@@ -61,9 +55,9 @@ const CategorySet = ({ categories, date, data, setIfDataChanged, position }) => 
 
   useEffect(() => {
     setInitData(data);
-    setAiGoals(data.aidata || {}); 
+    setAiGoals(aiData || {}); 
     applyColor(position);
-  }, [data]);
+  }, [data, aiData]);
 
   return (
     <div
@@ -104,20 +98,27 @@ const CategorySet = ({ categories, date, data, setIfDataChanged, position }) => 
                 {aiGoals[category.toLowerCase()] && (
                   <div>
                     <div
-                      className={`flex justify-between w-full text-white px-2 hover:cursor-pointer rounded-md my-0.5 
-                        ${ aiGoals[category.toLowerCase()].added ? "bg-orange-500" : "bg-green-500" }
+                      className={`flex justify-between w-full text-white px-2 hover:cursor-pointer hover:bg-blue-900 transition ease-in-out delay-150 rounded-md my-0.5 
+                        ${ aiGoals[category.toLowerCase()].added ? "bg-blue-500" : "bg-orange-500" }
                         hover:bg-orange-500`}                      
                       onClick={() => addAiGoal(aiGoals[category.toLowerCase()], category.toLowerCase())}
                     >
                       <div>
-                        <span className="goal-active mr-2">○</span>
+                        <span className=" mr-2 text-xs p-0.5 rounded-full bg-white text-orange-500">AI</span>
                         <span className={`hover:cursor-pointer`}>
                           {aiGoals[category.toLowerCase()]}
-                        </span>
-                      </div>
+                        </span> 
+                      </div> 
                     </div>
                   </div>
                 )}
+                {/* {approvedGoals && 
+                  <div>
+                    <span className={`hover:cursor-pointer`}>
+                      {approvedGoals[category.toLowerCase()]}
+                    </span>
+                  </div>
+                } */}
 {/* Ai Data Ends */}
               </div>
               <div className={`overflow-auto duration-200 bg-gray-50 ${!categoryStates[category] ? 'min-h-[150px]' : 'h-0'}`}>

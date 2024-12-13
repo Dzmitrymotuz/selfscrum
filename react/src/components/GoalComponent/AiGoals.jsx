@@ -21,19 +21,24 @@ const AiGoals = ({data, getAiHelpers, setIfDataChanged, aiDataLoadReady}) => {
         `
         
         async function run(message) {
-            setComponentLoading(!componentloading)
-            const API_KEY = import.meta.env.VITE_API_AI_KEY;
-            const genAI = new GoogleGenerativeAI(API_KEY);
-            const model = genAI.getGenerativeModel({ model: "gemini-pro"});
-            const prompt = message
-            const result = await model.generateContent(prompt);
-            const response = result.response;
-            const text = response.text();
-            setComponentLoading(false)
-            setText(text)
-            const parseData = JSON.parse(text)
-            getAiHelpers(parseData)
-            setIfDataChanged=(prevState=>!prevState)
+            if (aiDataLoadReady === true) {
+                setComponentLoading(!componentloading)
+                const API_KEY = import.meta.env.VITE_API_AI_KEY;
+                const genAI = new GoogleGenerativeAI(API_KEY);
+                const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+                const prompt = message
+                const result = await model.generateContent(prompt);
+                const response = result.response;
+                const text = response.text();
+                setComponentLoading(false)
+                setText(text)
+                const parseData = JSON.parse(text)
+                getAiHelpers(parseData)  
+            } else {
+                console.log(aiDataLoadReady, 'Data already exists')
+            }
+            
+            // setIfDataChanged=(prevState=>!prevState)
         }
         // console.log(aiDataLoadReady)
     
@@ -43,22 +48,20 @@ const AiGoals = ({data, getAiHelpers, setIfDataChanged, aiDataLoadReady}) => {
 
 
     return (
-    <div className='flex flex-col'>
-            <span style={{ whiteSpace: 'pre-wrap' }}>{text}</span>
-            {!componentloading ? 
-                <button 
-                    onClick={(e) => run(message)}
-                    className='ss-btn mt-5'
-                >
-                    click
+    <div className='flex flex-col'> 
+            <div>
+                <button className='bg-blue-500 rounded-full m-1 p-1 w-[30px] h-[30px] text-white text-xs hover:text-orange-500 hover:bg-gray-500 transition ease-in delay'
+                onClick={(e) => run(message)}>
+                    AI
                 </button>
-                :
-                <button 
-                    className='ss-btn mt-5 animate-bounce '
-                >
-                    Recieving your results!
-                </button>
-            }
+                {
+                    aiDataLoadReady === false && 
+                    <span className='opacity-30 position-fixed bg-blue-500 rounded-full p-1 px-5 w-[30px] h-[30px] text-white text-xs'>
+                           Ai data loaded
+                    </span>
+                }  
+            </div>
+            
         </div>
     )
 }
