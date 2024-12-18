@@ -57,10 +57,11 @@ const SingleGoal = ({goal, category, setFilteredGoals, filteredGoals, date, setI
         setFilteredGoals(filteredGoals.map(item=>(item.id === id ? {...item, status:updated_status} : item)))
         }
 
-
   return (
     <div 
-    className='flex justify-between w-full bg-white hover:bg-orange-50 rounded-md m-0.5'>
+    className='flex justify-between w-full bg-white hover:bg-orange-50 rounded-md m-0.5'
+    
+    >
         <div className='mx-2 '>
             <span className={`${goal.status === 1 ? 'goal-done' : 'goal-active'}`}>
                  {`${goal.status === 0 ? '○' : '●'}`}

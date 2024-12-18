@@ -18,6 +18,7 @@ const [tomorrow, setTommorow] = useState(formatDate(new Date(new Date().setDate(
 const [yesterday, setYesterday] = useState(formatDate(new Date(new Date().setDate(new Date().getDate()-1))))
 const [ifDataChanged, setIfDataChanged] = useState(true)
 
+const [allData, setAllData] = useState([])
 const [aiDataLoadReady, setAiDataLoadReady] = useState(false)
 const [aiData, setAiData] = useState([])
 
@@ -45,6 +46,7 @@ const fetchDailyData = async() => {
     if(aiData.length===0){
         setAiDataLoadReady(true)  
       }
+    setAllData(data)
     setYesterdayData(data.yesterday) 
     setInitData(data.today)
     setTomData(data.tomorrow)
@@ -77,7 +79,7 @@ useEffect (()=>{
                         <DayWord/> 
                     {initData && 
                         <AiGoals 
-                            data={initData} 
+                            data={allData} 
                             getAiHelpers={getAiHelpers}
                             setIfDataChanged={setIfDataChanged} 
                             aiDataLoadReady={aiDataLoadReady}

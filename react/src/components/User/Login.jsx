@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-// import { login } from '../Api/Api'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../Context/AuthContext'
 
@@ -18,6 +17,7 @@ const Login = ({ ...props}) => {
                     password: password, 
                 }
         e.preventDefault()
+        console.log(payload)
         login('login', payload);
     }
 
@@ -35,7 +35,7 @@ const Login = ({ ...props}) => {
                 {message ? <div className='text-sm bg-[#303030] p-1 '>{message}</div> : ''}
                 <div className='flex flex-col p-0 m-0'>
                     <input name='email' placeholder='email' className='input my-2 ' onChange={(e)=>setEmail(e.target.value)}/>
-                    <input name='password' placeholder='password' type='password' className='input ' onChange={(e)=>setPassword(e.target.value)}/>
+                    <input name='password' placeholder='password' type='password' className='input text-black' onChange={(e)=>setPassword(e.target.value)}/>
                     <button onClick={(e)=>handleLogin(e)} className='ss-btn mt-4'>Login</button>
                 </div>
             </div>

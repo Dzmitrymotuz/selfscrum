@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { axiosPostData, axiosGetInitData } from '../Api/Api'
+import { axiosPostData, axiosGetInitData, axiosPutData } from '../Api/Api'
 import SingleGoal from './SingleGoal'
 
 
@@ -40,14 +40,45 @@ const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged, color})
       )
     },[goals, category, date])
 
+    const dragStart = (e, goal) => {
+      e.dataTransfer.setData('goal', JSON.stringify(goal)); 
+      
+    }
+    const dragOver = (e) => {
+      e.preventDefault()
+      console.log('Drag over: ', category, date)
+    }
+    const dropGoal = async(e) => {
+      e.preventDefault()
+      const goal = JSON.parse(e.dataTransfer.getData('goal'))
+      console.log(goal.id)
+      handlePass(goal)
+    }
+    const handlePass = async(goal) => {
+      const data = {
+          'id': goal.id,
+          'date': date,
+      }
+      await axiosPutData(`${category}/pass-to-next`, data)
+      setFilteredGoals(filteredGoals.filter(item=>item.id != goal.id))
+      setIfDataChanged(prevState=>!prevState)
+      }
+
+
   return (
     <>
-    <div className={``} >
+    <div className={`min-h-[150px]`} 
+    onDragOver={dragOver}
+    onDrop={dropGoal}
+    >
       {filteredGoals && filteredGoals.map((goal)=>( 
         <div 
           key={goal.id} 
           id={goal.id}
-          className='flex flex-row '>
+          className='flex flex-row '
+          draggable={true}
+          onDragStart={(e)=>dragStart(e,goal)}
+          >
               <SingleGoal  
                 goal={goal} 
                 category={category} 
@@ -58,8 +89,7 @@ const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged, color})
                 color={color}
                 />  
         </div> 
-      ))} 
-      
+      ))}  
       <div>
       {!hidden ? 
         <div className='flex justify-start mb-5'>

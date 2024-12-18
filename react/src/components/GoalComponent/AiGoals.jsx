@@ -6,14 +6,16 @@ import { formatDate  } from '../Api/Helpers';
 
 
 
-const AiGoals = ({data, getAiHelpers, setIfDataChanged, aiDataLoadReady}) => {
-    const [text, setText] = useState('Suggestions will appear here')
+const AiGoals = ({data, getAiHelpers, aiDataLoadReady}) => {
+    const [text, setText] = useState()
     const [componentloading, setComponentLoading] = useState(false)
 
     const message = `Here is data for user goals in a time period with goals categories. 
         Data: ${JSON.stringify(data)}.
         Analyze it and suggest complementing goals for the nearest future.
         avoid broad and vague suggestions
+        sugest only goals that achivable in a day or in an hour, not something that takes weeks
+        if category does not contain any goal - suggest something based on that category
         return result strictly in this structure - 
         category: suggested goal
         be very  consize and only send back suggested goals - nothing else
@@ -32,15 +34,13 @@ const AiGoals = ({data, getAiHelpers, setIfDataChanged, aiDataLoadReady}) => {
                 const text = response.text();
                 setComponentLoading(false)
                 setText(text)
-                const parseData = JSON.parse(text)
-                getAiHelpers(parseData)  
+                const parseData = JSON.parse(text)  
+                getAiHelpers(parseData)   
             } else {
-                console.log(aiDataLoadReady, 'Data already exists')
+                console.log(aiDataLoadReady, 'Data already exists: ', text)
             }
             
-            // setIfDataChanged=(prevState=>!prevState)
         }
-        // console.log(aiDataLoadReady)
     
     useEffect(() => {
         aiDataLoadReady && run(message)
