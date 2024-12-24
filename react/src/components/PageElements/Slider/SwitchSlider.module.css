@@ -1,0 +1,40 @@
+
+.slider_background {
+    width: 500px;
+    height: 200px;
+    position: relative;
+    display: block;
+    background: #ebebeb;
+    border-radius: 200px;
+    box-shadow: inset 0px 5px 15px rgba(0,0,0,0.4),inset 0px -5px 15px rgb(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition:0.5s;
+}
+.slider_background:after {
+    content: "";
+    width: 180px;
+    height: 180px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: linear-gradient(180deg, #ffcc89, #d8860b);
+    border-radius: 180px;
+    box-shadow: 0px 5px 10px rgba(0,0,0,0.4);
+    transition:0.5s;
+}
+.slider_input {
+    width: 0;
+    height: 0;
+    visibility: hidden; 
+}
+.slider_input:checked + .slider_background {
+    background: #242424;
+}
+.slider_input:checked + .slider_background:after {
+    background: linear-gradient(180deg, #777, #3a3a3a);
+    transform: translateX(-100%);
+    left: 490px;
+}
+.slider_background:active:after{
+    width: 260px;
+}

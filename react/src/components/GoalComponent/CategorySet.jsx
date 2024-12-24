@@ -131,11 +131,10 @@ const CategorySet = ({ categories, date, data, setIfDataChanged, position, aiDat
                       </div> 
                     </div>
                   </div>
-                )}
-                
+                )} 
 {/* Ai Data Ends */}
               </div>
-              <div className={`overflow-auto duration-200 bg-gray-50 ${!categoryStates[category] ? 'min-h-[150px]' : 'h-0'}`}>
+              <div className={`overflow-auto duration-200 bg-gray-50 ${!categoryStates[category] ? 'min-h-[100px]' : 'h-0'}`}>
                 <GoalDisplayComponent
                   goals={initData}
                   date={date}

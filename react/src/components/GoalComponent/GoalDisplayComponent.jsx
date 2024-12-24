@@ -67,7 +67,7 @@ const GoalDisplayComponent = ({ goals, category, date, setIfDataChanged, color})
 
   return (
     <>
-    <div className={`min-h-[150px]`} 
+    <div className={`min-h-[100px]`} 
     onDragOver={dragOver}
     onDrop={dropGoal}
     >

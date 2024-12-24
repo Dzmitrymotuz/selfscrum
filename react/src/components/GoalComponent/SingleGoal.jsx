@@ -1,12 +1,15 @@
 import React, {useState} from 'react'
 import ActionButton from './ActionButton'
 import { axiosDeleteData, axiosPostData, axiosPutData } from '../Api/Api'
+import DatePicker from "react-datepicker";
+import Modal from '../Modals/Modal';
 
 
 
 const SingleGoal = ({goal, category, setFilteredGoals, filteredGoals, date, setIfDataChanged, color}) => {
     const [isEdited, setIsEdited] = useState(true)
     const [goalContent, setGoalContent] = useState(goal.content)
+    const [isModalOpen, setIsModalOpen] = useState(false)
  
     const handleEdit = async(id) => {
         setIsEdited(!isEdited)
@@ -19,19 +22,17 @@ const SingleGoal = ({goal, category, setFilteredGoals, filteredGoals, date, setI
         } else {
             handleDelete(id)
         } 
-      }
-    const handlePass = async(id) => {
-        const fixedDate = new Date(date)
-        fixedDate.setDate(fixedDate.getDate()+1)
-        const newDate = fixedDate.toISOString().split('T')[0]
+    }
+    const handlePass = async(id, date) => {
         const data = {
             'id': id,
-            'date': newDate,
+            'date': date.toISOString().split('T')[0],
         }
+        console.log(data)
         await axiosPutData(`${category}/pass-to-next`, data)
         setFilteredGoals(filteredGoals.filter(item=>item.id != id))
         setIfDataChanged(prevState=>!prevState)
-        }
+    }
     const handleEnter = (e) => { 
     if (e.target.value.length > 0) {
         if (e.key === 'Enter') {
@@ -45,7 +46,7 @@ const SingleGoal = ({goal, category, setFilteredGoals, filteredGoals, date, setI
         }
         await axiosDeleteData(`${category}/delete`, data)
         setFilteredGoals(filteredGoals.filter(item=>item.id != id))
-        }
+    }
     const handleStatusChange = async(id, status) => {
         const updated_status = status === 0 ? 1 : 0;
         const data = {
@@ -55,7 +56,10 @@ const SingleGoal = ({goal, category, setFilteredGoals, filteredGoals, date, setI
         }
         await axiosPostData(`${category}/status-change`, data)
         setFilteredGoals(filteredGoals.map(item=>(item.id === id ? {...item, status:updated_status} : item)))
-        }
+    }
+    const toggleModal = () => {
+        setIsModalOpen(!isModalOpen)
+    }
 
   return (
     <div 
@@ -84,14 +88,21 @@ const SingleGoal = ({goal, category, setFilteredGoals, filteredGoals, date, setI
                 className='input-field'
             ></input>}
         </div>
-        <div className='flex flex-row m-1 mr-2 items-baseline' >
-            {isEdited ? 
-            <ActionButton icon={'/edit.svg'} onClick={(e)=>setIsEdited(!isEdited)} title={'edit'} />
-            :
-            <ActionButton icon={'/edit.svg'} onClick={()=>handleEdit(goal.id)} title={'edit'} />
-            }
-            <ActionButton icon={'/move.svg'} onClick={(e)=>handlePass(goal.id)} title={'move'} />
-            <ActionButton icon={'/delete.svg'} onClick={(e)=>handleDelete(goal.id)} title={'delete'} /> 
+        <div className='flex flex-row m-1 mr-2 items-baseline' > 
+            <ActionButton icon={'/edit.svg'} onClick={(e)=>setIsEdited(!isEdited)} title={'edit'} /> 
+            <ActionButton icon={'/move.svg'} onClick={toggleModal} title={'move'} />  
+            <Modal
+                isOpen={isModalOpen}
+                onClose={toggleModal}
+            >
+                <DatePicker 
+                    selected={new Date()+1} 
+                    onChange={(date)=>handlePass(goal.id, date)}
+                    inline 
+                />  
+            </Modal>  
+            <ActionButton icon={'/delete.svg'} onClick={(e)=>handleDelete(goal.id)} title={'delete'} />
+            
         </div>
 
     </div>

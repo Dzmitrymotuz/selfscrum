@@ -6,6 +6,8 @@ import CategorySet from './GoalComponent/CategorySet'
 import DayWord from './DayWord/DayWord'
 import AiGoals from './GoalComponent/AiGoals'
 
+import SwitchSlider from './PageElements/Slider/SwitchSlider'
+
 export const categories = ['Coding', 'Work', 'Career', 'Home', 'Health', ]
 
 
@@ -17,6 +19,8 @@ const [today, setToday] = useState(formatDate(new Date()))
 const [tomorrow, setTommorow] = useState(formatDate(new Date(new Date().setDate(new Date().getDate()+1))))
 const [yesterday, setYesterday] = useState(formatDate(new Date(new Date().setDate(new Date().getDate()-1))))
 const [ifDataChanged, setIfDataChanged] = useState(true)
+
+const [isOn, setIsOn] = useState(false)
 
 const [allData, setAllData] = useState([])
 const [aiDataLoadReady, setAiDataLoadReady] = useState(false)
@@ -40,7 +44,6 @@ const lastFriday = () => {
     setIfDataChanged(!ifDataChanged)
 }
 
-
 const fetchDailyData = async() => {
     const data = await axiosGetDataWithPayload('dayload', {yesterday, today, tomorrow});
     if(aiData.length===0){
@@ -53,6 +56,15 @@ const fetchDailyData = async() => {
     setLoading(false) 
 }
 
+const onToggle = (value) =>{
+    console.log('value: ', value)
+    if (value === 'on'){
+        console.log('ON!')
+    }else{
+        console.log('off')
+    }
+    setIsOn(value)
+}
 
 useEffect (()=>{ 
     fetchDailyData() 
@@ -71,6 +83,12 @@ useEffect (()=>{
                     <MoodComponent date={today}/>
                 </div>  
                 <div className='flex flex-row h-450px]'>
+                    <SwitchSlider
+                    isOn={isOn}
+                    onChange={()=>console.log('changed') }
+                    onToggle={onToggle}
+                    />
+                    {isOn ? <div>Off</div>:<div>On</div>}
                     <button
                     className='flex-grow text-sm w-auto hover:cursor-pointer hover:bg-opacity-80 bg-orange-500 text-white rounded-md p-1 m-1'
                     onClick={()=>lastFriday()}>
@@ -78,12 +96,12 @@ useEffect (()=>{
                     </button>
                         <DayWord/> 
                     {initData && 
-                        <AiGoals 
-                            data={allData} 
-                            getAiHelpers={getAiHelpers}
-                            setIfDataChanged={setIfDataChanged} 
-                            aiDataLoadReady={aiDataLoadReady}
-                            /> 
+                    <AiGoals 
+                        data={allData} 
+                        getAiHelpers={getAiHelpers}
+                        setIfDataChanged={setIfDataChanged} 
+                        aiDataLoadReady={aiDataLoadReady}
+                        /> 
                     }
                 </div> 
             </div>
