@@ -1,14 +1,13 @@
 import React from 'react'
 import styles from "./SwitchSlider.module.css"
 
-export const SwitchSlider = ({isOn, onToggle}) => { 
+export const SwitchSlider = ({ onToggle}) => { 
     return ( 
-        <div >
+        <div className='h-[100px] w-[300px] relative'>
             <input 
             className={styles.slider_input} 
             type="checkbox" 
             id="ai-toggle"
-            isOn={isOn}
             onChange={(e)=>onToggle(e.target.checked)}
             />
             <label 

@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import ActionButton from './ActionButton'
 import { axiosDeleteData, axiosPostData, axiosPutData } from '../Api/Api'
 import DatePicker from "react-datepicker";
-import Modal from '../Modals/Modal';
+import Modal from '../PageElements/Modals/Modal';
 
 
 

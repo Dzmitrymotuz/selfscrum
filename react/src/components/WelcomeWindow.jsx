@@ -20,7 +20,7 @@ const [tomorrow, setTommorow] = useState(formatDate(new Date(new Date().setDate(
 const [yesterday, setYesterday] = useState(formatDate(new Date(new Date().setDate(new Date().getDate()-1))))
 const [ifDataChanged, setIfDataChanged] = useState(true)
 
-const [isOn, setIsOn] = useState(false)
+const [isSwitchOn, setIsSwitchOn] = useState(false)
 
 const [allData, setAllData] = useState([])
 const [aiDataLoadReady, setAiDataLoadReady] = useState(false)
@@ -63,7 +63,7 @@ const onToggle = (value) =>{
     }else{
         console.log('off')
     }
-    setIsOn(value)
+    setIsSwitchOn(value)
 }
 
 useEffect (()=>{ 
@@ -81,14 +81,13 @@ useEffect (()=>{
                 </span>
                 <div className='flex flex-row justify-between mx-5 mt-[-15px] '>
                     <MoodComponent date={today}/>
+                      {/* <SwitchSlider
+                        isSwitchOn={isSwitchOn}
+                        onChange={()=>console.log('changed') }
+                        onToggle={onToggle}
+                        />                       */}
                 </div>  
-                <div className='flex flex-row h-450px]'>
-                    <SwitchSlider
-                    isOn={isOn}
-                    onChange={()=>console.log('changed') }
-                    onToggle={onToggle}
-                    />
-                    {isOn ? <div>Off</div>:<div>On</div>}
+                <div className='flex flex-row h-450px]'> 
                     <button
                     className='flex-grow text-sm w-auto hover:cursor-pointer hover:bg-opacity-80 bg-orange-500 text-white rounded-md p-1 m-1'
                     onClick={()=>lastFriday()}>
