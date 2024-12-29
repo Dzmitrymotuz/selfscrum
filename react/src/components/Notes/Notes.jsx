@@ -32,7 +32,7 @@ const Notes = () => {
   }
   const addNote = async(e) => {
     const contentRaw = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
-    console.log(contentRaw)
+    // console.log(contentRaw)
     const data = {
       'title': titleRef.current.value,
       'content': contentRaw,
@@ -40,6 +40,8 @@ const Notes = () => {
     }
     await axiosPostData('notes', data);
     fetchInitialData();
+    setEditorState(EditorState.createEmpty());   
+    titleRef.current.value = ''
   }
   const deleteNote = async(id) => {
     axiosDeleteData(`notes`, {id});
@@ -56,11 +58,13 @@ const Notes = () => {
   return (
     <div className='main-container'>
       <div className='flex-wrap border-2'>
-        <div className=' w-[200px]'>
-          <p>Note title</p>
-          <input className='' ref={titleRef}></input>
-          <p>Note content</p>
-          <div className="editor-container" style={{ border: '1px solid #ddd', minHeight: '100px', padding: '10px' }}>
+        <div className=''>
+          <p className='text-sm ml-5 text-gray-400'>Note title</p>
+          <input 
+          className='mx-5  min-w-[200px] w-[90%]  flex-grow border-2 border-orange-100' 
+          ref={titleRef}></input>
+          <p className='text-sm ml-5 text-gray-400'>Note content</p>
+          <div className="mx-5 min-h-[150px] w-[90%] bg-white  flex-grow border-2 border-orange-100 p-2 ">
             <Editor editorState={editorState} onChange={handleEditorChange} />
           </div>
         </div>
@@ -72,7 +76,7 @@ const Notes = () => {
       </div>
 
       <span className='font-bold text-lg flex justify-center'>Notes</span>
-      <div className='grid grid-cols-3'>
+      <div className='grid grid-cols-1'>
         {notes && 
           notes.map((note)=>(
           <div key={note.id} className='bggreen rounded-md p-2 m-1'> 

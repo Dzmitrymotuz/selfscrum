@@ -96,7 +96,7 @@ const SingleGoal = ({goal, category, setFilteredGoals, filteredGoals, date, setI
                 onClose={toggleModal}
             >
                 <DatePicker 
-                    selected={new Date()+1} 
+                    selected={new Date()} 
                     onChange={(date)=>handlePass(goal.id, date)}
                     inline 
                 />  

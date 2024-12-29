@@ -26,7 +26,7 @@ const Modal = ({ isOpen, onClose, children }) => {
                     borderRadius: "8px",
                     position: "relative",
                 }}
-                onClick={(e) => e.stopPropagation()} // Prevent closing on content click
+                // onClick={(e) => e.stopPropagation()} // Prevent closing on content click
             >
                 {children}
                 <button

@@ -29,7 +29,7 @@ class NotesController extends Controller
         $note = Notes::find($id);
         if($note) {
             $note->delete();
-            return response()->json(['message'=>'Note Deleted'], 400);
+            return response()->json(['message'=>'Note Deleted'], 200);
         }else {
             return response()->json(['message'=>'Note not found'], 404);
         }
