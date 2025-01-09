@@ -65,7 +65,7 @@ const WheelOFLife = () => {
                         className='bgorange rounded-md text-white my-1 mx-2 p-1 min-w-[220px] w-[300px] '
                         >
                             <span className='mx-0 '>{field}</span>
-                            <div className='bggreen'>
+                            <div className=''>
                                 {[...Array(10)].map((_, index)=>(
                                     <label key={index}>
                                     <input

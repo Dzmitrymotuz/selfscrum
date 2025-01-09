@@ -87,7 +87,8 @@ input{
   background-color: var(--new-purple);  
 }
 .bggreen {
-  background-color: #ddf1f1;
+  background-color: var(--green);
+  color: white;
 }
 .bgyellow {
   background-color: var(--yellow);

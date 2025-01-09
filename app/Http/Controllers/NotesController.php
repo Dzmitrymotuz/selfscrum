@@ -34,4 +34,23 @@ class NotesController extends Controller
             return response()->json(['message'=>'Note not found'], 404);
         }
     }
+    public function update(Request $request, $id)
+    {
+    $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'content' => 'required|string',
+    ]);
+    $note = Notes::find($id);
+    if (!$note) {
+        return response()->json(['message' => 'Note not found'], 404);
+    }
+    if ($note->user_id !== Auth::id()) {
+        return response()->json(['message' => 'Unauthorized'], 403);
+    }
+    $note->update([
+        'title' => $validated['title'],
+        'note' => $validated['content'],
+    ]); 
+    return response()->json(['message' => 'Note updated successfully', 'note' => $note], 200);
+}
 }
