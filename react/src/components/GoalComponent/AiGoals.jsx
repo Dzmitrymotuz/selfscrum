@@ -12,7 +12,8 @@ const AiGoals = ({data, getAiHelpers, aiDataLoadReady}) => {
 
     const message = `Here is data for user goals in a time period with goals categories. 
         Data: ${JSON.stringify(data)}.
-        Analyze it and suggest complementing goals for the nearest future.
+        Analyze it, develop an understanding what exactly is user working on at each category of their goals. Based on that understanding suggest complementing goals for the nearest future.
+        if you see repetitive goals - suggest those goals again
         avoid broad and vague suggestions
         sugest only goals that achivable in a day or in an hour, not something that takes weeks
         if category does not contain any goal - suggest something based on that category
@@ -32,7 +33,8 @@ const AiGoals = ({data, getAiHelpers, aiDataLoadReady}) => {
                 const result = await model.generateContent(prompt);
                 const response = result.response;
                 const text = response.text();
-                setComponentLoading(false)
+                console.log(text)
+                setComponentLoading(response)
                 setText(text)
                 const parseData = JSON.parse(text)  
                 getAiHelpers(parseData)   

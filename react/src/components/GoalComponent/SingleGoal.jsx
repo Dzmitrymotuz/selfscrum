@@ -86,6 +86,7 @@ const SingleGoal = ({goal, category, setFilteredGoals, filteredGoals, date, setI
                 onKeyDown={handleEnter}
                 onBlur={()=>handleEdit(goal.id)}
                 className='input-field'
+                draggable={false}
             ></input>}
         </div>
         <div className='flex flex-row m-1 mr-2 items-baseline' > 
